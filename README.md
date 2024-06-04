@@ -1,6 +1,6 @@
-# GO Notes
+#GO Notes
 
-## Basic
+# Basic
 To create a basic program
 ```go
 package main
@@ -14,7 +14,7 @@ func main() {
 ```
 > OUTPUT: Hello, World!
 
-### Function creation
+## Function creation
 
 - Ensure code does not have "{" at the start of the line. it will cause error
 ```go
@@ -26,10 +26,10 @@ func main()
 ```
 > OUTPUT: Error
 
-## Print Statemnts
+# Print Statemnts
 - Done using the fmt package
 
-### Example
+## Example
 
 ```go
 package main
@@ -52,7 +52,7 @@ this is from a variable
 type is string
 type is int
 
-## Variables
+# Variables
 - Check the code for all info
 ```go
 package main
@@ -92,14 +92,14 @@ func main() {
 }
 ```
 
-## IF comditions
+# IF comditions
 
 - Same as C (almost)
 - "{" cannot be at new line
 - "else" cannot be on newline, needs to be "} else {" where } is from a prior if statemet  
 
 
-### Example
+## Example
 ```go
 package main
 
@@ -118,7 +118,7 @@ func main() {
 }
 ```
 
-## Constants
+# Constants
 - Their values cant be changed. Use the `const` keyword
 
 ```go
@@ -136,9 +136,9 @@ func main() {
 ```
 > OUTPUT: 3.14
 
-## Operations		// TODO check for missing items
+# Operations		// TODO check for missing items
 
-### Arithemetic Operations
+## Arithemetic Operations
 
 ` * / % >> << & &^ + - ^ \`
 
@@ -151,7 +151,7 @@ Example
 `-5%3 and -5%-3 equal -2 `
 >> does not matter what is on the RHS of `%`. only LHS sign taken
 
-### Comparison Operations
+## Comparison Operations
 
 ` == != < <= > >= `
 
@@ -161,7 +161,7 @@ Example
 - strings are case sensitive
 - Examples are in the Boolean topic
 
-### Bitwise Binary Orperations 
+## Bitwise Binary Orperations 
 
 - &     --> Bitwise And
 - |     --> Bitwise Or
@@ -173,7 +173,7 @@ Example
 
 
 
-## Integers
+# Integers
 
 Four types of ints --> int8, int16, int32, int 64
 
@@ -184,7 +184,7 @@ Four types of ints --> int8, int16, int32, int 64
 - range of value is --> -2^n-1 to ((2^n-1) - 1)
 - rnage of bits for non-negative is 0 to 2^n-1
 
-### Signed Integers
+## Signed Integers
 
 ```go
 package main
@@ -203,7 +203,7 @@ func main() {
 ```
 > OUTPUT -1,-1,-1,-1
 
-### Unsigned Integers
+## Unsigned Integers
 ```go
 package main
 
@@ -227,7 +227,7 @@ func main() {
 ```
 > OUTPUT: 1
 
-### Type casting
+## Type casting
 ```go
 	var i int8
 	var PI = 22.0/7.0
@@ -246,7 +246,7 @@ func main() {
 ```
 > OUTPUT %!f(int=3) 3
 
-### Type Casting Problems
+## Type Casting Problems
 ```go
 	var apples int32 = 1
 	var oranges int64 = 2
@@ -263,7 +263,7 @@ func main() {
 ```
 > OUTPUT: 3
 
-## Floating Type Numbers
+# Floating Type Numbers
 
 - Two types--> float32 and float64
 - Limits found in Math Package.
@@ -277,7 +277,7 @@ Eg:
 	fmt.Printf("%f %f\n", f1, f2)
 ```
 
-### Max Values are in math package
+## Max Values are in math package
 ```go
 	fmt.Println(math.MaxFloat32)
 	fmt.Println(math.MaxFloat64)
@@ -285,7 +285,7 @@ Eg:
 > OUTPUT: 340282346638528859811704183484516925440.000000
 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
 
-### Examples
+## Examples
 ```go
 	var f32 float32 = 16777216
 	var f64 float64 = 16777216 * 2
@@ -297,7 +297,7 @@ Eg:
 ```
 > OUTPUT: 16777216.000000 33554432.000000 602214129000000000000000.000000 8.000000
 
-### Defaults
+## Defaults
 ```go
   var z float64
   fmt.Println(z,-z,1/z,-1/z,z/z)
@@ -306,14 +306,14 @@ Eg:
 
 
 
-## Complex Numbers
+# Complex Numbers
 
 - Two types --> complex64 and complex128
 - Complex numbers are represented as a pair of float32 or float64
 - Built-in fucntions to get real and imaginary parts and to create the numbers
 - Equality is checked by comparing the real and imaginary parts
 
-### Example
+## Example
 
 ```go
 package main
@@ -334,7 +334,7 @@ func main() {
 > -5</br>
 > 10</br>
 
-## Boolean 
+# Boolean 
 - It can be `true` or `false`
 - conditions for if and else
 - `&&` and `||` are used for and and or. These comparison operatros result in booleans
@@ -342,7 +342,7 @@ func main() {
 - if answer evaluated through LHS then RHS not evaluated
 
 
-### Basic usage
+## Basic usage
 ```go
 	var b1 bool = true
 	var b2 bool = false
@@ -368,7 +368,7 @@ false</br>
 true</br>
 
 
-### Using in IF conditions
+## Using in IF conditions
 ```go
 
 	if b1 {
@@ -387,7 +387,7 @@ true</br>
 > b1 is true</br>
 > b2 is false</br>
 
-## Strings
+# Strings
 
 - `Immutable string of bytes`. We cannot change it afterwordfs. `str[0] = "a" ` gives error
 - May contain arbitrary data including bytes with value 0, but usually have human readable text
@@ -400,7 +400,7 @@ true</br>
 
 Example: s:="hi"
 
-### Substring
+## Substring
 
 - Substring operations `s[i:j]`  creats a new string from `i` till but not including `j`
 - Either or both can be ommited
@@ -438,7 +438,7 @@ Error
 str[0] = "a"		// gives error as string immutable
 ```
 > OUTPUT: Error since strings are immutable
-### Appending
+## Appending
 
 - We can append using `+` operatior
 Example: connecting
@@ -454,7 +454,7 @@ println(s)		// hello world
 ```
 
 
-### String Integer Conversions
+## String Integer Conversions
 - Int to Str ==> strconv.Itoa()
 - Str to Int ==> strconv.Atoi()
 - Str to Float ==> strconv.ParseFloat
@@ -474,7 +474,7 @@ func main() {
 ```
 > OUTPUT: 123 (0x0,0x0)
 
-## For Loops
+# For Loops
 To create for loops
 - Ensure its `i:=0` and not `i=0` unless `i` has been explicitly stated somewhere prior
   
@@ -505,7 +505,7 @@ Example where `i` is not required so it is `ommited`
 > OUTPUT: 1024
 
 
-## Pointers
+# Pointers
 - Using pointers that point to a memory. It holds the memory address of a value
 - `var p *int`
 - `&` generates a pointer to its operand
@@ -526,7 +526,7 @@ func main() {
 > OUTPUT: 42 0xc000059f38
 
 
-## Structs
+# Structs
 - Collection of fields
 - User-defined datatype
 - accessed using dot
@@ -556,7 +556,7 @@ func main() {
 ```
 > OUTPUT: </br> {12 42 0  0} </br> 12  </br>42
 
-## Arrays
+# Arrays
 - Colletion of similar items
 - can be directly compared usign == or != to see if corresponding values are same
 ```go
@@ -572,7 +572,7 @@ printf("%T",q)	// [3]int
 r:=[...]int{99:-1}		// sets a list with 99 0s and -1 at the end 
 ```
 
-## Slice
+# Slice
 - Varibale lenght sequence of elemetns
 - has 3 componenss - pointer (to base location), lenght (no of eleemnts), capacity (lenght cannot exceed this)
 - buitl in fucntions len and cap
@@ -593,11 +593,11 @@ var s []int = prime[1:3]
 println(s)
 ```
 
-## Maps		// TODO HAVE TO ADD LATER
+# Maps		// TODO HAVE TO ADD LATER
 - Collection of key-value pairs
 
 
-## Functions	// TODO HAVE TO ADD LATER
+# Functions	// TODO HAVE TO ADD LATER
 
 format
 ```go
@@ -606,7 +606,7 @@ func name(para_list) (return_list) {
 }
 ```
 
-## Return values		//TODO have to add missing items
+# Return values		//TODO have to add missing items
 
 - Multiple return values can be returned
 - Named return values can be used to return values
@@ -626,7 +626,7 @@ func main() {
 ```
 > OUTPUT: world hello
 
-### Bare Returns
+## Bare Returns
 - Used to return the named return values
 Example
 ```go
@@ -643,7 +643,7 @@ func main() {
 }
 ```
 > OUTPUT: 7 10
-### Varidic Functions
+## Varidic Functions
 - Functions that can take any number of arguments
 - `...` is used to denote this
 - The type of the varidic function is a slice
@@ -671,7 +671,7 @@ func main() {
 ```
 > OUTPUT: 15 6 10
 
-## Deferred Fucntions
+# Deferred Fucntions
 - Prefixed with `defer` keyword
 - A deferred function is executed after the surrounding function returns
 - The arguments are evaluated immediately but the function call is deferred
@@ -698,7 +698,7 @@ Example: LIFO
 ```
 > OUTPUT: 4 3 2 1 0
 
-## Panic Function
+# Panic Function
 - When Go program detects a problem during runtime and, it can panic
 - Stops the normal execution of a function and all deferred functions are executed and the program crashes with a log message
 - The log message has a error message for each gorooutine
@@ -733,7 +733,7 @@ main.main() </br>
         c:/Personal/Uni/CS/Golang/panics.go:12 +0x3e </br>
 exit status 2 </br>
 
-## Recover Function
+# Recover Function
 - Used to regain control of a panicking goroutine
 - Only useful inside deferred functions
 - Panicking fucntion does not  continue where it left off, but returns normally
@@ -770,7 +770,7 @@ func main() {
 > Recovered in div (0x3e7040,0x40caa8) </br>
 > 0 </br>
 
-## Call by Reference
+# Call by Reference
 
 - When the memory address of a variable is passed to a function, it is known as call by reference
 - This is done using pointers
@@ -792,7 +792,7 @@ func callByReference(x *int) (int) {
 ```
 > OUTPUT: x: 50 r1: 50
 
-## Method Declaration
+# Method Declaration
 
 - A method is a function with a special receiver argument
 - The receiver appears in its own argument list between the func keyword and the method name
@@ -855,4 +855,122 @@ func (r rect) perim() int {
 > perim: 30 </br>
 > area: 50 </br>
 > perim: 30 </br>
+</br>
+---------
+Unit 1 End
+---------
 
+# Concurancy
+- Making progress on more than one task, seemingly at the same time
+- Context Switching is when OS saves the context of a process so it can pause it and come back to it later
+
+# Parallisim
+- Run mutiple tasks at the same time
+
+## Goroutines
+
+- Concurrency in Go is done through goroutines
+- Similar to a thread
+- It is an independent fucntion that runs on some seperate lightweight thread managed by the Go runtime
+- When a program starts a goroutine calls the main function, which we call the main goroutine
+- New goroutines are created using the `go` keyword followed by a function invocation
+- This causes it to be called in a new goroutine
+
+
+
+Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern
+```go
+package main
+
+import "time"
+
+func display(str string) {
+	for w := 0; w < 5; w++ {
+		time.Sleep(1 * time.Second)
+		println(str)
+	}
+}
+func main() {
+	go display("Go Routine")
+	display("Normal function")
+
+}
+```
+> OUTPUT: </br>
+> Go Routine </br>
+> Normal function </br>
+> Normal function </br>
+> Go Routine </br>
+> Go Routine </br>
+> Normal function </br>
+> Normal function </br>
+> Go Routine </br>
+> Go Routine </br>
+> Normal function </br>
+
+
+Example: With both as goroutines we get random interleaved output
+```go
+func main() {
+	go display("Go Routine")
+	go display("Normal function")
+}
+```
+> OUTPUT: </br>
+Go Routine </br>
+Normal function </br>
+Normal function </br>
+Go Routine </br>
+Go Routine </br>
+Normal function </br>
+Normal function </br>
+Go Routine </br>
+
+- Sometimes the main function exits before the goroutines finish. This is because the main function does not wait for the goroutines to finish
+- This is especially true if we remove the sleep function from the goroutine
+- This is because goroutines return immediately and the main function exits before the goroutines can finish
+
+Example: No sleep function
+```go
+package main
+
+func display(str string) {
+	for w := 0; w < 5; w++ {
+		println(str)		// REMOVED the sleep fucntion
+	}
+}
+func main() {
+	println("Starting")
+	go display("Go Routine")
+	display("Normal function")
+
+	println("Done!")
+}
+
+```
+> OUTPUT: </br>
+Starting </br>
+Normal function </br>
+Normal function </br>
+Normal function </br>
+Normal function </br>
+Normal function </br>
+Done! </br>
+
+
+### Advantages of Goroutines
+- Goroutines are cheap. They are only a few kb in stack size
+- They are multiplexed onto multiple OS threads
+- They are not threads. They are not managed by the OS, They are managed by the Go runtime
+
+# Channels
+
+- Channel of communication between goroutines
+- Each channel is a conduit for values of a particular type, called the channel's element type
+- Type of a channel is `chan` followed by the type of the elements. Eg `chan int`
+- Channels are reference types, as in they are references to the data structure created by the make function
+- They are built using the inbuilt `make` function
+- Zero value of a channel is `nil`
+- Channels can be buffered or unbuffered
+- When we copy a channel or pass it as an argument to a function, we are copying a reference to the same channel, so the copy and original refer to the same data structure
+- Two channels of the same type may be compared using `==`. The comparison is true if both are references to the same channel data structure. It may also be compared to 
