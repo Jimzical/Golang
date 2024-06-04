@@ -1,5 +1,7 @@
 #GO Notes
 
+These are the notes im making for the `Go programming language` Summer Course 2024
+
 # Basic
 To create a basic program
 ```go
@@ -29,11 +31,12 @@ func main()
 # Print Statemnts
 - Done using the fmt package
 
-## Example
+### Example
 
 ```go
 package main
-import ("fmt")
+
+import ("fmt")		// <----------- Imported a package
 
 func main() {
 	var string1 string = "this is from a variable"
@@ -47,10 +50,11 @@ func main() {
 	fmt.Printf("type is %T",2)
 }	
 ```
-> OUTPUT: hi this is printprintln
-this is from a variable
-type is string
-type is int
+> OUTPUT: </br>
+> hi this is printprintln </br>
+> this is from a variable</br>
+> type is string</br>
+> type is int</br>
 
 # Variables
 - Check the code for all info
@@ -92,14 +96,13 @@ func main() {
 }
 ```
 
-# IF comditions
+# IF conditions
 
 - Same as C (almost)
 - "{" cannot be at new line
 - "else" cannot be on newline, needs to be "} else {" where } is from a prior if statemet  
 
-
-## Example
+### Example
 ```go
 package main
 
@@ -121,6 +124,13 @@ func main() {
 # Constants
 - Their values cant be changed. Use the `const` keyword
 
+### Syntax
+```go
+const variable_name
+```
+
+
+### Example: using a constant 
 ```go
 package main
 import ("fmt")
@@ -147,7 +157,7 @@ func main() {
 - sign of remainder always the same as dividend sign
 - Follows BODMAS rules
 
-Example 
+### Example 
 `-5%3 and -5%-3 equal -2 `
 >> does not matter what is on the RHS of `%`. only LHS sign taken
 
@@ -163,12 +173,13 @@ Example
 
 ## Bitwise Binary Orperations 
 
+` & | ^ &^ << >>`
 - &     --> Bitwise And
 - |     --> Bitwise Or
 - ^     -->
 - &^    --> Bitwise Clear
 - <<    -->
-- >>    -->
+- \>>    -->
 
 
 
@@ -181,11 +192,18 @@ Four types of ints --> int8, int16, int32, int 64
 - float to int conversion removes the fractional part
 - signed no are 2's complement
 - higerorder bits are saved for the sign
-- range of value is --> -2^n-1 to ((2^n-1) - 1)
-- rnage of bits for non-negative is 0 to 2^n-1
+- range of value is --> `(-2^n)-1` to `[(2^n)-1] - 1`
+- rnage of bits for non-negative is `0` to `(2^n)-1`
+
+
+### Syntax
+```go
+var variable_name int
+var variable_name int8
+var variable_name int16
+```
 
 ## Signed Integers
-
 ```go
 package main
 
@@ -235,7 +253,7 @@ func main() {
 	fmt.Printf("%f %d\n", PI, i)
 
 ```
->> OUTPUT 3.142857 3
+> OUTPUT 3.142857 3
 
 ```go
 	var i int8
@@ -253,7 +271,7 @@ func main() {
 	var ans int = apples + oranges		// Compile error
 	fmt.Println(ans)
 ```
->> OUTPUT: Error
+> OUTPUT: Error
 
 ```go
 	var apples int32 = 1
@@ -285,7 +303,7 @@ Eg:
 > OUTPUT: 340282346638528859811704183484516925440.000000
 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
 
-## Examples
+### Examples
 ```go
 	var f32 float32 = 16777216
 	var f64 float64 = 16777216 * 2
@@ -313,8 +331,14 @@ Eg:
 - Built-in fucntions to get real and imaginary parts and to create the numbers
 - Equality is checked by comparing the real and imaginary parts
 
-## Example
+### Syntax
+```go
+var variable_name1 complex128 = complex(int_x,int_y)
+var variable_name2 complex64 = complex(int_x,int_y)
+```
 
+
+### Example
 ```go
 package main
 
@@ -398,7 +422,7 @@ true</br>
 
 - s[i] slicing can be done to take data from a string
 
-Example: s:="hi"
+> ### Example: s:="hi"
 
 ## Substring
 
@@ -406,7 +430,7 @@ Example: s:="hi"
 - Either or both can be ommited
 - Defaults are 0 and len(s)
 
-Example
+### Example
 ```go
 package main
 
@@ -426,7 +450,7 @@ rld </br>
 helloworld </br>
 ll
 
-Example Assigning
+### Example Assigning
 ```go
 str:= "hello, world"
 h = str[:5]		// {hello}	h points to first index of str
@@ -441,11 +465,11 @@ str[0] = "a"		// gives error as string immutable
 ## Appending
 
 - We can append using `+` operatior
-Example: connecting
+### Example: connecting
 ```go
 println("good"+"bye")  // goodbye
 ```
-Example: appending
+### Example: appending
 ```go
 s:="hello"
 s+=" world"
@@ -459,7 +483,7 @@ println(s)		// hello world
 - Str to Int ==> strconv.Atoi()
 - Str to Float ==> strconv.ParseFloat
 
-Example
+### Example
 ```go
 package main
 
@@ -478,7 +502,7 @@ func main() {
 To create for loops
 - Ensure its `i:=0` and not `i=0` unless `i` has been explicitly stated somewhere prior
   
-Example
+### Example
 ```go
 package main
 
@@ -493,7 +517,7 @@ func main() {
 ```
 > OUTPUT: 10
 
-Example where `i` is not required so it is `ommited`
+### Example where `i` is not required so it is `ommited`
 ```go
 	sum = 1
 	for ; sum < 1000; {
@@ -504,6 +528,19 @@ Example where `i` is not required so it is `ommited`
 ```
 > OUTPUT: 1024
 
+### Example where `for` is used for lists	
+```go
+package main
+
+func main() {
+	var pow = []int{1,2,4,8,16,32,64,128}
+
+	for i, v := range pow {
+		println(i,v)
+	}
+}
+```
+
 
 # Pointers
 - Using pointers that point to a memory. It holds the memory address of a value
@@ -511,7 +548,7 @@ Example where `i` is not required so it is `ommited`
 - `&` generates a pointer to its operand
 - `*` denotes the pointers underlying value
 - This is known as `dereferencing` or `indirecting`
-Example
+### Example
 ```go
 package main
 
@@ -586,7 +623,7 @@ high:=4
 a[low:high]
 ```
 
-example
+### Example
 ```go
 prime := [...]int{1,2,3,4}
 var s []int = prime[1:3]
@@ -599,7 +636,7 @@ println(s)
 
 # Functions	// TODO HAVE TO ADD LATER
 
-format
+### Syntax
 ```go
 func name(para_list) (return_list) {
 	// code
@@ -611,7 +648,7 @@ func name(para_list) (return_list) {
 - Multiple return values can be returned
 - Named return values can be used to return values
 - A return statement without arguments returns the named return values. This is known as a "naked"/"bare" return
-Example
+### Example
 ```go
 package main
 
@@ -628,7 +665,7 @@ func main() {
 
 ## Bare Returns
 - Used to return the named return values
-Example
+### Example
 ```go
 package main
 
@@ -647,10 +684,10 @@ func main() {
 - Functions that can take any number of arguments
 - `...` is used to denote this
 - The type of the varidic function is a slice
-- Printf is an example of a varidic function
+- Printf is an ### Example of a varidic function
 - Mainly used in situatuons where string formatting is needed
    
-Example
+### Example
 ```go
 func sum(args ...int) int {
 	total := 0
@@ -679,7 +716,13 @@ func main() {
 - Excuted in reverse order of which they were deferred
 - They are pushed onto a stack and executed in LIFO order
 
-Example
+### Syntax
+```go
+defer function_name()
+```
+
+
+### Example
 ```go
 package main
 
@@ -690,7 +733,7 @@ func main() {
 ```
 `OUTPUT: hello \n world
 
-Example: LIFO
+### Example: LIFO
 ```go
 	for i := 0; i < 5; i++ {
 		defer println(i)
@@ -707,7 +750,14 @@ Example: LIFO
 - This can be triggered using built-in `panic` function
 - when panic occurs, it will start unwinding the stack of the goroutine, meaning it will exit all functions that were called till now
 - When Top-level function is reached, the program will crash (i think)
-Example
+
+### Syntax
+```go
+func panic(/*String to be displayed*/)
+```
+
+
+### Example
 ```go
 package main
 
@@ -742,7 +792,16 @@ exit status 2 </br>
 - Recovering indescriminately is not a good idea as the state of the program variables is unknown after this
 - Should not try to recover out of errors from a package fucntion
 
-Example
+### Syntax
+```go
+defer func() {
+	if r := recover(); r != nil {
+		// code
+	}
+} ()
+```
+
+### Example
 ```go
 package main
 
@@ -775,7 +834,7 @@ func main() {
 - When the memory address of a variable is passed to a function, it is known as call by reference
 - This is done using pointers
 
-Example
+### Example
 ```go
 package main
 
@@ -792,14 +851,22 @@ func callByReference(x *int) (int) {
 ```
 > OUTPUT: x: 50 r1: 50
 
-# Method Declaration
+# Method Declaration		// TODO get some more clarity
 
 - A method is a function with a special receiver argument
 - The receiver appears in its own argument list between the func keyword and the method name
 - Methods can be declared for any type that is declared in the same package
 
-Example
-- In this example, the Abs method has a receiver of type Vertex named v
+### Syntax
+```go
+func (t Type) methodName(parameter list) {
+	// code
+}
+```
+
+
+### Example
+- In this ### Example, the Abs method has a receiver of type Vertex named v
 ```go
 package main
 
@@ -823,7 +890,7 @@ func main() {
 ```
 > OUTPUT: 5
 
-Example: the class one
+### Example: the class one
 ```go
 package main
 
@@ -867,7 +934,7 @@ Unit 1 End
 # Parallisim
 - Run mutiple tasks at the same time
 
-## Goroutines
+# Goroutines
 
 - Concurrency in Go is done through goroutines
 - Similar to a thread
@@ -876,9 +943,12 @@ Unit 1 End
 - New goroutines are created using the `go` keyword followed by a function invocation
 - This causes it to be called in a new goroutine
 
+### Syntax
+```go
+go function_name()
+```
 
-
-Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern
+### Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern
 ```go
 package main
 
@@ -909,7 +979,7 @@ func main() {
 > Normal function </br>
 
 
-Example: With both as goroutines we get random interleaved output
+### Example: With both as goroutines we get random interleaved output
 ```go
 func main() {
 	go display("Go Routine")
@@ -930,7 +1000,7 @@ Go Routine </br>
 - This is especially true if we remove the sleep function from the goroutine
 - This is because goroutines return immediately and the main function exits before the goroutines can finish
 
-Example: No sleep function
+### Example: No sleep function
 ```go
 package main
 
@@ -974,3 +1044,161 @@ Done! </br>
 - Channels can be buffered or unbuffered
 - When we copy a channel or pass it as an argument to a function, we are copying a reference to the same channel, so the copy and original refer to the same data structure
 - Two channels of the same type may be compared using `==`. The comparison is true if both are references to the same channel data structure. It may also be compared to 
+
+## Operations
+- Channel has 2 operations: `send` and `receive`, collectively known as `communication`
+- a `send` statement sends a value from one goroutine through a channel to another goroutine
+- a `receive` expression receives a value from the channel and assigns it to a variable
+- They are used with the `<-` operator. 
+- `send` is `ch <- v` (<- seperates the channel and the value)
+- `receive` is `v = <-ch` (<- precedes the channel)
+- `<-` is a receive operator where the result of the operation is discarded
+
+### Syntax
+```go
+var ch chan int
+ch = make(chan int)
+```
+
+### Example
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var char1 chan int
+	fmt.Println("Value of char1 is: ", char1)		// nil
+	fmt.Printf("Type of char1 is: %T\n", char1)		// chan int
+
+	char2 := make(chan int)
+	fmt.Println("Value of char2 is: ", char2)		// 0xc000016120
+	fmt.Printf("Type of char2 is: %T\n", char2)		// chan int
+}
+```
+> OUTPUT: </br>
+> Value of char1 is:  nil </br>
+> Type of char1 is:  chan int </br>
+> Value of char2 is:  0xc000016120 </br>
+> Type of char2 is:  chan int </br>
+
+
+### Example: Sending and Receiving from Channels
+```go
+package main
+
+func sum(s []int, ch chan int) {
+	sum := 0
+	for _, v := range s {
+		sum += v
+	}
+	ch <- sum
+}
+
+func main() {
+	s := []int{7, 2, 8, -9, 4, 0}
+
+	ch := make(chan int)
+	go sum(s[0:3], ch)	 // 17
+	go sum(s[3:6], ch)	// -5
+	go sum(s[3:4], ch)	// -9
+
+	x := <-ch		// -9
+	y := <-ch		// -5
+	z := <-ch		// 17
+
+	println(x, y, z)	// -9 -5 17
+	println(x+y)		// -14
+}
+```
+> OUTPUT: </br>
+> -9 -5 17 </br>
+> -14 </br>
+
+
+#### Copilot answers (Can't Trust)
+q: what order does the channel receive the values in? </br>
+a: The order in which the values are received is the order in which the goroutines finish. This is because the channel is a queue and the values are received in the order they are sent
+
+
+## Advantages of Channels
+- Channels are typesafe. They only allow a particular type of data to be sent through them	
+- They enable safe communication between goroutines and synchronisation
+- They ensure the code runs predictably and efficiently with concurrent.
+- **Blocking Send and Recive:** If a goroutine tries to send to a channel that is full, it will block until another goroutine receives from the channel. If a goroutine tries to receive from an empty channel, it will block until another goroutine sends to the channel
+- **Zero Value Channel:** The zero value of a channel is `nil`. A nil channel is of no use and attempting to send or receive from it will cause a deadlock
+- **For Loop Channel:** A loop can iterate over the sequntial values sent by a channel until it is closed. This is useful when the number of values is not known in advance
+
+## Properties of Channels
+- **Lenght of Channel:** This can be found using the `len` function. This is the number of elements currently buffered in the channel
+- **Capacity of Channels:** This can be found using the `cap` function. This is the number of elements that can be buffered in the channel
+
+
+## Unbuffered Channels
+- A `send` operation on an unbuffered channel blocks the sending goroutine until another goroutine executes a corresponding `receive` on the same channel, at which point the value is transmitted and both goroutines may continue
+- A `receive` operation on an unbuffered channel blocks the receiving goroutine until another goroutine executes a corresponding `send` on the same channel
+- Communication for unbuffered channels is synchronous, Hence they are called `synchronous channels`
+
+### Syntax
+```go
+ch := make(chan int)
+```
+- Here we have not set any limit for the channel
+
+## Buffered Channels
+- This has a queue of elements
+- The Max capacity of the queue is set when the channel is created	// TODO need to check if this is right
+
+### Syntax		// TODO Need to check if 3 is the capacity
+```go
+ch := make(chan int, 3)
+```
+- Here we can send 3 values to the channel without blocking
+- The fourth value will block.
+
+
+### Example: For a synchronous channel
+```go
+package main
+
+func main() {
+	naturals := make(chan int)
+	squares := make(chan int)
+
+	go counter(naturals)
+	go squarer(naturals, squares)
+	printer(squares)
+}
+
+func counter(out chan<- int) {		// Sends to `naturals` channel
+	for x := 0; x < 10; x++ {
+		out <- x
+	}
+	close(out)
+}
+
+func squarer(in <-chan int, out chan<- int) { 		// Receives from `naturals` and sends to `squares`
+	for x := range in {
+		out <- x * x
+	}
+	close(out)
+}
+
+func printer(in <-chan int) {		// Receives from `squares` channel
+	for x := range in {
+		println(x)
+	}
+}
+```
+> OUTPUT: </br>
+> 0 </br>
+> 1 </br>
+> 4 </br>
+> 9 </br>
+> 16 </br>
+> 25 </br>
+> 36 </br>
+> 49 </br>
+> 64 </br>
+> 81 </br>
+
