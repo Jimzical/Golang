@@ -2,6 +2,138 @@
 
 These are the notes im making for the `Go programming language` 
 
+
+# Table of Contents
+- [Go programming language](#go-programming-language)
+- [Table of Contents](#table-of-contents)
+- [Basic](#basic)
+	- [Function creation](#function-creation)
+- [Print Statemnts](#print-statemnts)
+		- [Example](#example)
+	- [Printf](#printf)
+		- [Table](#table)
+- [Declarations](#declarations)
+- [Variables](#variables)
+		- [Syntax](#syntax)
+		- [Example](#example-1)
+		- [Example: Using Global variables/ Package level variables](#example-using-global-variables-package-level-variables)
+- [IF conditions](#if-conditions)
+		- [Example](#example-2)
+- [Constants](#constants)
+		- [Syntax](#syntax-1)
+		- [Example: using a constant](#example-using-a-constant)
+- [Operations](#operations)
+	- [Arithemetic Operations](#arithemetic-operations)
+		- [Example](#example-3)
+	- [Comparison Operations](#comparison-operations)
+	- [Bitwise Binary Orperations](#bitwise-binary-orperations)
+	- [Logical Operations](#logical-operations)
+	- [Assignment Operations](#assignment-operations)
+	- [Other Operations](#other-operations)
+- [Integers](#integers)
+		- [Syntax](#syntax-2)
+	- [Signed Integers](#signed-integers)
+	- [Unsigned Integers](#unsigned-integers)
+	- [Type casting](#type-casting)
+	- [Type Casting Problems](#type-casting-problems)
+- [Floating Type Numbers](#floating-type-numbers)
+	- [Max Values are in math package](#max-values-are-in-math-package)
+		- [Examples](#examples)
+	- [Defaults](#defaults)
+- [Complex Numbers](#complex-numbers)
+		- [Syntax](#syntax-3)
+		- [Example](#example-4)
+- [Boolean](#boolean)
+	- [Basic usage](#basic-usage)
+	- [Using in IF conditions](#using-in-if-conditions)
+- [Strings](#strings)
+	- [Substring](#substring)
+		- [Example](#example-5)
+		- [Example Assigning](#example-assigning)
+	- [Appending](#appending)
+		- [Example: connecting](#example-connecting)
+		- [Example: appending](#example-appending)
+	- [String Integer Conversions](#string-integer-conversions)
+		- [Example](#example-6)
+- [For Loops](#for-loops)
+		- [Example](#example-7)
+		- [Example where `i` is not required so it is `ommited`](#example-where-i-is-not-required-so-it-is-ommited)
+		- [Example where `for` is used for lists](#example-where-for-is-used-for-lists)
+- [Pointers](#pointers)
+		- [Example](#example-8)
+- [Structs](#structs)
+- [Arrays](#arrays)
+- [Slice](#slice)
+		- [Example](#example-9)
+- [Maps		// TODO HAVE TO ADD LATER](#maps-todo-have-to-add-later)
+		- [Syntax](#syntax-4)
+- [Functions](#functions)
+		- [Syntax](#syntax-5)
+		- [Example: Basic](#example-basic)
+		- [Example: Multiple return values](#example-multiple-return-values)
+		- [Example: Named return values](#example-named-return-values)
+	- [Passing by value](#passing-by-value)
+		- [Example: Passing by value](#example-passing-by-value)
+	- [Passing by reference](#passing-by-reference)
+		- [Example: Passing by reference](#example-passing-by-reference)
+	- [Annonyms Functions](#annonyms-functions)
+- [Return values		//TODO have to add missing items](#return-valuestodo-have-to-add-missing-items)
+		- [Example](#example-10)
+	- [Bare Returns](#bare-returns)
+		- [Example](#example-11)
+	- [Varidic Functions](#varidic-functions)
+		- [Example](#example-12)
+- [Deferred Fucntions](#deferred-fucntions)
+		- [Syntax](#syntax-6)
+		- [Example](#example-13)
+		- [Example: LIFO](#example-lifo)
+- [Panic Function](#panic-function)
+		- [Syntax](#syntax-7)
+		- [Example](#example-14)
+- [Recover Function](#recover-function)
+		- [Syntax](#syntax-8)
+		- [Example](#example-15)
+- [Call by Reference](#call-by-reference)
+		- [Example](#example-16)
+- [Method Declaration](#method-declaration)
+		- [Syntax](#syntax-9)
+		- [Example](#example-17)
+		- [Example: the class one](#example-the-class-one)
+- [Blank Identifier](#blank-identifier)
+		- [Example](#example-18)
+- [Concurancy](#concurancy)
+- [Parallisim](#parallisim)
+- [Goroutines](#goroutines)
+		- [Syntax](#syntax-10)
+		- [Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern](#example--we-run-this-with-the-go-keyword-and-without-the-go-keyword-we-can-see-that-the-go-routine-runs-in-the-background-and-prints-as-soon-as-it-can-while-normal-function-in-its-own-way-making-it-interleaved-with-a-pattern)
+		- [Example: With both as goroutines we get random interleaved output](#example-with-both-as-goroutines-we-get-random-interleaved-output)
+		- [Example: No sleep function](#example-no-sleep-function)
+		- [Advantages of Goroutines](#advantages-of-goroutines)
+- [Channels](#channels)
+	- [Operations](#operations-1)
+		- [Syntax](#syntax-11)
+		- [Example](#example-19)
+		- [Example: Sending and Receiving from Channels](#example-sending-and-receiving-from-channels)
+			- [Copilot answers (Can't Trust)](#copilot-answers-cant-trust)
+	- [Advantages of Channels](#advantages-of-channels)
+	- [Properties of Channels](#properties-of-channels)
+	- [Unbuffered Channels](#unbuffered-channels)
+		- [Syntax](#syntax-12)
+		- [Example: For a synchronous channel (Note: This example might be using Unidirectional Channels that may make this have confusing syntax)](#example-for-a-synchronous-channel-note-this-example-might-be-using-unidirectional-channels-that-may-make-this-have-confusing-syntax)
+	- [Buffered Channels](#buffered-channels)
+		- [Syntax		// TODO Need to check if 3 is the capacity](#syntax-todo-need-to-check-if-3-is-the-capacity)
+		- [Example](#example-20)
+		- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
+		- [Example: Not sending any values](#example-not-sending-any-values)
+	- [Unidirectional Channels](#unidirectional-channels)
+	- [Looping in Parallel		//TODO MISSING](#looping-in-paralleltodo-missing)
+	- [Cancellation](#cancellation)
+	- [Predeclared Names](#predeclared-names)
+		- [Constants](#constants-1)
+			- [Iota](#iota)
+			- [Example: `iota`](#example-iota)
+
+
 # Basic
 To create a basic program
 ```go
@@ -56,8 +188,65 @@ func main() {
 > type is string</br>
 > type is int</br>
 
+## Printf
+- Used to format the output
+- Has over a dozen verbs to format the output called `formating verbs`
+
+### Table
+| Verb | Description |
+| --- | --- |
+| %v | the value in a default format |
+| %T | type of the value |
+| %t | boolean |
+| %d | decimal integer |
+| %b | binary representation |
+| %c | character (rune)|
+| %x | hexadecimal |
+| %f | float |
+| %e | scientific notation |
+| %s | string |
+| %p | pointer |
+
+
+
+# Declarations
+
+- Go has 4 types of declarations 
+  - `var` for variables
+  - `const` for constants
+  - `type` for type declarations
+  - `func` for functions
+
 # Variables
-- Check the code for all info
+
+- Variables are declared using the `var` keyword
+- Variables can be declared outside the function as well
+- Variables can be declared using the `:=` operator as well
+- a var declaration can create a variable and assign a value to it. We can declare multiple variables at once using var (a,b,c int)
+- Fucntion level variables are delcared within the function
+- Package level variables are declared outside the function
+	-Four Package level declarations are `var`, `const`, `type`, `func`
+- Either the type or the value can be omitted but not both
+
+### Syntax
+```go
+var variable_name type
+var variable_name type = value
+variable_name := value
+var1, var2, var3 := 1, 2.4 , true
+var var1, var2, var3 int
+var var1, var2, var3 int = 1,2,3
+var (
+	var1 int
+	var2 int = 2
+	var3 int = 3
+)
+```
+
+
+
+### Example
+
 ```go
 package main
 import ("fmt")
@@ -95,6 +284,23 @@ func main() {
 
 }
 ```
+
+### Example: Using Global variables/ Package level variables
+```go
+package main
+
+func main() {
+	a := 10
+	println(a)		// 10
+	println(b)		// 20; This is a global variable, so it can be used here
+}
+var b= 20			// <---- b is a global variable
+```
+> OUTPUT: </br>
+> 10 </br>
+> 20 </br>
+
+We can see here that the code outside the function runs first and then the code inside the function runs. This allows for global variables to be used inside the function
 
 # IF conditions
 
@@ -146,7 +352,7 @@ func main() {
 ```
 > OUTPUT: 3.14
 
-# Operations		// TODO check for missing items
+# Operations		
 
 ## Arithemetic Operations
 
@@ -176,24 +382,58 @@ func main() {
 ` & | ^ &^ << >>`
 - &     --> Bitwise And
 - |     --> Bitwise Or
-- ^     -->
-- &^    --> Bitwise Clear
-- <<    -->
-- \>>    -->
+- ^     --> Bitwise XOR
+- &^    --> Bitwise Clear	(AND NOT) {EG: 1010 &^ 0011 = 1000; ans is 0 if the bit is 1 in 0011 else it is the same as the 1010}
+- <<    --> Bitwise Left Shift
+- \>>   --> Bitwise Right Shift
+
+## Logical Operations
+
+` && || !`
+- &&    --> Logical AND
+- ||    --> Logical OR
+- !     --> Logical NOT
+
+## Assignment Operations
+
+`= += -= *= /= %= &= |= ^= <<= >>= &^=`
+- +=    --> a += b is same as a = a + b
+- &=    --> a &= b is same as a = a & b
+- <<=   --> a <<= b is same as a = a << b
+- &^=   --> a &^= b is same as a = a &^ b
+- %=    --> a %= b is same as a = a % b
+- /=    --> a /= b is same as a = a / b
+- |=    --> a |= b is same as a = a | b
+- ^=    --> a ^= b is same as a = a ^ b
+- >>=   --> a >>= b is same as a = a >> b
+- -=    --> a -= b is same as a = a - b
+- *=    --> a *= b is same as a = a * b
+- =     --> a = b is same as a = b
 
 
+## Other Operations
+
+` & * <-`
+- &     --> Address of
+- *     --> Pointer to
+- <-    --> Channel send/receive
 
 
 # Integers
 
-Four types of ints --> int8, int16, int32, int 64
+Four types of ints --> `int8`, `int16`, `int32`, `int64`
 
-- Each int is a differnt from each other so int and int16 cannot be directly converted.
-- float to int conversion removes the fractional part
+- Each `int` is a differnt from each other so `int` and `int16` cannot be directly converted.
+- `int` is 32 or 64 bits depending on the system. 
+- `int8` is same as `byte`
+- `int32` is same as `rune`
+- `float` to `int` conversion removes the fractional part
 - signed no are 2's complement
 - higerorder bits are saved for the sign
-- range of value is --> `(-2^n)-1` to `[(2^n)-1] - 1`
+- range of value for int is --> `(-2^n)-1` to `[(2^n)-1] - 1`
 - rnage of bits for non-negative is `0` to `(2^n)-1`
+- range of value for int8 is --> `(-128)` to `127`
+- range of values for uint8 is --> `0` to `255`
 
 
 ### Syntax
@@ -632,9 +872,28 @@ println(s)
 
 # Maps		// TODO HAVE TO ADD LATER
 - Collection of key-value pairs
+- Unordered
+
+### Syntax
+```go
+var m map[key_type]value_type
+
+```
 
 
-# Functions	// TODO HAVE TO ADD LATER
+# Functions	
+
+- Functions are defined using the `func` keyword
+- Return type is specified after the parameter list, They are also optional. If not specified, the function does not return anything
+- Multiple return values can be returned
+- Multiple parameters can be passed. They are also optional
+
+- Parameter list are local to the function, with default value for each datatype
+- If there is no return value, the return type is not specified
+- There is no concept of default arguments in Go
+- Fucntion with return-list needs a `return` statement
+- Go supports recursion
+  
 
 ### Syntax
 ```go
@@ -642,6 +901,81 @@ func name(para_list) (return_list) {
 	// code
 }
 ```
+
+### Example: Basic
+```go
+func add(x int, y int) int {	// here int is used twice in para list
+	return x + y
+}
+func sub(x, y int) int {		// here int is used only once in para list
+	return x - y
+}
+```
+
+### Example: Multiple return values
+```go
+func swap(x, y string) (string, string) {
+	return y, x
+}
+```
+
+### Example: Named return values
+```go
+func split(sum int) (x, y int) {
+	x = sum * 4 / 9
+	y = sum - x
+	return					// Here we can see that there are no arguments here. This is a naked return/ bare return
+}
+```
+
+## Passing by value
+- This means the function gets a copy of the argument so the original value is not changed
+
+### Example: Passing by value
+```go
+func swap(x, y string) (string, string) {
+	return y, x
+}
+
+func main() {
+	x := 10
+	y := 20
+	swap(x, y)
+	println(x, y)
+}
+```
+> OUTPUT: 10 20 </br>
+> Here we can see that the values of x and y are not changed
+
+## Passing by reference
+- This means the function gets the memory address of the argument so the original value is changed 
+
+### Example: Passing by reference
+```go
+func swap(x, y *int) {
+	*x, *y = *y, *x
+}
+
+func main() {
+	x := 10
+	y := 20
+	swap(&x, &y)
+	println(x, y)
+}
+```
+> OUTPUT: 20 10 </br>
+> here we can see that the values of x and y are changed
+
+- If there is no body, it indicates that the function is implemented in some other language (kinda weird not sure what this is on about)
+```go
+func Sin(x float64) float64
+```
+
+## Annonyms Functions
+- Named functions are only possible at the package level
+- Anonymous functions are possible at the function level
+- Functions that are declared without a name
+- They can edit local variables for the function they are in
 
 # Return values		//TODO have to add missing items
 
@@ -851,15 +1185,18 @@ func callByReference(x *int) (int) {
 ```
 > OUTPUT: x: 50 r1: 50
 
-# Method Declaration		// TODO get some more clarity
+# Method Declaration		
 
-- A method is a function with a special receiver argument
-- The receiver appears in its own argument list between the func keyword and the method name
+- It is a OOP concept
+- Methods are  declared between the `func` keyword and the function name
+- This parameter attaches the function to that type
 - Methods can be declared for any type that is declared in the same package
-
+- There is no inheritance in Go, but we can use composition to achieve similar results
+- There is no self or this keyword in Go for the receiver. We can use any name for the receiver using the method.
+  
 ### Syntax
 ```go
-func (t Type) methodName(parameter list) {
+func (t Type) functionName(parameter list) {	// t is the method receiver
 	// code
 }
 ```
@@ -923,8 +1260,24 @@ func (r rect) perim() int {
 > area: 50 </br>
 > perim: 30 </br>
 </br>
+
+
+# Blank Identifier
+- `_` is known as the blank identifier
+- It is used to throw away(ignore) the values returned by a function
+- Can be used multiple times 
+- Helps avoid compiler errors when a variable is declared but not used
+
+### Example
+```go
+func main() {
+	var op1,op2 int = 10, 20
+	_ = op1 + op2				// The result of the addition is ignored
+}
+```
+
 ---------
-Unit 1 End
+> Unit 1 End
 ---------
 
 # Concurancy
@@ -1278,4 +1631,31 @@ Hence we can see that we need to have the same number of sends and receives for 
 - **Constants** are `true`, `false`, `iota`, `nil`
 - **Types** are `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `uint8`, `uint16`, `uint32`, `uint64`, `uintptr`, `float32`, `float64`, `complex64`, `complex128`, `bool`, `byte`, `rune`, `string`, `error`
 - **Functions** are `make`, `len`, `cap`, `new`, `append`, `copy`, `close`, `delete`, `complex`, `real`, `imag`, `panic`, `recover`
+
+### Constants
+
+#### Iota
+- This is a predeclared identifier
+- Basically a counter for constants that increases by 1 for each line
+- Always starts at 0
+
+#### Example: `iota`
+```go
+package main
+
+const (
+	sunday = iota		// 0
+	monday 				// 1
+	tuesday				// 2
+	wednesday 			// 3	// ALSO NOTE if we make wednesday = 5, all following values will be 5
+	thursday = iota		// 4	// NOTE: adding iota here makes no difference even if it is not here	
+	friday				// 5
+)
+
+func main() {
+	println(sunday, monday, tuesday, wednesday, thursday, friday)
+}
+```
+> OUTPUT: </br>
+> 0 1 2 3 4 5 </br>
 
