@@ -7,9 +7,8 @@ func main() {
 	go counter(naturals)
 	go squarer(naturals, squares)
 	printer(squares)
-	printer(naturals)
-	println()
-	summer(squares)
+	// println()
+	// summer(squares)
 }
 
 func counter(out chan<- int) {
@@ -32,11 +31,11 @@ func printer(in <-chan int) {
 	}
 }
 
-func summer( in <-chan int) {
-	sum := 0
-	for x := range in {
-		sum += x
-		println(x)
-	}
-	print(sum)
-}
+// func summer( in <-chan int) {
+// 	sum := 0
+// 	for x := range in {
+// 		sum += x
+// 		println(x)
+// 	}
+// 	print(sum)
+// }

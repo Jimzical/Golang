@@ -1,6 +1,6 @@
-#GO Notes
+# Go programming language
 
-These are the notes im making for the `Go programming language` Summer Course 2024
+These are the notes im making for the `Go programming language` 
 
 # Basic
 To create a basic program
@@ -1145,19 +1145,8 @@ ch := make(chan int)
 ```
 - Here we have not set any limit for the channel
 
-## Buffered Channels
-- This has a queue of elements
-- The Max capacity of the queue is set when the channel is created	// TODO need to check if this is right
 
-### Syntax		// TODO Need to check if 3 is the capacity
-```go
-ch := make(chan int, 3)
-```
-- Here we can send 3 values to the channel without blocking
-- The fourth value will block.
-
-
-### Example: For a synchronous channel
+### Example: For a synchronous channel (Note: This example might be using Unidirectional Channels that may make this have confusing syntax)
 ```go
 package main
 
@@ -1191,14 +1180,102 @@ func printer(in <-chan int) {		// Receives from `squares` channel
 }
 ```
 > OUTPUT: </br>
-> 0 </br>
-> 1 </br>
-> 4 </br>
-> 9 </br>
+> 0  </br>
+> 0  </br>
+> 1  </br>
+> 4  </br>
+> 9  </br>
 > 16 </br>
 > 25 </br>
 > 36 </br>
 > 49 </br>
 > 64 </br>
 > 81 </br>
+
+
+## Buffered Channels
+- This has a queue of elements
+- The Max capacity of the queue is set when the channel is created	// TODO need to check if this is right
+
+### Syntax		// TODO Need to check if 3 is the capacity
+```go
+ch := make(chan int, 3)
+```
+- Here we can send 3 values to the channel without blocking
+- The fourth value will block.
+
+### Example
+```go
+package main
+
+func main() {
+	ch := make(chan int, 2)
+
+	ch <- 1
+	ch <- 2
+
+	println(<-ch)
+	println(<-ch)
+
+	ss := make(chan string, 2)
+	ss <- "Hello"
+	ss <- "World"
+
+	println(<-ss)
+	println(<-ss)
+}
+```
+> OUTPUT: </br>
+> 1 </br>
+> 2 </br>
+> Hello </br>
+> World </br>
+
+### Example: Adding more values than the capacity
+```go
+func main(){
+	ch := make(chan int, 2)
+	ch <- 1
+	ch <- 2
+	ch <- 3		// <-- ERROR: This will block as it is the 3rd send when capacity is 2
+}
+```
+> OUTPUT: fatal error: all goroutines are asleep - deadlock!
+
+### Example: Not sending any values
+```go
+func main(){
+	ch := make(chan int, 2)
+	println(<-ch)		// <-- ERROR: This will block as there are no values to receive
+}
+```
+> OUTPUT: fatal error: all goroutines are asleep - deadlock!
+
+Hence we can see that we need to have the same number of sends and receives for the channel to work and this number should be less than or equal to the capacity of the channel
+`n(sender) == n(receiver) <= capacity`  {Is another way to put it}
+
+## Unidirectional Channels
+- Channels can be unidirectional. This means that they can only send or receive data
+- The type `chan <- int` is a send-only channel of integers
+- The type `<- chan int` is a receive-only channel of integers
+
+
+## Looping in Parallel		//TODO MISSING
+- We can loop over a channel in parallel
+- Problems that are independent of each other are known as `embarrassingly parallel` problems
+- These are the easiest to parallelise, we can do this through goroutines 
+- They scale linearly with the amount of parallelism
+
+
+## Cancellation
+- There is no way to directly cancel a goroutine as it would leave the state of the program in an unknown state
+- We can use a `cancellation` channel to signal the goroutine to stop
+- We also defina a utility function to check if the channel is closed
+- In general it is hard to know how many goroutines are running at any given time
+
+## Predeclared Names
+- there are about 36 predeclared names in Go for fucntions, types and constants
+- **Constants** are `true`, `false`, `iota`, `nil`
+- **Types** are `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `uint8`, `uint16`, `uint32`, `uint64`, `uintptr`, `float32`, `float64`, `complex64`, `complex128`, `bool`, `byte`, `rune`, `string`, `error`
+- **Functions** are `make`, `len`, `cap`, `new`, `append`, `copy`, `close`, `delete`, `complex`, `real`, `imag`, `panic`, `recover`
 
