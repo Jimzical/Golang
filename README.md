@@ -7,6 +7,7 @@ These are the notes im making for the `Go programming language`
 - [Go programming language](#go-programming-language)
 - [Table of Contents](#table-of-contents)
 - [Basic](#basic)
+	- [Commenting](#commenting)
 	- [Function creation](#function-creation)
 - [Print Statemnts](#print-statemnts)
 		- [Example](#example)
@@ -65,8 +66,10 @@ These are the notes im making for the `Go programming language`
 - [Arrays](#arrays)
 - [Slice](#slice)
 		- [Example](#example-9)
-- [Maps		// TODO HAVE TO ADD LATER](#maps-todo-have-to-add-later)
+- [Maps](#maps)
 		- [Syntax](#syntax-4)
+		- [Example](#example-10)
+- [Default Values](#default-values)
 - [Functions](#functions)
 		- [Syntax](#syntax-5)
 		- [Example: Basic](#example-basic)
@@ -77,30 +80,30 @@ These are the notes im making for the `Go programming language`
 	- [Passing by reference](#passing-by-reference)
 		- [Example: Passing by reference](#example-passing-by-reference)
 	- [Annonyms Functions](#annonyms-functions)
-- [Return values		//TODO have to add missing items](#return-valuestodo-have-to-add-missing-items)
-		- [Example](#example-10)
-	- [Bare Returns](#bare-returns)
+- [Return values](#return-values)
 		- [Example](#example-11)
-	- [Varidic Functions](#varidic-functions)
+	- [Bare Returns](#bare-returns)
 		- [Example](#example-12)
+	- [Varidic Functions](#varidic-functions)
+		- [Example](#example-13)
 - [Deferred Fucntions](#deferred-fucntions)
 		- [Syntax](#syntax-6)
-		- [Example](#example-13)
+		- [Example](#example-14)
 		- [Example: LIFO](#example-lifo)
 - [Panic Function](#panic-function)
 		- [Syntax](#syntax-7)
-		- [Example](#example-14)
+		- [Example](#example-15)
 - [Recover Function](#recover-function)
 		- [Syntax](#syntax-8)
-		- [Example](#example-15)
-- [Call by Reference](#call-by-reference)
 		- [Example](#example-16)
+- [Call by Reference](#call-by-reference)
+		- [Example](#example-17)
 - [Method Declaration](#method-declaration)
 		- [Syntax](#syntax-9)
-		- [Example](#example-17)
+		- [Example](#example-18)
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
-		- [Example](#example-18)
+		- [Example](#example-19)
 - [Concurancy](#concurancy)
 - [Parallisim](#parallisim)
 - [Goroutines](#goroutines)
@@ -112,30 +115,59 @@ These are the notes im making for the `Go programming language`
 - [Channels](#channels)
 	- [Operations](#operations-1)
 		- [Syntax](#syntax-11)
-		- [Example](#example-19)
+		- [Example](#example-20)
 		- [Example: Sending and Receiving from Channels](#example-sending-and-receiving-from-channels)
 			- [Copilot answers (Can't Trust)](#copilot-answers-cant-trust)
 	- [Advantages of Channels](#advantages-of-channels)
 	- [Properties of Channels](#properties-of-channels)
 	- [Unbuffered Channels](#unbuffered-channels)
 		- [Syntax](#syntax-12)
-		- [Example: For a synchronous channel (Note: This example might be using Unidirectional Channels that may make this have confusing syntax)](#example-for-a-synchronous-channel-note-this-example-might-be-using-unidirectional-channels-that-may-make-this-have-confusing-syntax)
+		- [Example: For a synchronous channel](#example-for-a-synchronous-channel)
 	- [Buffered Channels](#buffered-channels)
-		- [Syntax		// TODO Need to check if 3 is the capacity](#syntax-todo-need-to-check-if-3-is-the-capacity)
-		- [Example](#example-20)
+		- [Syntax](#syntax-13)
+		- [Example](#example-21)
 		- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
 		- [Example: Not sending any values](#example-not-sending-any-values)
 	- [Unidirectional Channels](#unidirectional-channels)
 	- [Looping in Parallel		//TODO MISSING](#looping-in-paralleltodo-missing)
+		- [For](#for)
+		- [ForEach](#foreach)
+	- [Select Statement](#select-statement)
+		- [Syntax](#syntax-14)
 	- [Cancellation](#cancellation)
 	- [Predeclared Names](#predeclared-names)
 		- [Constants](#constants-1)
 			- [Iota](#iota)
 			- [Example: `iota`](#example-iota)
+- [Interfaces](#interfaces)
+		- [Syntax](#syntax-15)
+		- [Example](#example-22)
+	- [Empty Interface (IMPORTANT)](#empty-interface-important)
+		- [Syntax](#syntax-16)
+		- [Example: Simple usage](#example-simple-usage)
+		- [Example: Proper an empty interface](#example-proper-an-empty-interface)
+	- [Interface as a Contract](#interface-as-a-contract)
+		- [Example: Using an interface as a contract](#example-using-an-interface-as-a-contract)
+	- [Interface Types](#interface-types)
+		- [Example](#example-23)
+- [Type Assertion](#type-assertion)
+		- [Syntax](#syntax-17)
+		- [Example: Basic Assertion that is Correct](#example-basic-assertion-that-is-correct)
+		- [Example: Basic Assertion that is Incorrect](#example-basic-assertion-that-is-incorrect)
 
 
 # Basic
 To create a basic program
+
+- We start with the package name;  here it is `main`
+- We then import the packages we need; using the `import` keyword
+- We then create the main function; using the `func` keyword
+- We then write the code inside the main function
+
+- ; is not required at the end of the line
+- new line is used to end the statement (basically works like python rather than C)
+- Go is case sensitive
+- We can add ; to have multiple statements on the same line. Eg: `fmt.Println("Hello, World!"); fmt.Println("Hello, World!");` is in the same line
 ```go
 package main
 import ("fmt")
@@ -147,6 +179,17 @@ func main() {
 
 ```
 > OUTPUT: Hello, World!
+
+## Commenting
+- Single line comments are done using `//`
+- Multi-line comments are done using `/* */`
+
+```go
+// This is a single line comment
+/* This is a
+multi-line comment */
+```
+
 
 ## Function creation
 
@@ -870,15 +913,49 @@ var s []int = prime[1:3]
 println(s)
 ```
 
-# Maps		// TODO HAVE TO ADD LATER
-- Collection of key-value pairs
-- Unordered
+# Maps		
+- Unordered Collection of key-value pairs
+- It is a Hash Table
+- Map element is not a variable so we cant take its address; Eg `_ = &m["one"]` gives compiler error
+- Maps can be created using the `make` function
+- Maps can be compared using `==` and `!=` if all fields are comparable 
 
 ### Syntax
 ```go
 var m map[key_type]value_type
-
 ```
+
+### Example
+```go
+var m map[string]int
+m = make(map[string]int)
+m := map[string]int{"one":1, "two":2}
+
+
+m["one"] = 1
+m["two"] = 2
+
+println(m)
+println(m["one"])
+```
+> OUTPUT: </br>
+>  map[one:1 two:2] </br>
+> 1
+
+# Default Values
+
+| Type | Default Value |
+| --- | --- |
+| int | 0 |
+| float | 0.0 |
+| bool | false |
+| string | "" |
+| pointer | nil |
+| function | nil |
+| interface | nil |
+| slice | nil |
+| channel | nil |
+| map | nil |
 
 
 # Functions	
@@ -977,7 +1054,7 @@ func Sin(x float64) float64
 - Functions that are declared without a name
 - They can edit local variables for the function they are in
 
-# Return values		//TODO have to add missing items
+# Return values		
 
 - Multiple return values can be returned
 - Named return values can be used to return values
@@ -1128,17 +1205,33 @@ exit status 2 </br>
 
 ### Syntax
 ```go
-defer func() {
-	if r := recover(); r != nil {
-		// code
+
+func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			// Code to handle the panic
+		}
+	}()
+}
+
+// OR
+
+func handlePanic() {
+	if r := recover()
+	r != nil {
+		// Code to handle the panic
 	}
-} ()
+}
+
+func main() {
+	defer handlePanic()
+	panic(/*String to be displayed*/)
+}
+
 ```
 
 ### Example
 ```go
-package main
-
 func div(a, b int) (result int) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -1188,6 +1281,10 @@ func callByReference(x *int) (int) {
 # Method Declaration		
 
 - It is a OOP concept
+  - An object is a value/variable that has methods
+  - A method is a function with a receiver
+  - With the help of the receiver parameter, the method can access the properties of the receiver
+  - Go does not have classes
 - Methods are  declared between the `func` keyword and the function name
 - This parameter attaches the function to that type
 - Methods can be declared for any type that is declared in the same package
@@ -1196,7 +1293,11 @@ func callByReference(x *int) (int) {
   
 ### Syntax
 ```go
-func (t Type) functionName(parameter list) {	// t is the method receiver
+type variable struct {
+	// fields
+}
+
+func (t variable) functionName(parameter list) {	// t is the method receiver
 	// code
 }
 ```
@@ -1212,20 +1313,21 @@ import (
 	"math"
 )
 
-type Vertex struct {
+type Vertex struct {		// Creating a method struct
 	X, Y float64
 }
 
-func (v Vertex) Abs() float64 {
+func (v Vertex) Abs() float64 {				// The function Abs is attached to the Vertex type
 	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 
-func main() {
+func main() {			// Using the method
 	v := Vertex{3, 4}
-	fmt.Println(v.Abs())
+	fmt.Println(v.Abs())		// We can see that the v is passed to the Abs method
 }
 ```
-> OUTPUT: 5
+> OUTPUT: 5 </br>
+Here we can see that the `v` variable/object has the ability to use the function/method `Abs` 
 
 ### Example: the class one
 ```go
@@ -1411,6 +1513,11 @@ Done! </br>
 ```go
 var ch chan int
 ch = make(chan int)
+
+// Using in a function
+func goroutine(variable_name chan int) {
+	// code
+}
 ```
 
 ### Example
@@ -1499,7 +1606,8 @@ ch := make(chan int)
 - Here we have not set any limit for the channel
 
 
-### Example: For a synchronous channel (Note: This example might be using Unidirectional Channels that may make this have confusing syntax)
+### Example: For a synchronous channel 
+This is a pipeline as well as they are connected in a chain
 ```go
 package main
 
@@ -1548,9 +1656,9 @@ func printer(in <-chan int) {		// Receives from `squares` channel
 
 ## Buffered Channels
 - This has a queue of elements
-- The Max capacity of the queue is set when the channel is created	// TODO need to check if this is right
+- The Max capacity of the queue is set when the channel is created	
 
-### Syntax		// TODO Need to check if 3 is the capacity
+### Syntax		
 ```go
 ch := make(chan int, 3)
 ```
@@ -1620,6 +1728,47 @@ Hence we can see that we need to have the same number of sends and receives for 
 - They scale linearly with the amount of parallelism
 
 
+NOT SURE WHAT THIS STUFF IS BELOW BUT ITS FROM SLIDES
+
+### For
+- Repeats function in parallel. Internally calls ForLoop
+```go
+func For(begin int, end int, f ForLoop) {
+}
+```
+
+### ForEach
+- Loops collections in parallel collection: slice, array, map, string, channel, etc. If multiple options, only first one is valid
+```go
+func ForEach(collection interface{}, f interface{}) {
+}
+```
+
+- We can limit the amount of parallelism by using buffered channels
+
+## Select Statement
+- Similar to a `switch` statement
+- Used to choose from multiple send/receive channel operations
+- There is no limit to the number of cases
+- Values of each case must be operations on channels
+- There are no `break` statements in the `Case`
+- `Case` statements only run if the channel is possible to send or receive
+  
+- In case of multiple cases being ready, one is chosen at random
+- When no `Case` is ready, the system goes into deadlock. (copilot says it goes to default though)
+
+### Syntax
+```go
+select {
+	case send_op:
+		// code
+	case receive_op:
+		// code
+	default:
+		// code
+}
+```
+
 ## Cancellation
 - There is no way to directly cancel a goroutine as it would leave the state of the program in an unknown state
 - We can use a `cancellation` channel to signal the goroutine to stop
@@ -1659,3 +1808,171 @@ func main() {
 > OUTPUT: </br>
 > 0 1 2 3 4 5 </br>
 
+# Interfaces
+- A set of method signatures that a type can implement
+- flexible and powerful for writing reusable code
+- A variable of an interface type can hold any value that implements those methods
+- Interfaces are implemented implicitly. No explicit declaration as no `implements` keyword
+
+### Syntax
+```go
+type interface_name interface {
+	Method() signatures
+}
+```
+
+### Example
+```go
+// interface
+type Geometry interface {
+	area() string
+}
+
+// rect object
+type rect struct {
+	width, height int
+}
+
+// circle object
+type circle struct {
+	radius float64
+}
+
+// method for rect
+func (r rect) area() {
+	fmt.Printf("Area of rectangle is: %d\n", r.width*r.height)
+}
+
+// method for circle
+func (c circle) area() {
+	fmt.Printf("Area of circle is: %.2f\n", 3.14*c.radius*c.radius)
+}
+
+func measure(g Geometry) {
+	g.area()
+}
+
+func main() {
+	r := rect{width: 10, height: 5}
+	c := circle{radius: 5}
+
+	var g Geometry
+	g = r				// print(g) --> {10 5}
+	measure(g)			// Area of rectangle is: 50
+	g = c				// print(g) --> {5}
+	measure(g)			// Area of circle is: 78.50
+}
+```
+> OUTPUT: </br>
+> Area of rectangle is: 50 </br>
+> Area of circle is: 78.5 </br>
+
+## Empty Interface (IMPORTANT)
+- This is an interface with no methods
+- Can hold any value regardless of its type
+- Used when we want to accept values of any type
+
+
+### Syntax
+```go
+var i interface{}
+```
+
+### Example: Simple usage
+```go
+var any interface{}
+any = 42
+any = "hi"
+any = 3.14159
+any = new(bytes.Buffer)
+any = make(chan int, 3)
+any = make(map[string]int)
+```
+
+### Example: Proper an empty interface
+```go
+func PrintAny (i interface{}) {
+	fmt.Println(i)
+}
+
+func main() {
+	PrintAny(42)		// prints 42
+	PrintAny("Hello")	// prints Hello
+	PrintAny(3.14159)	//	prints 3.14159
+}
+```
+> OUTPUT: </br>
+> 42 </br>
+> Hello </br>
+> 3.14159 </br>
+
+Here we can see that the empty interface can take any type of value
+
+## Interface as a Contract
+- Interfaces are a contract that a method can implement
+
+
+### Example: Using an interface as a contract
+```go
+func myPrintF(format string, args ...interface{}) {
+	fmt.Printf(format, args...)
+}
+func main() {
+	myPrintF("Hello %s\n", "World")
+}
+```
+> OUTPUT: Hello World
+
+Here we can see that the `myPrintF` function is a contract that the `fmt.Printf` function implements and `args` is an empty interface that can take any type of value
+
+
+## Interface Types
+- New interface types can be a combination of existing ones.
+- This is called `embedding` or `composition` of an interface
+  
+### Example
+```go
+type Reader interface {					// Reader interface
+	Read(p []byte) (n int, err error)
+}	
+type Writer interface {					// Writer interface
+	Write(p []byte) (n int, err error)
+}
+
+type ReadWriter interface {		// This is a combination of Reader and Writer
+	Reader
+	Writer
+}
+```
+**Note(tho might not be important):** The `Write` method takes the data from the byte slice p writes into the underlying data stream and returns the number of bytes written and an error if any
+
+
+# Type Assertion
+- Basic asserstions are done using the `.` operator
+
+### Syntax
+```go
+
+val, ok := interface_var(type)
+// val is the value of the variable
+// ok is a boolean value that is true if the assertion holds
+```
+
+### Example: Basic Assertion that is Correct
+```go
+var i interface{} = "hello"
+s,ok := i.(string)
+fmt.Println(s, ok)	// s = hello; ok = true
+```
+> OUTPUT: hello true
+
+Here we can see that the assertion is correct so the value of `i` is stored in `s` and `ok` is true
+### Example: Basic Assertion that is Incorrect
+```go
+var i interface{} = 42
+s,ok := i.(string)
+fmt.Println(s, ok)	// s = ""; ok = false
+```
+> OUTPUT:  false
+
+Here we can see on wrong asserstion `s` gets the default value of the type it was checking
