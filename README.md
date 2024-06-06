@@ -66,9 +66,11 @@ These are the notes im making for the `Go programming language`
 - [Arrays](#arrays)
 - [Slice](#slice)
 		- [Example](#example-9)
+- [Appends](#appends)
+		- [Example](#example-10)
 - [Maps](#maps)
 		- [Syntax](#syntax-4)
-		- [Example](#example-10)
+		- [Example](#example-11)
 - [Default Values](#default-values)
 - [Functions](#functions)
 		- [Syntax](#syntax-5)
@@ -81,29 +83,31 @@ These are the notes im making for the `Go programming language`
 		- [Example: Passing by reference](#example-passing-by-reference)
 	- [Annonyms Functions](#annonyms-functions)
 - [Return values](#return-values)
-		- [Example](#example-11)
-	- [Bare Returns](#bare-returns)
 		- [Example](#example-12)
-	- [Varidic Functions](#varidic-functions)
+	- [Bare Returns](#bare-returns)
 		- [Example](#example-13)
+	- [Varidic Functions](#varidic-functions)
+		- [Example](#example-14)
 - [Deferred Fucntions](#deferred-fucntions)
 		- [Syntax](#syntax-6)
-		- [Example](#example-14)
+		- [Example](#example-15)
 		- [Example: LIFO](#example-lifo)
 - [Panic Function](#panic-function)
 		- [Syntax](#syntax-7)
-		- [Example](#example-15)
+		- [Example](#example-16)
 - [Recover Function](#recover-function)
 		- [Syntax](#syntax-8)
-		- [Example](#example-16)
-- [Call by Reference](#call-by-reference)
 		- [Example](#example-17)
+- [Call by Reference](#call-by-reference)
+		- [Example](#example-18)
+- [Call by Value](#call-by-value)
+		- [Example](#example-19)
 - [Method Declaration](#method-declaration)
 		- [Syntax](#syntax-9)
-		- [Example](#example-18)
+		- [Example](#example-20)
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
-		- [Example](#example-19)
+		- [Example](#example-21)
 - [Concurancy](#concurancy)
 - [Parallisim](#parallisim)
 - [Goroutines](#goroutines)
@@ -115,9 +119,9 @@ These are the notes im making for the `Go programming language`
 - [Channels](#channels)
 	- [Operations](#operations-1)
 		- [Syntax](#syntax-11)
-		- [Example](#example-20)
-		- [Example: Sending and Receiving from Channels](#example-sending-and-receiving-from-channels)
-			- [Copilot answers (Can't Trust)](#copilot-answers-cant-trust)
+		- [Example 1: Creating a channel](#example-1-creating-a-channel)
+		- [Example 2: Sending and Receiving from Channels](#example-2-sending-and-receiving-from-channels)
+		- [Example 3: Sending and Receiving from Channels](#example-3-sending-and-receiving-from-channels)
 	- [Advantages of Channels](#advantages-of-channels)
 	- [Properties of Channels](#properties-of-channels)
 	- [Unbuffered Channels](#unbuffered-channels)
@@ -125,11 +129,12 @@ These are the notes im making for the `Go programming language`
 		- [Example: For a synchronous channel](#example-for-a-synchronous-channel)
 	- [Buffered Channels](#buffered-channels)
 		- [Syntax](#syntax-13)
-		- [Example](#example-21)
+		- [Example](#example-22)
 		- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
 		- [Example: Not sending any values](#example-not-sending-any-values)
 	- [Unidirectional Channels](#unidirectional-channels)
-	- [Looping in Parallel		//TODO MISSING](#looping-in-paralleltodo-missing)
+		- [Example](#example-23)
+	- [Looping in Parallel](#looping-in-parallel)
 		- [For](#for)
 		- [ForEach](#foreach)
 	- [Select Statement](#select-statement)
@@ -141,7 +146,7 @@ These are the notes im making for the `Go programming language`
 			- [Example: `iota`](#example-iota)
 - [Interfaces](#interfaces)
 		- [Syntax](#syntax-15)
-		- [Example](#example-22)
+		- [Example](#example-24)
 	- [Empty Interface (IMPORTANT)](#empty-interface-important)
 		- [Syntax](#syntax-16)
 		- [Example: Simple usage](#example-simple-usage)
@@ -149,7 +154,7 @@ These are the notes im making for the `Go programming language`
 	- [Interface as a Contract](#interface-as-a-contract)
 		- [Example: Using an interface as a contract](#example-using-an-interface-as-a-contract)
 	- [Interface Types](#interface-types)
-		- [Example](#example-23)
+		- [Example](#example-25)
 - [Type Assertion](#type-assertion)
 		- [Syntax](#syntax-17)
 		- [Example: Basic Assertion that is Correct](#example-basic-assertion-that-is-correct)
@@ -823,7 +828,17 @@ func main() {
 	}
 }
 ```
+> OUTPUT: </br>
+> 0 1 </br>
+> 1 2 </br>
+> 2 4 </br>
+> 3 8 </br>
+> 4 16 </br>
+> 5 32 </br>
+> 6 64 </br>
+> 7 128 </br>
 
+Here we can see that i has the index and v has the value of the list
 
 # Pointers
 - Using pointers that point to a memory. It holds the memory address of a value
@@ -913,16 +928,44 @@ var s []int = prime[1:3]
 println(s)
 ```
 
+# Appends
+
+- Appends elements to the end of a slice
+- If the underlying array is too small, a bigger array is allocated
+- Using `append()` function
+
+### Example
+```go
+func main() {
+	var s []int
+	s = append(s, 1)
+	s = append(s, 2, 3, 4)
+	fmt.Println(s)
+}
+```
+> OUTPUT: [1 2 3 4]
+
+Here we can see that the append function is used to add elements to the slice
+
 # Maps		
 - Unordered Collection of key-value pairs
-- It is a Hash Table
+- It is a reference to a Hash Table
 - Map element is not a variable so we cant take its address; Eg `_ = &m["one"]` gives compiler error
 - Maps can be created using the `make` function
 - Maps can be compared using `==` and `!=` if all fields are comparable 
-
+- Due to refernece type, if two maps are nil, they are equal
+- Due to reference type, they are cheap to pass around
+- Type of key and type of value must be same for all keys and all values respectively, if not it gives a compile error
+  - Basically all keys together are same type. Eg `{1:"one", "two":2}` or `{1: "one", 2: 2} ` is not allowed, but `{"one":1, "two":2}` is allowed
+- a Key Value pair can be of different types.
+  
 ### Syntax
 ```go
 var m map[key_type]value_type
+m := map[key_type]value_type{key1:value1, key2:value2}
+
+m := make(map[key_type]value_type)
+m := make(map[key_type]value_type, capacity_hint)	// capacity_hint is just a hint for capacity, more elements can be added to the map
 ```
 
 ### Example
@@ -1260,7 +1303,7 @@ func main() {
 
 - When the memory address of a variable is passed to a function, it is known as call by reference
 - This is done using pointers
-
+- The original value is changed
 ### Example
 ```go
 package main
@@ -1277,6 +1320,29 @@ func callByReference(x *int) (int) {
 }
 ```
 > OUTPUT: x: 50 r1: 50
+
+# Call by Value
+
+- When the value of a variable is passed to a function, it is known as call by value
+- This is done using normal variables
+- The original value is not changed
+
+### Example
+```go
+package main
+
+func main() {
+	var x int = 5
+	r1 := callByValue(x)
+	println("x:", x, "r1:", r1)		// x is 5 and r1 is 50
+}
+
+func callByValue(x int) (int) {
+	x = 10 * x
+	return x
+}
+```
+> OUTPUT: x: 5 r1: 50
 
 # Method Declaration		
 
@@ -1520,14 +1586,15 @@ func goroutine(variable_name chan int) {
 }
 ```
 
-### Example
+### Example 1: Creating a channel
 ```go
 package main
 
 import "fmt"
 
 func main() {
-	var char1 chan int
+	var char1 chan int		// creating a channel
+
 	fmt.Println("Value of char1 is: ", char1)		// nil
 	fmt.Printf("Type of char1 is: %T\n", char1)		// chan int
 
@@ -1543,43 +1610,60 @@ func main() {
 > Type of char2 is:  chan int </br>
 
 
-### Example: Sending and Receiving from Channels
+### Example 2: Sending and Receiving from Channels
 ```go
 package main
 
-func sum(s []int, ch chan int) {
-	sum := 0
-	for _, v := range s {
-		sum += v
-	}
-	ch <- sum
+func myChannelTest(i int,ch chan int) {
+    ch <- i
 }
 
 func main() {
-	s := []int{7, 2, 8, -9, 4, 0}
-
 	ch := make(chan int)
-	go sum(s[0:3], ch)	 // 17
-	go sum(s[3:6], ch)	// -5
-	go sum(s[3:4], ch)	// -9
+	
+	go func() {
+			ch <- 1
+		ch <- 2
+		ch <- 3
+	}()
+	
+	x := <-ch		// 1
+	y := <-ch		// 2
+	z := <-ch		// 3
 
-	x := <-ch		// -9
-	y := <-ch		// -5
-	z := <-ch		// 17
-
-	println(x, y, z)	// -9 -5 17
-	println(x+y)		// -14
+	println(x, y, z)	// 1 2 3
 }
 ```
 > OUTPUT: </br>
-> -9 -5 17 </br>
-> -14 </br>
+> 1 2 3
+
+Here the channel acts like a queue as when the single goroutine runs, it sets the values in the order 1,2,3 and when the main function runs, it gets the values in the same order
+
+### Example 3: Sending and Receiving from Channels
+```go
+package main
+
+func myChannelTest(i int,ch chan int) {
+    ch <- i
+}
+
+func main() {
+	ch := make(chan int)
+	go myChannelTest(1,ch)
+	x := <-ch		// 1
+	y := <-ch		// 3
+	go myChannelTest(3,ch)
+	go myChannelTest(2,ch)
+	z := <-ch		// 2
+	
+	println(x, y, z)	// 1 3 2
+}
+```
+> OUTPUT: </br>
+> 1 3 2
 
 
-#### Copilot answers (Can't Trust)
-q: what order does the channel receive the values in? </br>
-a: The order in which the values are received is the order in which the goroutines finish. This is because the channel is a queue and the values are received in the order they are sent
-
+Here what happens is that `x` gets 1 as it is right after the function and `z` gets 2 as it is right after the line where the function is called. `y` gets 3 as it is the last value in the channel (My Guess as thats what my experimentation shows me)
 
 ## Advantages of Channels
 - Channels are typesafe. They only allow a particular type of data to be sent through them	
@@ -1641,7 +1725,6 @@ func printer(in <-chan int) {		// Receives from `squares` channel
 }
 ```
 > OUTPUT: </br>
-> 0  </br>
 > 0  </br>
 > 1  </br>
 > 4  </br>
@@ -1720,8 +1803,23 @@ Hence we can see that we need to have the same number of sends and receives for 
 - The type `chan <- int` is a send-only channel of integers
 - The type `<- chan int` is a receive-only channel of integers
 
+### Example
+```go
+func main() {
+	send := make(chan<- int, 2)		// Send only channel
+	receive := make(<-chan int, 2)	// Receive only channel
 
-## Looping in Parallel		//TODO MISSING
+
+	send <- 1			// This will work
+	println(<-send)		// ERROR: This will not work as it is a send only channel
+
+	println(<-receive)	// This will work
+	receive <- 2		// ERROR: This will not work as it is a receive only channel
+}
+```
+
+
+## Looping in Parallel		
 - We can loop over a channel in parallel
 - Problems that are independent of each other are known as `embarrassingly parallel` problems
 - These are the easiest to parallelise, we can do this through goroutines 
