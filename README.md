@@ -175,8 +175,34 @@ These are the notes im making for the `Go programming language`
 - [Race Condition and Mutual Exclusion](#race-condition-and-mutual-exclusion)
 	- [Example: 1 for Race Condition](#example-1-for-race-condition)
 		- [Example 2: For Race Condition](#example-2-for-race-condition)
-- [Race Condition Effects](#race-condition-effects)
-	- [Deadlocks](#deadlocks)
+	- [Race Condition Effects	//TODO: add later](#race-condition-effectstodo-add-later)
+		- [Deadlocks](#deadlocks)
+		- [Data Corruption](#data-corruption)
+	- [Preventing Deadlocks		//TODO: more later](#preventing-deadlockstodo-more-later)
+		- [Example: Using a Monitor](#example-using-a-monitor)
+- [Mutual Exclusion](#mutual-exclusion)
+	- [Binary Semaphores](#binary-semaphores)
+		- [Example: Using a Binary Semaphore](#example-using-a-binary-semaphore)
+- [Mutex](#mutex)
+		- [Syntax: Creation](#syntax-creation)
+		- [Syntax: Locking and Unlocking](#syntax-locking-and-unlocking)
+		- [Example: Using a Mutex](#example-using-a-mutex)
+	- [RW Mutex (Read-Write)](#rw-mutex-read-write)
+		- [Syntax: Creation](#syntax-creation-1)
+- [Atomic Operations](#atomic-operations)
+	- [Common Atomic Operations](#common-atomic-operations)
+		- [Load](#load)
+		- [Store](#store)
+		- [Add and Subtract](#add-and-subtract)
+		- [Swap](#swap)
+		- [Compare and Swap](#compare-and-swap)
+		- [Example 1: Using Atomic Operations](#example-1-using-atomic-operations)
+		- [Example 2: Using Atomic Operations with WaitGroup](#example-2-using-atomic-operations-with-waitgroup)
+- [Race Detector](#race-detector)
+	- [How it works](#how-it-works)
+- [Semaphore](#semaphore)
+	- [Bounded Channel Approach](#bounded-channel-approach)
+		- [Example: Using a Bounded Channel](#example-using-a-bounded-channel)
 
 
 # Basic
@@ -2445,6 +2471,320 @@ func main() {
 
 Here data may be 1 or 0 depending on if A1 or A2 runs first
 
-# Race Condition Effects
-## Deadlocks
+## Race Condition Effects	//TODO: add later
+### Deadlocks
 
+### Data Corruption
+
+## Preventing Deadlocks		//TODO: more later
+
+- Avoiding direct access to shared variables
+- Use a Channel to send a request a query/update a variable to goroutine 
+- A goroutine that manages access called a `monitor` goroutine
+
+### Example: Using a Monitor
+```go
+package main
+
+var depoChannel = make(chan int) // A
+var balanceChannel = make(chan int) // B
+
+func Deposit(amount int) {
+	depoChannel <- amount
+}
+
+func Balance() int {
+	return <-balanceChannel
+}
+
+func teller() {
+	var balance int // A
+	for {				// Infinite loop ensures it will always be ready to receive a message
+		select {
+		case amount := <-depoChannel:	// Take the amount from the depoChannel channel
+			balance += amount		// Add the amount to the balance
+		case balanceChannel <- balance:	//	Send the balance to the balanceChannel channel
+		}
+	}
+}
+
+
+func main() {
+	go teller() // B
+	go Deposit(200)
+	println("Balance =", Balance()) // 200
+	go Deposit(100)
+	println("Balance =", Balance()) // 300
+
+}
+```
+
+> OUTPUT: </br>
+> Balance = 200 </br>
+> Balance = 300 </br>
+
+Here we can see that the balance is updated correctly as the teller goroutine manages the balance
+
+
+# Mutual Exclusion
+>NOTE Empty Struct: `struct{}` does not have any values, so does not take up any memory
+
+- Mutual Exclusion is a technique to ensure that only one goroutine can access a resource at a time
+- Empty struct `struct{}` are used as placeholder
+- Often used in situation where we want to signal with no additional data
+- Usually when semaphores are created we see something like this 
+  - ```go
+	var sem = make(chan struct{}, numberOfSemaphores)
+	sem <- struct{}{}
+	```
+
+## Binary Semaphores
+- A binary semaphore is a semaphore that can have only two values: 0 and 1
+- It is used to ensure only one goroutine can access a resource at a time
+
+### Example: Using a Binary Semaphore
+```go
+package main
+
+import "time"
+
+var sema = make(chan struct{}, 1)
+var balance int
+
+func Deposit(amount int) {
+	sema <- struct{}{} // acquire token
+	balance += amount  // deposit
+	<-sema             // release token
+}
+
+func Balance() int {
+	sema <- struct{}{} // acquire token
+	b := balance       // copy balance
+	<-sema             // release token
+	return b           // return balance
+}
+
+func main() {
+	println("Balance =", Balance()) // 0
+
+	go Deposit(200)
+	go Deposit(100)
+
+	time.Sleep(1 * time.Second)
+	println("Balance =", Balance()) // 300
+}
+```
+> OUTPUT: </br>
+> Balance = 0 </br>
+> Balance = 300 </br>
+
+# Mutex
+- A mutex is a lock that allows only one goroutine to access a resource at a time
+
+### Syntax: Creation
+```go
+var mu sync.Mutex
+mu := sync.Mutex{}
+```
+
+### Syntax: Locking and Unlocking
+```go
+//func (m *Mutex) Lock()		// Locks m
+//func (m *Mutex) Unlock()	// Unlocks m
+
+mu.Lock()
+// code
+mu.Unlock()
+
+```
+
+
+### Example: Using a Mutex
+```go
+package main
+
+import (
+	"sync"
+	"time"
+)
+
+var mu sync.Mutex
+var balance int
+
+func Deposit(amount int) {
+	mu.Lock()			// Lock the mutex
+	balance += amount
+	mu.Unlock()			// Unlock the mutex to avoid deadlock
+}
+
+func Balance() int {
+	mu.Lock()
+	defer mu.Unlock()		// We can use defer to unlock the mutex
+	return balance
+}
+
+func main() {
+	println("Initial balance: ", Balance())
+
+	go Deposit(100)
+	go Deposit(200)
+
+	time.Sleep(1 * time.Second)
+	println("Final balance: ", Balance())
+}
+```
+> OUTPUT: </br>
+> Initial balance:  0 </br>
+> Final balance:  300 </br>
+
+## RW Mutex (Read-Write)
+- It is a Read-Write Mutex
+- The lock can be held by `multiple` of readers or a `single` writer
+- The zero value of a `RWMutex` is an unlocked mutex
+
+- Should not have recurive read locks as it makes it so only one reader can read at a time
+
+### Syntax: Creation
+```go
+// func (rw *RWMutex) RLock()		// Locks rw for reading
+// func (rw *RWMutex) RUnlock()	// Unlocks rw for reading
+
+// Creation
+rw := sync.RWMutex{}
+var rw sync.RWMutex
+
+
+// Usage
+rw.RLock()
+// code
+rw.RUnlock()
+```
+
+# Atomic Operations
+- Operations that are designed to be performed without interference from other operations
+- They are used to ensure that a operations on shared variables are atomic
+
+## Common Atomic Operations
+
+### Load
+- Atomically read the value of a variable
+- Eg: `atomic.LoadInt32(&x)` loads the value of x (type is int32)
+### Store
+- Atomically set a value to a variable
+- Eg: `atomic.StoreInt32(&x, 42)` sets the value of x to 42 (type is int32)
+### Add and Subtract
+- Atomically add or subtract a value from a variable
+- Eg: `atomic.AddInt32(&x, 1)` adds 1 to the value of x (type is int32)
+- Eg: `atomic.AddInt32(&x, -1)` subtracts 1 from the value of x (type is int32)
+### Swap
+
+
+### Compare and Swap
+
+
+### Example 1: Using Atomic Operations
+```go
+package main
+
+import (
+	"sync/atomic"
+	"time"
+	"fmt"
+)
+
+func main() {
+	var counter int32
+	
+	go func() {
+		for i:=0; i<5; i++ {
+			atomic.AddInt32(&counter, 1)	// Increment the counter
+			fmt.Printf("Incrementing counter: %d\n", atomic.LoadInt32(&counter))
+			time.Sleep(time.Millisecond)
+		}
+	}()
+
+	go func() {
+		for i:=0; i<5; i++ {
+			atomic.AddInt32(&counter, -1) 		// Decrement the counter
+			fmt.Printf("Decrementing counter: %d\n", atomic.LoadInt32(&counter))
+			time.Sleep(time.Millisecond)
+		}
+	}()
+
+	time.Sleep(2 * time.Second)
+	fmt.Printf("Final counter: %d\n", atomic.LoadInt32(&counter))
+}
+```
+> OUTPUT: </br>
+> Decrementing counter: -1 </br>
+> Incrementing counter: 0 </br>
+> Incrementing counter: 1 </br>
+> Decrementing counter: 0 </br>
+> Decrementing counter: -1 </br>
+> Incrementing counter: 0 </br>
+> Final counter: 0 
+
+### Example 2: Using Atomic Operations with WaitGroup
+```go
+package main
+
+import (
+	"sync"
+	"sync/atomic"
+)
+
+func main() {
+	var ops atomic.Uint64	// import "sync/atomic"
+	var wg sync.WaitGroup	// import "sync"
+
+	for i:=0; i<50; i++ {
+		wg.Add(1)
+		go func() {
+			for c:=0; c<100; c++ {
+				ops.Add(1)
+			}
+			wg.Done()
+		}()
+	}
+
+	wg.Wait()
+	println("ops: ", ops.Load())
+}
+```
+> OUTPUT: </br>
+> ops:  5000
+
+# Race Detector
+- A tool that detects race condition
+
+## How it works
+- It is integrated with go toolchain
+- when the `-race flag` is used, the compiler instruments all memory accesses with code records when an how memory accessed, while the runtime detects unsynchronized access to the same memory location
+- When such "racy" behaviour is detected, the runtime prints a warning.
+
+
+# Semaphore
+- A semaphore is a variable or abstract data type used to control access to a common resource by multiple processes in a concurrent system such as a multitasking operating system
+
+## Bounded Channel Approach
+
+### Example: Using a Bounded Channel
+```go
+
+func remoteDeleteEmployee() {
+	// code
+}
+
+// sem is a channel that allows 10 goroutines to run at once
+var sem = make(chan struct{}, 10)	// bufferred channel
+
+func main() {
+	for _, empl in range employees {
+		sem <- 1		// acquire token
+		go func() {
+			remoteDeleteEmployee(empl.ID)
+			<-sem			// release token
+		}()
+	}
+}
+```
