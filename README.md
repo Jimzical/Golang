@@ -14,6 +14,7 @@ These are the notes im making for the `Go programming language`
 	- [Printf](#printf)
 		- [Table](#table)
 - [Declarations](#declarations)
+	- [Predeclared Names](#predeclared-names)
 - [Variables](#variables)
 		- [Syntax](#syntax)
 		- [Example](#example-1)
@@ -60,6 +61,7 @@ These are the notes im making for the `Go programming language`
 		- [Example](#example-7)
 		- [Example where `i` is not required so it is `ommited`](#example-where-i-is-not-required-so-it-is-ommited)
 		- [Example where `for` is used for lists](#example-where-for-is-used-for-lists)
+		- [Example infinite loop](#example-infinite-loop)
 - [Pointers](#pointers)
 		- [Example](#example-8)
 - [Structs](#structs)
@@ -137,16 +139,20 @@ These are the notes im making for the `Go programming language`
 	- [Looping in Parallel](#looping-in-parallel)
 		- [For](#for)
 		- [ForEach](#foreach)
-	- [Select Statement](#select-statement)
+- [Multiplexing with select](#multiplexing-with-select)
 		- [Syntax](#syntax-14)
+		- [Example](#example-24)
 	- [Cancellation](#cancellation)
-	- [Predeclared Names](#predeclared-names)
+		- [Method 1: Using a Cancellation Channel](#method-1-using-a-cancellation-channel)
+			- [Example](#example-25)
+	- [Method 2: Using Channel Closure as a Termination Signal](#method-2-using-channel-closure-as-a-termination-signal)
+			- [Example:](#example-26)
 		- [Constants](#constants-1)
 			- [Iota](#iota)
 			- [Example: `iota`](#example-iota)
 - [Interfaces](#interfaces)
 		- [Syntax](#syntax-15)
-		- [Example](#example-24)
+		- [Example](#example-27)
 	- [Empty Interface (IMPORTANT)](#empty-interface-important)
 		- [Syntax](#syntax-16)
 		- [Example: Simple usage](#example-simple-usage)
@@ -154,11 +160,23 @@ These are the notes im making for the `Go programming language`
 	- [Interface as a Contract](#interface-as-a-contract)
 		- [Example: Using an interface as a contract](#example-using-an-interface-as-a-contract)
 	- [Interface Types](#interface-types)
-		- [Example](#example-25)
+		- [Example](#example-28)
 - [Type Assertion](#type-assertion)
 		- [Syntax](#syntax-17)
 		- [Example: Basic Assertion that is Correct](#example-basic-assertion-that-is-correct)
 		- [Example: Basic Assertion that is Incorrect](#example-basic-assertion-that-is-incorrect)
+- [Concurrancy with WaitGroup](#concurrancy-with-waitgroup)
+		- [Methods](#methods)
+		- [Syntax](#syntax-18)
+		- [Example 1](#example-1)
+		- [Example 2: Using a loop](#example-2-using-a-loop)
+		- [Example 3: Terminating a goroutine using Shared Variable](#example-3-terminating-a-goroutine-using-shared-variable)
+	- [Unit 2 End](#unit-2-end)
+- [Race Condition and Mutual Exclusion](#race-condition-and-mutual-exclusion)
+	- [Example: 1 for Race Condition](#example-1-for-race-condition)
+		- [Example 2: For Race Condition](#example-2-for-race-condition)
+- [Race Condition Effects](#race-condition-effects)
+	- [Deadlocks](#deadlocks)
 
 
 # Basic
@@ -264,6 +282,12 @@ func main() {
   - `const` for constants
   - `type` for type declarations
   - `func` for functions
+
+## Predeclared Names
+- there are about 36 predeclared names in Go for fucntions, types and constants
+- **Constants** are `true`, `false`, `iota`, `nil`
+- **Types** are `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `uint8`, `uint16`, `uint32`, `uint64`, `uintptr`, `float32`, `float64`, `complex64`, `complex128`, `bool`, `byte`, `rune`, `string`, `error`
+- **Functions** are `make`, `len`, `cap`, `new`, `append`, `copy`, `close`, `delete`, `complex`, `real`, `imag`, `panic`, `recover`
 
 # Variables
 
@@ -839,6 +863,21 @@ func main() {
 > 7 128 </br>
 
 Here we can see that i has the index and v has the value of the list
+
+### Example infinite loop
+```go
+package main
+
+func main() {
+	for {
+		// this is an infinite loop
+		print("hi ")
+	}
+}
+```
+> OUTPUT: hi hi hi hi hi hi hi...
+
+Here we can exit if there is a break statement
 
 # Pointers
 - Using pointers that point to a memory. It holds the memory address of a value
@@ -1844,7 +1883,8 @@ func ForEach(collection interface{}, f interface{}) {
 
 - We can limit the amount of parallelism by using buffered channels
 
-## Select Statement
+# Multiplexing with select
+
 - Similar to a `switch` statement
 - Used to choose from multiple send/receive channel operations
 - There is no limit to the number of cases
@@ -1854,6 +1894,11 @@ func ForEach(collection interface{}, f interface{}) {
   
 - In case of multiple cases being ready, one is chosen at random
 - When no `Case` is ready, the system goes into deadlock. (copilot says it goes to default though)
+
+
+- The `select` statement lets a goroutine wait on multiple communication operations
+- the `select` statement blocks until one of its cases can run, then it executes that case. It chooses one at random if multiple are ready
+- A `select` with no cases blocks forever, ie waits forever
 
 ### Syntax
 ```go
@@ -1867,17 +1912,126 @@ select {
 }
 ```
 
+### Example
+```go
+func main() {
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+
+	go func() {
+		for {
+			select {
+			case v := <-ch1:
+				println("From ch1:", v)
+			case v := <-ch2:
+				println("From ch2:", v)
+			}
+		}
+	}()
+
+	for i := 0; i < 10; i++ {
+		select {
+		case ch1 <- i:
+		case ch2 <- i:
+		}
+	}
+}
+```
+> OUTPUT: </br>
+> From ch1: 0 </br>
+> From ch1: 1 </br>
+> From ch1: 2 </br>
+> From ch1: 3 </br>
+> From ch2: 4 </br>
+> From ch2: 5 </br>
+> From ch2: 6 </br>
+> From ch1: 7 </br>
+> From ch1: 8 </br>
+> From ch2:
 ## Cancellation
 - There is no way to directly cancel a goroutine as it would leave the state of the program in an unknown state
 - We can use a `cancellation` channel to signal the goroutine to stop
 - We also defina a utility function to check if the channel is closed
 - In general it is hard to know how many goroutines are running at any given time
 
-## Predeclared Names
-- there are about 36 predeclared names in Go for fucntions, types and constants
-- **Constants** are `true`, `false`, `iota`, `nil`
-- **Types** are `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `uint8`, `uint16`, `uint32`, `uint64`, `uintptr`, `float32`, `float64`, `complex64`, `complex128`, `bool`, `byte`, `rune`, `string`, `error`
-- **Functions** are `make`, `len`, `cap`, `new`, `append`, `copy`, `close`, `delete`, `complex`, `real`, `imag`, `panic`, `recover`
+### Method 1: Using a Cancellation Channel
+- We create a channel on which no values are sent but whose closure signals the goroutine to stop
+
+#### Example
+```go
+package main
+
+func worker(stop <-chan bool) {
+	for {
+		select {
+		case <-stop:
+			println("Worker stopped")
+			return
+		default:
+			println("Worker processing while main function is busy")
+			time.Sleep(1 * time.Second)
+		}
+	}
+}
+
+func main() {
+	stop := make(chan bool)
+	go worker(stop)
+
+	time.Sleep(5 * time.Second) // Let the worker work for 5 seconds
+	stop <- true                 // Send a signal to stop the worker
+	time.Sleep(1 * time.Second)  // Give the worker some time to stop
+}
+```
+> OUTPUT: </br>
+> Worker processing while main function is busy </br>
+> Worker processing while main function is busy </br>
+> Worker processing while main function is busy </br>
+> Worker processing while main function is busy </br>
+> Worker processing while main function is busy </br>
+> Worker stopped
+
+Here we can see that a signal is sent to the worker to stop after 5 seconds and the worker stops after 1 second
+NOTE: The value sent to channel should match the channel type (eg chan bool, chan string), stop <- 1 will also work for bool though
+
+## Method 2: Using Channel Closure as a Termination Signal
+- Goroutine termination by utilizing the close fucntion on a channel
+
+#### Example:
+```go
+func processStop(stop <-chan struct{}) {
+	for {
+		select {
+		case <-stop:
+			println("Stopped")
+			return
+		default:
+			println("Processing")
+			time.Sleep(1 * time.Second)
+		}
+	}
+}
+
+func main() {
+	stop := make(chan struct{})
+	go processStop(stop)
+
+	time.Sleep(5 * time.Second)
+	close(stop)						// Using Closure
+	time.Sleep(5 * time.Second)
+}
+
+```
+> OUTPUT: </br>
+> Processing </br>
+> Processing </br>
+> Processing </br>
+> Processing </br>
+> Processing </br>
+> Stopped </br>
+
+Here we can see that the goroutine stops after 5 Processing statements then stops after the stop channel is closed
+
 
 ### Constants
 
@@ -2074,3 +2228,223 @@ fmt.Println(s, ok)	// s = ""; ok = false
 > OUTPUT:  false
 
 Here we can see on wrong asserstion `s` gets the default value of the type it was checking
+
+.....
+ // TODO: Add this LATER
+list/slice == comarision
+creation of new struct using &
+.....
+
+
+# Concurrancy with WaitGroup
+- To wait for multiple goroutines to finish, we can use a `WaitGroup`
+
+### Methods
+- `Add(int)` method is used to add the number of goroutines to wait for
+- `Done()` method is used to signal that a goroutine is done. Decrements the counter by 1
+- `Wait()` method is used to block until the counter is 0
+
+> NOTE: You need to import the `sync` package to use the `WaitGroup`. The Counter starts at 0
+
+### Syntax
+```go
+var wg sync.WaitGroup
+wg.Add(1)
+go func() {
+	defer wg.Done()
+	// code
+}()
+
+wg.Wait()
+```
+
+### Example 1
+```go
+package main
+
+import "sync"
+
+func printRam(wg *sync.WaitGroup) {
+	for i := 0; i < 3; i++ {
+		println("RAM")
+	}
+	wg.Done()				// Decrements the counter by 1
+}
+
+func printSita(wg *sync.WaitGroup) {
+	for i := 0; i < 2; i++ {
+		println("Sita")
+	}
+	wg.Done()				// Decrements the counter by 1
+}
+
+func main() {
+	var wg sync.WaitGroup		// can use wg:=sync.WaitGroup{} instead
+
+	wg.Add(2)			// adds 2 goroutines to wait for
+	
+	go printRam(&wg)		// counter is 1 after this
+	go printSita(&wg)		// counter is 0 after this
+	
+	wg.Wait()			// waits until the counter for goroutines is 0
+	println("Done")
+}
+```
+> OUTPUT: </br>
+> SITA </br>
+> SITA </br>
+> RAM </br>
+> RAM </br>
+> RAM </br>
+> Done </br>
+
+Here the order of SITA or RAM is not fixed as the goroutines run in parallel
+
+### Example 2: Using a loop
+```go
+package main
+
+import "sync"
+
+func main() {
+	wg:=sync.WaitGroup{}
+
+	for i:=0; i<3; i++ {
+		wg.Add(1)			// Increment the counter by 1
+		go doSomething(&wg,i)	// Run the goroutine and decrement the counter by 1
+	}
+	wg.Wait()			// Check if the counter is 0, then continue
+	println("Done")
+}
+
+func doSomething(wg *sync.WaitGroup, i int) {
+	println("Doing something", i)
+	wg.Done()
+}
+```
+> OUTPUT: </br>
+> Doing something 2</br>
+> Doing something 1</br>
+> Doing something 0</br>
+> Done </br>
+
+### Example 3: Terminating a goroutine using Shared Variable
+```go
+package main
+
+import (
+	"sync"
+	"time"
+)
+
+func main() {
+	var stopIT bool
+	var wg sync.WaitGroup
+
+	wg.Add(1)
+	go process(&wg, &stopIT)
+
+	time.Sleep(3 * time.Second)			// makes main fucntion wait for 3 seconds
+	stopIT = true						// Shared variable to stop the goroutine
+	wg.Wait()				
+	print("Done")
+}
+
+func process(wg *sync.WaitGroup, stopIT *bool) {
+	defer wg.Done()
+
+	for {
+		println("Processing")	// This will run until the stopIT is true every second in the background
+		time.Sleep(1 * time.Second)
+
+		if *stopIT {
+			println("Stopped Goroutine")
+			return
+		}
+	}
+}
+```
+> OUTPUT: </br>
+> Processing </br>
+> Processing </br>
+> Processing </br>
+> Stopped Goroutine </br>
+> Done </br>
+
+- If we have number of `wg.Done()` > `wg.Add()` we get a panic as the counter goes below 0
+- If we have number of `wg.Add()` > `wg.Done()` we get a deadlock as the counter never reaches 0
+
+-----
+Unit 2 End
+-----
+
+# Race Condition and Mutual Exclusion
+
+- Race condition is when the output of a program depends on the order of execution of the goroutines
+- Occurs when multiple goroutines access the same resource
+- This can lead to unpredictable results
+
+- Mutual Exclusion is a technique to ensure that only one goroutine can access a resource at a time
+- This is done using a `mutex` or `lock`
+
+## Example: 1 for Race Condition
+```go
+package main
+
+import "time"
+
+var balance int
+
+func main() {
+	go func() {
+		Deposit(200)                    // A1
+		println("Balance =", Balance()) // A2	200
+	}()
+
+	go Deposit(100) // B
+	time.Sleep(3 * time.Second)
+	print("Main Goroutine finished")
+}
+
+func Deposit(amount int) {
+	balance = balance + amount
+}
+
+func Balance() int {
+	return balance
+}
+```
+
+> OUTPUT: </br>
+> Balance = 200 </br>
+> Main Goroutine finished </br>
+
+Here we can see that the balance is updated by the goroutines so they are no longer guaranteed to giev the right answer
+So Balance could be 300 if the goroutine B finishes first or 200 if the goroutine A finishes first
+
+THIS IS CALLED DATA RACE
+
+
+### Example 2: For Race Condition 
+```go
+package main
+
+func main() {
+	var data int		
+	go func() {
+		data++			// A1
+	}
+	
+	if data == 0 {
+		println(data)	// A2
+	}
+}
+```
+> OUTPUT: </br>
+> 0
+
+Here data may be 1 or 0 depending on if A1 or A2 runs first
+
+# Race Condition Effects
+## Deadlocks
+
