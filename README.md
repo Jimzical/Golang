@@ -19,7 +19,7 @@ These are the notes im making for the `Go programming language`
 		- [Syntax](#syntax)
 		- [Example](#example-1)
 		- [Example: Using Global variables/ Package level variables](#example-using-global-variables-package-level-variables)
-- [IF conditions](#if-conditions)
+- [If conditions](#if-conditions)
 		- [Example](#example-2)
 - [Constants](#constants)
 		- [Syntax](#syntax-1)
@@ -65,17 +65,20 @@ These are the notes im making for the `Go programming language`
 - [Pointers](#pointers)
 		- [Example](#example-8)
 - [Structs](#structs)
+		- [Syntax](#syntax-4)
 - [Arrays](#arrays)
+		- [Example: Ellipsis `...` `(Imp)`](#example-ellipsis--imp)
+		- [Example: Comparisons `(Imp)`](#example-comparisons-imp)
 - [Slice](#slice)
 		- [Example](#example-9)
 - [Appends](#appends)
 		- [Example](#example-10)
 - [Maps](#maps)
-		- [Syntax](#syntax-4)
+		- [Syntax](#syntax-5)
 		- [Example](#example-11)
 - [Default Values](#default-values)
 - [Functions](#functions)
-		- [Syntax](#syntax-5)
+		- [Syntax](#syntax-6)
 		- [Example: Basic](#example-basic)
 		- [Example: Multiple return values](#example-multiple-return-values)
 		- [Example: Named return values](#example-named-return-values)
@@ -91,21 +94,21 @@ These are the notes im making for the `Go programming language`
 	- [Varidic Functions](#varidic-functions)
 		- [Example](#example-14)
 - [Deferred Fucntions](#deferred-fucntions)
-		- [Syntax](#syntax-6)
+		- [Syntax](#syntax-7)
 		- [Example](#example-15)
 		- [Example: LIFO](#example-lifo)
 - [Panic Function](#panic-function)
-		- [Syntax](#syntax-7)
+		- [Syntax](#syntax-8)
 		- [Example](#example-16)
 - [Recover Function](#recover-function)
-		- [Syntax](#syntax-8)
+		- [Syntax](#syntax-9)
 		- [Example](#example-17)
 - [Call by Reference](#call-by-reference)
 		- [Example](#example-18)
 - [Call by Value](#call-by-value)
 		- [Example](#example-19)
 - [Method Declaration](#method-declaration)
-		- [Syntax](#syntax-9)
+		- [Syntax](#syntax-10)
 		- [Example](#example-20)
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
@@ -113,24 +116,24 @@ These are the notes im making for the `Go programming language`
 - [Concurancy](#concurancy)
 - [Parallisim](#parallisim)
 - [Goroutines](#goroutines)
-		- [Syntax](#syntax-10)
+		- [Syntax](#syntax-11)
 		- [Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern](#example--we-run-this-with-the-go-keyword-and-without-the-go-keyword-we-can-see-that-the-go-routine-runs-in-the-background-and-prints-as-soon-as-it-can-while-normal-function-in-its-own-way-making-it-interleaved-with-a-pattern)
 		- [Example: With both as goroutines we get random interleaved output](#example-with-both-as-goroutines-we-get-random-interleaved-output)
 		- [Example: No sleep function](#example-no-sleep-function)
 		- [Advantages of Goroutines](#advantages-of-goroutines)
 - [Channels](#channels)
 	- [Operations](#operations-1)
-		- [Syntax](#syntax-11)
+		- [Syntax](#syntax-12)
 		- [Example 1: Creating a channel](#example-1-creating-a-channel)
 		- [Example 2: Sending and Receiving from Channels](#example-2-sending-and-receiving-from-channels)
 		- [Example 3: Sending and Receiving from Channels](#example-3-sending-and-receiving-from-channels)
 	- [Advantages of Channels](#advantages-of-channels)
 	- [Properties of Channels](#properties-of-channels)
 	- [Unbuffered Channels](#unbuffered-channels)
-		- [Syntax](#syntax-12)
+		- [Syntax](#syntax-13)
 		- [Example: For a synchronous channel](#example-for-a-synchronous-channel)
 	- [Buffered Channels](#buffered-channels)
-		- [Syntax](#syntax-13)
+		- [Syntax](#syntax-14)
 		- [Example](#example-22)
 		- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
 		- [Example: Not sending any values](#example-not-sending-any-values)
@@ -140,7 +143,7 @@ These are the notes im making for the `Go programming language`
 		- [For](#for)
 		- [ForEach](#foreach)
 - [Multiplexing with select](#multiplexing-with-select)
-		- [Syntax](#syntax-14)
+		- [Syntax](#syntax-15)
 		- [Example](#example-24)
 	- [Cancellation](#cancellation)
 		- [Method 1: Using a Cancellation Channel](#method-1-using-a-cancellation-channel)
@@ -151,10 +154,10 @@ These are the notes im making for the `Go programming language`
 			- [Iota](#iota)
 			- [Example: `iota`](#example-iota)
 - [Interfaces](#interfaces)
-		- [Syntax](#syntax-15)
+		- [Syntax](#syntax-16)
 		- [Example](#example-27)
 	- [Empty Interface (IMPORTANT)](#empty-interface-important)
-		- [Syntax](#syntax-16)
+		- [Syntax](#syntax-17)
 		- [Example: Simple usage](#example-simple-usage)
 		- [Example: Proper an empty interface](#example-proper-an-empty-interface)
 	- [Interface as a Contract](#interface-as-a-contract)
@@ -162,12 +165,12 @@ These are the notes im making for the `Go programming language`
 	- [Interface Types](#interface-types)
 		- [Example](#example-28)
 - [Type Assertion](#type-assertion)
-		- [Syntax](#syntax-17)
+		- [Syntax](#syntax-18)
 		- [Example: Basic Assertion that is Correct](#example-basic-assertion-that-is-correct)
 		- [Example: Basic Assertion that is Incorrect](#example-basic-assertion-that-is-incorrect)
 - [Concurrancy with WaitGroup](#concurrancy-with-waitgroup)
 		- [Methods](#methods)
-		- [Syntax](#syntax-18)
+		- [Syntax](#syntax-19)
 		- [Example 1](#example-1)
 		- [Example 2: Using a loop](#example-2-using-a-loop)
 		- [Example 3: Terminating a goroutine using Shared Variable](#example-3-terminating-a-goroutine-using-shared-variable)
@@ -204,21 +207,22 @@ These are the notes im making for the `Go programming language`
 	- [Bounded Channel Approach](#bounded-channel-approach)
 		- [Example: Using a Bounded Channel](#example-using-a-bounded-channel)
 	- [GOMAXPROCS](#gomaxprocs)
-		- [Syntax](#syntax-19)
+		- [Syntax](#syntax-20)
 	- [Context](#context)
 		- [`Background` Context](#background-context)
-			- [Syntax](#syntax-20)
-		- [`TODO` Context](#todo-context)
 			- [Syntax](#syntax-21)
+		- [`TODO` Context](#todo-context)
+			- [Syntax](#syntax-22)
 	- [Weighted Semaphore](#weighted-semaphore)
 		- [Weighted Semaphore Method](#weighted-semaphore-method)
-			- [Syntax](#syntax-22)
-		- [Aquire Semaphore Method](#aquire-semaphore-method)
 			- [Syntax](#syntax-23)
-		- [Release Semaphore Method](#release-semaphore-method)
+		- [Aquire Semaphore Method](#aquire-semaphore-method)
 			- [Syntax](#syntax-24)
-		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+		- [Release Semaphore Method](#release-semaphore-method)
 			- [Syntax](#syntax-25)
+		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+			- [Syntax](#syntax-26)
+		- [Example: Using a Weighted Semaphore](#example-using-a-weighted-semaphore)
 
 
 # Basic
@@ -416,7 +420,7 @@ var b= 20			// <---- b is a global variable
 
 We can see here that the code outside the function runs first and then the code inside the function runs. This allows for global variables to be used inside the function
 
-# IF conditions
+# If conditions
 
 - Same as C (almost)
 - "{" cannot be at new line
@@ -950,6 +954,31 @@ func main() {
 - Each value is called a field
 - `If all fields of a struct are comparable. the struct is also comparable using == or !=`
 
+### Syntax
+```go
+// Creating a struct
+type StructName struct {
+	field1 type1
+	field2 type2
+}
+
+// Creating a variable of the struct
+var variable_name StructName
+
+// Assigning values to the struct
+variable_name.field1 = value1
+
+// Creating a struct with values
+variable_name := StructName{field1: value1, field2: value2}
+
+// Creating a struct with values without field names
+variable_name := StructName{value1, value2}
+
+// IMP
+// Creating a new instance of the struct
+variable_name  = &StructName{value1, value2}
+```
+
 ```go
 package main
 
@@ -981,12 +1010,29 @@ var r [3]int = [3]int{1,2}
 println(r[2])	// 0 is the output
 ```
 
+
+### Example: Ellipsis `...` `(Imp)`
 ```go
 q:= [...]int{1,2,3} // automatically sets that numebrs
 printf("%T",q)	// [3]int
 
 r:=[...]int{99:-1}		// sets a list with 99 0s and -1 at the end 
 ```
+
+
+### Example: Comparisons `(Imp)`
+```go
+a := [4]int{1,2,3,4}
+b := [...]int{1,2,3,4}
+c := [4]int{1,2,3,5}
+println(a==b)	// true
+println(a==c)	// false
+println(b==c)	// false
+```
+> OUTPUT: </br>
+> true </br>
+> false </br>
+> false </br>
 
 # Slice
 - Varibale lenght sequence of elemetns
@@ -1544,6 +1590,7 @@ func main() {
 - When a program starts a goroutine calls the main function, which we call the main goroutine
 - New goroutines are created using the `go` keyword followed by a function invocation
 - This causes it to be called in a new goroutine
+- Goroutines are nonpreemptive 
 
 ### Syntax
 ```go
@@ -2271,11 +2318,6 @@ fmt.Println(s, ok)	// s = ""; ok = false
 
 Here we can see on wrong asserstion `s` gets the default value of the type it was checking
 
-.....
- // TODO: Add this LATER
-list/slice == comarision
-creation of new struct using &
-.....
 
 
 # Concurrancy with WaitGroup
@@ -2921,3 +2963,61 @@ if sem.TryAcquire(1) {
 	// failure
 }
 ```
+
+
+### Example: Using a Weighted Semaphore
+```go
+package main
+
+import (
+	"context"
+	"log"
+	"time"
+
+	"golang.org/x/sync/semaphore"
+)
+
+func main() {
+	pool := semaphore.NewWeighted(2)
+	go swim("A", pool)
+	go swim("B", pool)
+	go swim("C", pool)
+	go swim("D", pool)
+
+	// For brevity, better use sync.WaitGroup
+	time.Sleep(5 * time.Second)
+	log.Println("Main: Done, shutting down")
+}
+
+func swim(name string, pool *semaphore.Weighted) {
+	log.Printf("%v: I want to swim\n", name)
+
+	// In real applications, pass in your context such as HTTP request context
+	ctx := context.Background()
+
+	// We can also Acquire/Release more than 1 when the workloads consume different amount of resources
+	if err := pool.Acquire(ctx, 1); err != nil {
+		log.Printf("%v: Ops, something went wrong! I cannot acquire a lane\n", name)
+		return
+	}
+
+	log.Printf("%v: I got a lane, I'm swimming\n", name)
+	time.Sleep(time.Second)
+	log.Printf("%v: I'm done. Releasing my lane\n", name)
+	pool.Release(1)
+}
+```
+> 2024/06/06 15:27:45 D: I want to swim </br>
+> 2024/06/06 15:27:45 D: I got a lane, I'm swimming </br>
+> 2024/06/06 15:27:45 A: I want to swim </br>
+> 2024/06/06 15:27:45 A: I got a lane, I'm swimming </br>
+> 2024/06/06 15:27:45 B: I want to swim </br>
+> 2024/06/06 15:27:45 C: I want to swim </br>
+> 2024/06/06 15:27:46 A: I'm done. Releasing my lane </br>
+> 2024/06/06 15:27:46 B: I got a lane, I'm swimming </br>
+> 2024/06/06 15:27:46 D: I'm done. Releasing my lane </br>
+> 2024/06/06 15:27:46 C: I got a lane, I'm swimming </br>
+> 2024/06/06 15:27:47 B: I'm done. Releasing my lane </br>
+> 2024/06/06 15:27:47 C: I'm done. Releasing my lane </br>
+> 2024/06/06 15:27:50 Main: Done, shutting down
+
