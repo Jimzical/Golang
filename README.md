@@ -203,6 +203,22 @@ These are the notes im making for the `Go programming language`
 - [Semaphore](#semaphore)
 	- [Bounded Channel Approach](#bounded-channel-approach)
 		- [Example: Using a Bounded Channel](#example-using-a-bounded-channel)
+	- [GOMAXPROCS](#gomaxprocs)
+		- [Syntax](#syntax-19)
+	- [Context](#context)
+		- [`Background` Context](#background-context)
+			- [Syntax](#syntax-20)
+		- [`TODO` Context](#todo-context)
+			- [Syntax](#syntax-21)
+	- [Weighted Semaphore](#weighted-semaphore)
+		- [Weighted Semaphore Method](#weighted-semaphore-method)
+			- [Syntax](#syntax-22)
+		- [Aquire Semaphore Method](#aquire-semaphore-method)
+			- [Syntax](#syntax-23)
+		- [Release Semaphore Method](#release-semaphore-method)
+			- [Syntax](#syntax-24)
+		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+			- [Syntax](#syntax-25)
 
 
 # Basic
@@ -2786,5 +2802,122 @@ func main() {
 			<-sem			// release token
 		}()
 	}
+}
+```
+
+## GOMAXPROCS
+
+- The `GOMAXPROCS` environment variable limits the number of OS threads that can execute Go code simultaneously
+- The default value is the number of CPUs on the machine. If n < 1, it does not change the current setting
+- Using this we can optimize the concurancy and parallelism.
+- requires the `runtime` package to be imported
+
+### Syntax
+```go
+var n int = runtime.GOMAXPROCS(n)
+```	
+
+### Example
+```go
+package main
+
+import "runtime"
+func main() {
+	curVal := runtime.GOMAXPROCS(0)
+	println(curVal)
+
+	maxCore := runtime.NumCPU()
+	println(maxCore)
+	new := maxCore - 2
+	runtime.GOMAXPROCS(new)
+	curVal = runtime.GOMAXPROCS(0)
+	println(curVal)
+}
+```
+> OUTPUT: </br>
+> 12 </br>
+> 12 </br>
+> 10 </br>
+
+## Context
+- The `context` package provides a way to pass cancellation signals, deadlines, and other request-scoped values across API boundaries and between processes
+- There are two functions
+
+### `Background` Context
+- This is the root of the context tree
+- Used when there is no parent context
+- Retruns a non-nil, empty Context. 
+- It is never cancelled, has no values, and has no deadline
+- Typically used for main, init, and tests, and as the top-level context for incoming requests
+
+#### Syntax
+```go
+ctx := context.Background()
+```
+
+### `TODO` Context
+- This is used when a context is needed but there isn't one available
+- It is used when a function requires a context but the caller doesn't have one
+- It is used to avoid nil pointers
+
+#### Syntax
+```go
+ctx := context.TODO()
+```
+
+## Weighted Semaphore
+- A weighted semaphore is a semaphore that allows multiple units to be acquired or released at once
+- requires the `golang.org/x/sync/semaphore` package to be imported
+
+### Weighted Semaphore Method
+- `func NewWeighted(n int) *Weighted`
+- This creates a new weighted semaphore with the given initial value
+
+#### Syntax
+```go
+sem := semaphore.NewWeighted(1)	// creates a new weighted semaphore with an initial value of 1
+```
+
+### Aquire Semaphore Method
+- `func (s *Weighted) Aquire(ctx context.Context, n int) error`
+- This acquires n units from the semaphore, blocking until they are available or ctx is done
+- On success, returns nil.
+- On failure, returns ctx.Err()
+- If `ctx` already done, Acquire may still succeed without blocking
+
+#### Syntax
+```go
+sem := semaphore.NewWeighted(1)
+if err := sem.Acquire(ctx, 1); err != nil {
+	// handle error
+}
+```
+
+
+### Release Semaphore Method
+- `func (s *Weighted) Release(n int)`
+- This releases n units back to the semaphore
+- It panics if n is negative or if n exceeds the number of units held by the semaphore
+
+#### Syntax
+```go
+sem := semaphore.NewWeighted(1)
+sem.Release(1)
+```
+
+
+### TryAcquire Semaphore Method 
+- `func (s *Weighted) TryAcquire(n int) bool`
+- This tries to acquire n units from the semaphore without blocking
+- On success, returns true
+- On failure, returns false
+
+#### Syntax
+```go
+sem := semaphore.NewWeighted(1)
+if sem.TryAcquire(1) {
+	// success
+} else {
+	// failure
 }
 ```

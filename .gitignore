@@ -1,1 +1,144 @@
 /tempCodeRunnerFile.go
+Go Notes/week1/hello_world.go
+Go Notes/week1/sumoftwo.go
+Go Notes/week1/Unit 1 - 01 Introduction.docx
+Go Notes/week1/Unit 1 - 01 Introduction.pdf
+Go Notes/week1/Unit 1 - 01 Introduction(1).docx
+Go Notes/week1/Unit 1 - 01 Introduction(2).docx
+Go Notes/week1/Unit 1 - 01 Introduction(3).docx
+Go Notes/week1/Unit 1 - 01 Introduction(4).docx
+Go Notes/week10/Empty_Interface.go
+Go Notes/week10/need_for_reflection.go
+Go Notes/week10/Reflection_Copy.go
+Go Notes/week10/Reflection_DeepEqual.go
+Go Notes/week10/Reflection_Field.go
+Go Notes/week10/Reflection_FieldByIndex.go
+Go Notes/week10/Reflection_FieldByName.go
+Go Notes/week10/Reflection_NumField.go
+Go Notes/week10/Reflection_Settable.go
+Go Notes/week10/Reflection_struct.go
+Go Notes/week10/Reflection_Swapper.go
+Go Notes/week10/Reflection_TypeOf.go
+Go Notes/week10/Reflection_ValueOf.go
+Go Notes/week10/Unit 4 - 10 Reflection.docx
+Go Notes/week10/Unit 4 - 10 Reflection.pdf
+Go Notes/week10/Unit 4 - 10 Reflection(1).docx
+Go Notes/week11/Unit 4 - 11 Low level programming.pdf
+Go Notes/week11/unsafe_Alignof.go
+Go Notes/week11/unsafe_Alignof1.go
+Go Notes/week11/unsafe_Pointer.go
+Go Notes/week11/unsafe_Pointer1.go
+Go Notes/week11/unsafe_Pointer2.go
+Go Notes/week11/unsafe_Sizeof.go
+Go Notes/week11/unsafe_Sizeof1.go
+Go Notes/week11/WebApp2.go
+Go Notes/week12/Debugging Golang with Delve - video link.docx
+Go Notes/week12/Debugging Golang with Delve.pdf
+Go Notes/week2/assignment.go
+Go Notes/week2/boilingF.go
+Go Notes/week2/fToc.go
+Go Notes/week2/iota_demo.go
+Go Notes/week2/iota_demo1.go
+Go Notes/week2/my_pkg.go
+Go Notes/week2/pkg_demo.go
+Go Notes/week2/pkg_demo(1).go
+Go Notes/week2/pkg.go
+Go Notes/week2/pointers.go
+Go Notes/week2/types.go
+Go Notes/week2/Unit 1 - 02 Program Structure.docx
+Go Notes/week2/Unit 1 - 02 Program Structure.pdf
+Go Notes/week2/variables.go
+Go Notes/week3/bitwise.go
+Go Notes/week3/Boolean.go
+Go Notes/week3/Complex.go
+Go Notes/week3/FloatingPoint.go
+Go Notes/week3/Integers.go
+Go Notes/week3/strings.go
+Go Notes/week3/Unit 1 - 03 Data Types.docx
+Go Notes/week3/Unit 1 - 03 Data Types.pdf
+Go Notes/week4/anonymous.go
+Go Notes/week4/anonymous1.go
+Go Notes/week4/defer.go
+Go Notes/week4/fn_values.go
+Go Notes/week4/function_1.go
+Go Notes/week4/function_2.go
+Go Notes/week4/function_3.go
+Go Notes/week4/function_4.go
+Go Notes/week4/function_5.go
+Go Notes/week4/methods.go
+Go Notes/week4/methods1.go
+Go Notes/week4/panic.go
+Go Notes/week4/panic1.go
+Go Notes/week4/recover.go
+Go Notes/week4/recover1.go
+Go Notes/week4/recursion.go
+Go Notes/week4/recursion1.go
+Go Notes/week4/recursion2.go
+Go Notes/week4/recursion3.go
+Go Notes/week4/Unit 1 - 04 Functions and Methods.docx
+Go Notes/week4/Unit 1 - 04 Functions and Methods.pdf
+Go Notes/week4/Unit 1 - 04 Functions and Methods(1).docx
+Go Notes/week4/variadic.go
+Go Notes/week5/interface_assertion.go
+Go Notes/week5/interface_assertion1.go
+Go Notes/week5/interface_contracts.go
+Go Notes/week5/interface_error.go
+Go Notes/week5/interface_reader.go
+Go Notes/week5/interface_switch.go
+Go Notes/week5/interface_types.go
+Go Notes/week5/interface_values.go
+Go Notes/week5/interface1.go
+Go Notes/week5/interfaces.go
+Go Notes/week5/Unit 2 - 05 Interfaces.pdf
+Go Notes/week6/Buffered_Channel_1.go
+Go Notes/week6/Buffered_Channel_2.go
+Go Notes/week6/Buffered_receive.go
+Go Notes/week6/Channels_1.go
+Go Notes/week6/Channels_2.go
+Go Notes/week6/Goroutine_0.go
+Go Notes/week6/Goroutine_1.go
+Go Notes/week6/Goroutine_2.go
+Go Notes/week6/Goroutine_spinner.go
+Go Notes/week6/pipeline.go
+Go Notes/week6/Unidirectional_channel.go
+Go Notes/week6/Unit 2 - 06 Goroutines and Channels.pdf
+Go Notes/week7/Cancellation_1.go
+Go Notes/week7/Cancellation_2.go
+Go Notes/week7/Cancellation_2a.go
+Go Notes/week7/Cancellation_2b.go
+Go Notes/week7/Cancellation_3.go
+Go Notes/week7/crawl1.go
+Go Notes/week7/crawl2.go
+Go Notes/week7/crawl3.go
+Go Notes/week7/crawler.txt
+Go Notes/week7/Looping_in_parallel.go
+Go Notes/week7/Looping_in_parallel1.go
+Go Notes/week7/Multiplexing_select.go
+Go Notes/week7/Multiplexing_select1.go
+Go Notes/week7/Multiplexing_select2.go
+Go Notes/week7/Multiplexing_select3.go
+Go Notes/week7/Unit 2 - 07 Looping in parallel and Multiplexing with select.docx
+Go Notes/week7/Unit 2 - 07 Looping in parallel and Multiplexing with select.pdf
+Go Notes/week8/atomic1.go
+Go Notes/week8/atomic2.go
+Go Notes/week8/race_avoidance_channel.go
+Go Notes/week8/race_avoidance_channel1.go
+Go Notes/week8/race_avoidance_lock.go
+Go Notes/week8/race_avoidance_sema.go
+Go Notes/week8/race1.go
+Go Notes/week8/race2.go
+Go Notes/week8/race3.go
+Go Notes/week8/race4.go
+Go Notes/week8/race5.go
+Go Notes/week8/racy.go
+Go Notes/week8/Unit 3 - 08 Race condition and Mutual exclusion.docx
+Go Notes/week8/Unit 3 - 08 Race condition and Mutual exclusion.pdf
+Go Notes/week8/Unit 3 - 08 Race condition and Mutual exclusion(1).docx
+Go Notes/week8/Unit 3 - 08 Race condition and Mutual exclusion(2).docx
+Go Notes/week9/gomaxprocs_testing.go
+Go Notes/week9/semaphores_1.go
+Go Notes/week9/semaphores_1a.go
+Go Notes/week9/semaphores_2.go
+Go Notes/week9/Unit 3 - 09 Semaphores and Threads.docx
+Go Notes/week9/Unit 3 - 09 Semaphores and Threads.pdf
+Go Notes/week9/Unit 3 - 09 Semaphores and Threads(1).docx
