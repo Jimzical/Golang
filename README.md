@@ -2,7 +2,6 @@
 
 These are the notes im making for the `Go programming language` 
 
-
 # Table of Contents
 - [Go programming language](#go-programming-language)
 - [Table of Contents](#table-of-contents)
@@ -178,10 +177,13 @@ These are the notes im making for the `Go programming language`
 - [Race Condition and Mutual Exclusion](#race-condition-and-mutual-exclusion)
 	- [Example: 1 for Race Condition](#example-1-for-race-condition)
 		- [Example 2: For Race Condition](#example-2-for-race-condition)
-	- [Race Condition Effects	//TODO: add later](#race-condition-effectstodo-add-later)
+	- [Race Condition Effects](#race-condition-effects)
 		- [Deadlocks](#deadlocks)
 		- [Data Corruption](#data-corruption)
-	- [Preventing Deadlocks		//TODO: more later](#preventing-deadlockstodo-more-later)
+		- [Security Vulnerabilities](#security-vulnerabilities)
+		- [Performance Degradation](#performance-degradation)
+	- [Preventing Deadlocks](#preventing-deadlocks)
+		- [Methods](#methods-1)
 		- [Example: Using a Monitor](#example-using-a-monitor)
 - [Mutual Exclusion](#mutual-exclusion)
 	- [Binary Semaphores](#binary-semaphores)
@@ -223,7 +225,10 @@ These are the notes im making for the `Go programming language`
 		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
 			- [Syntax](#syntax-26)
 		- [Example: Using a Weighted Semaphore](#example-using-a-weighted-semaphore)
-
+- [Goroutines and Threads](#goroutines-and-threads)
+	- [Difference between Goroutines and Threads](#difference-between-goroutines-and-threads)
+	- [Goroutines Growable Stacks](#goroutines-growable-stacks)
+	- [Goroutines Scheduling](#goroutines-scheduling)
 
 # Basic
 To create a basic program
@@ -2529,16 +2534,33 @@ func main() {
 
 Here data may be 1 or 0 depending on if A1 or A2 runs first
 
-## Race Condition Effects	//TODO: add later
+## Race Condition Effects	
 ### Deadlocks
-
+- Can lead to a deadlock
+- Happens when two or more goroutines are waiting for each other to release a resource
 ### Data Corruption
+- Can lead to data corruption when multiple goroutines write to the same resource
 
-## Preventing Deadlocks		//TODO: more later
+### Security Vulnerabilities
+- Can lead to security vulnerabilities where an attack gains unauthorized access to a resource
+
+### Performance Degradation
+- Can lead to performance degradation when multiple goroutines are waiting for a resource
+
+
+## Preventing Deadlocks		
 
 - Avoiding direct access to shared variables
+- "Do not communicate by sharing memory; instead, share memory by communicating" - Rob Pike
 - Use a Channel to send a request a query/update a variable to goroutine 
 - A goroutine that manages access called a `monitor` goroutine
+
+### Methods
+- Using a channel to send a request to a goroutine
+- Use locks or semaphores to manage access to shared resources 
+- Atomic operations to ensure that operations on shared variables are atomic
+- Avoid global variables as they can be accessed by multiple goroutines
+
 
 ### Example: Using a Monitor
 ```go
@@ -3021,3 +3043,21 @@ func swim(name string, pool *semaphore.Weighted) {
 > 2024/06/06 15:27:47 C: I'm done. Releasing my lane </br>
 > 2024/06/06 15:27:50 Main: Done, shutting down
 
+# Goroutines and Threads
+
+## Difference between Goroutines and Threads
+| Category | Goroutines | Threads |
+|----------|------------|---------|
+| Stack Management | <ul><li>Can grow and shrink their stack as needed</li></ul> | <ul><li>Have a fixed stack size</li></ul> |
+| Scheduling | <ul><li>Scheduled by the Go runtime</li><li>Multiplexed onto a small number of OS threads</li><li>Lightweight</li></ul> | <ul><li>Scheduled by the OS</li><li>Scheduled by the OS kernel</li><li>Heavyweight comparatively</li></ul> |
+| Concurrency Model | <ul><li>Use a `communicating sequential processes` (CSP) model</li></ul> | <ul><li>Use a `shared memory` model</li></ul> |
+| Performance | <ul><li>Faster to create and manage</li><li>More efficient</li><li>Enable high concurrency and scalability</li></ul> | <ul><li>Slower to create and manage</li><li>Less efficient</li><li>Enable low concurrency and scalability comparatively</li></ul> |
+
+## Goroutines Growable Stacks
+- Goroutines have growable stacks
+- The stack starts at 2KB and can grow to 1GB
+- It is like an OS thread but more lightweight as it is not always 2MB
+
+## Goroutines Scheduling
+- Go scheduler does not periodically interrupt by a hardware timer like OS threads. Instead done implicitly by certain Go constructs
+- Because it does not need to switch to kernel context, it is faster than OS threads
