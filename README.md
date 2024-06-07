@@ -15,80 +15,86 @@ These are the notes im making for the `Go programming language`
 - [Declarations](#declarations)
 	- [Predeclared Names](#predeclared-names)
 - [Variables](#variables)
-		- [Syntax](#syntax)
-		- [Example](#example-1)
+	- [Syntax](#syntax)
+	- [Examples](#examples)
+		- [Example: Basic](#example-basic)
 		- [Example: Using Global variables/ Package level variables](#example-using-global-variables-package-level-variables)
 - [If conditions](#if-conditions)
-		- [Example](#example-2)
+	- [Syntax](#syntax-1)
+	- [Example](#example-1)
 - [Constants](#constants)
-		- [Syntax](#syntax-1)
-		- [Example: using a constant](#example-using-a-constant)
+	- [Syntax](#syntax-2)
+	- [Example: using a constant](#example-using-a-constant)
 - [Operations](#operations)
 	- [Arithemetic Operations](#arithemetic-operations)
-		- [Example](#example-3)
+		- [Example](#example-2)
 	- [Comparison Operations](#comparison-operations)
 	- [Bitwise Binary Orperations](#bitwise-binary-orperations)
 	- [Logical Operations](#logical-operations)
 	- [Assignment Operations](#assignment-operations)
 	- [Other Operations](#other-operations)
 - [Integers](#integers)
-		- [Syntax](#syntax-2)
-	- [Signed Integers](#signed-integers)
-	- [Unsigned Integers](#unsigned-integers)
-	- [Type casting](#type-casting)
-	- [Type Casting Problems](#type-casting-problems)
+	- [Syntax](#syntax-3)
+	- [Examples](#examples-1)
+		- [Example: Signed Integers](#example-signed-integers)
+		- [Example: Unsigned Integers](#example-unsigned-integers)
+	- [Type Casting](#type-casting)
+		- [Syntax](#syntax-4)
+		- [Example: Type casting (Correct)](#example-type-casting-correct)
+		- [Example: Type casting Problems (Incorrect Print)](#example-type-casting-problems-incorrect-print)
+		- [Example: Type Casting Problems (int32 int64 addition)](#example-type-casting-problems-int32-int64-addition)
 - [Floating Type Numbers](#floating-type-numbers)
 	- [Max Values are in math package](#max-values-are-in-math-package)
-		- [Examples](#examples)
+		- [Examples](#examples-2)
 	- [Defaults](#defaults)
 - [Complex Numbers](#complex-numbers)
-		- [Syntax](#syntax-3)
-		- [Example](#example-4)
+	- [Syntax](#syntax-5)
+	- [Example](#example-3)
 - [Boolean](#boolean)
 	- [Basic usage](#basic-usage)
 	- [Using in IF conditions](#using-in-if-conditions)
 - [Strings](#strings)
 	- [Substring](#substring)
-		- [Example](#example-5)
+		- [Example](#example-4)
 		- [Example Assigning](#example-assigning)
 	- [Appending](#appending)
 		- [Example: connecting](#example-connecting)
 		- [Example: appending](#example-appending)
 	- [String Integer Conversions](#string-integer-conversions)
-		- [Example](#example-6)
+		- [Example](#example-5)
 - [For Loops](#for-loops)
-	- [Syntax](#syntax-4)
-	- [Examples](#examples-1)
-		- [Example: Basic](#example-basic)
+	- [Syntax](#syntax-6)
+	- [Examples](#examples-3)
+		- [Example: Basic](#example-basic-1)
 		- [Example where `i` is not required so it is `ommited`](#example-where-i-is-not-required-so-it-is-ommited)
 		- [Example where `for` is used for lists](#example-where-for-is-used-for-lists)
 		- [Example infinite loop](#example-infinite-loop)
 - [Pointers](#pointers)
-	- [Syntax](#syntax-5)
-	- [Example](#example-7)
-- [Structs](#structs)
-	- [Syntax](#syntax-6)
-	- [Example](#example-8)
-- [Arrays](#arrays)
 	- [Syntax](#syntax-7)
-	- [Examples](#examples-2)
-		- [Example: Basic](#example-basic-1)
+	- [Example](#example-6)
+- [Structs](#structs)
+	- [Syntax](#syntax-8)
+	- [Example](#example-7)
+- [Arrays](#arrays)
+	- [Syntax](#syntax-9)
+	- [Examples](#examples-4)
+		- [Example: Basic](#example-basic-2)
 		- [Example: Ellipsis `...` `(Imp)`](#example-ellipsis--imp)
 		- [Example: Comparisons `(Imp)`](#example-comparisons-imp)
 - [Slice](#slice)
-	- [Syntax](#syntax-8)
-	- [Example](#example-9)
-- [Appends](#appends)
-	- [Syntax](#syntax-9)
-	- [Example](#example-10)
-- [Maps](#maps)
 	- [Syntax](#syntax-10)
-	- [Example](#example-11)
+	- [Example](#example-8)
+- [Appends](#appends)
+	- [Syntax](#syntax-11)
+	- [Example](#example-9)
+- [Maps](#maps)
+	- [Syntax](#syntax-12)
+	- [Example](#example-10)
 - [Default Values](#default-values)
 - [Functions](#functions)
-	- [Syntax](#syntax-11)
-	- [Examples](#examples-3)
-		- [Example: Basic](#example-basic-2)
+	- [Syntax](#syntax-13)
+	- [Examples](#examples-5)
+		- [Example: Basic](#example-basic-3)
 		- [Example: Multiple return values](#example-multiple-return-values)
 		- [Example: Named return values](#example-named-return-values)
 	- [Passing by value](#passing-by-value)
@@ -97,103 +103,102 @@ These are the notes im making for the `Go programming language`
 		- [Example: Passing by reference](#example-passing-by-reference)
 	- [Annonyms Functions](#annonyms-functions)
 - [Return values](#return-values)
-		- [Example](#example-12)
+		- [Example](#example-11)
 	- [Bare Returns](#bare-returns)
-		- [Example](#example-13)
+		- [Example](#example-12)
 	- [Varidic Functions](#varidic-functions)
-		- [Example](#example-14)
+		- [Example](#example-13)
 - [Deferred Fucntions](#deferred-fucntions)
-	- [Syntax](#syntax-12)
-	- [Examples](#examples-4)
-		- [Example: Basic](#example-basic-3)
+	- [Syntax](#syntax-14)
+	- [Examples](#examples-6)
+		- [Example: Basic](#example-basic-4)
 		- [Example: LIFO](#example-lifo)
 - [Panic Function](#panic-function)
-	- [Syntax](#syntax-13)
-	- [Example](#example-15)
-- [Recover Function](#recover-function)
-	- [Syntax](#syntax-14)
-	- [Example](#example-16)
-- [Call by Reference](#call-by-reference)
-	- [Example](#example-17)
-- [Call by Value](#call-by-value)
-	- [Example](#example-18)
-- [Method Declaration](#method-declaration)
 	- [Syntax](#syntax-15)
-	- [Examples](#examples-5)
-		- [Example: Basic](#example-basic-4)
+	- [Example](#example-14)
+- [Recover Function](#recover-function)
+	- [Syntax](#syntax-16)
+	- [Example](#example-15)
+- [Call by Reference](#call-by-reference)
+	- [Example](#example-16)
+- [Call by Value](#call-by-value)
+	- [Example](#example-17)
+- [Method Declaration](#method-declaration)
+	- [Syntax](#syntax-17)
+	- [Examples](#examples-7)
+		- [Example: Basic](#example-basic-5)
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
-	- [Example](#example-19)
+	- [Example](#example-18)
 - [Concurancy](#concurancy)
 - [Parallisim](#parallisim)
 - [Goroutines](#goroutines)
-	- [Syntax](#syntax-16)
-	- [Examples](#examples-6)
+	- [Syntax](#syntax-18)
+	- [Examples](#examples-8)
 		- [Example- Basic](#example--basic)
 		- [Example: With both as goroutines we get random interleaved output](#example-with-both-as-goroutines-we-get-random-interleaved-output)
 		- [Example: No sleep function](#example-no-sleep-function)
 	- [Advantages of Goroutines](#advantages-of-goroutines)
 - [Channels](#channels)
 	- [Operations](#operations-1)
-	- [Syntax](#syntax-17)
-	- [Examples](#examples-7)
+	- [Syntax](#syntax-19)
+	- [Examples](#examples-9)
 		- [Example 1: Creating a channel](#example-1-creating-a-channel)
 		- [Example 2: Sending and Receiving from Channels](#example-2-sending-and-receiving-from-channels)
 		- [Example 3: Sending and Receiving from Channels](#example-3-sending-and-receiving-from-channels)
 	- [Advantages of Channels](#advantages-of-channels)
 	- [Properties of Channels](#properties-of-channels)
 	- [Unbuffered Channels](#unbuffered-channels)
-		- [Syntax](#syntax-18)
+		- [Syntax](#syntax-20)
 		- [Example: For a synchronous channel](#example-for-a-synchronous-channel)
 	- [Buffered Channels](#buffered-channels)
-		- [Syntax](#syntax-19)
-		- [Examples](#examples-8)
-			- [Example: Basic](#example-basic-5)
+		- [Syntax](#syntax-21)
+		- [Examples](#examples-10)
+			- [Example: Basic](#example-basic-6)
 			- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
 			- [Example: Not sending any values](#example-not-sending-any-values)
 	- [Unidirectional Channels](#unidirectional-channels)
-		- [Example](#example-20)
+		- [Example](#example-19)
 	- [Looping in Parallel](#looping-in-parallel)
 		- [For](#for)
 		- [ForEach](#foreach)
 - [Multiplexing with select](#multiplexing-with-select)
-	- [Syntax](#syntax-20)
-	- [Example](#example-21)
+	- [Syntax](#syntax-22)
+	- [Example](#example-20)
 - [Cancellation](#cancellation)
 	- [Method 1: Using a Cancellation Channel](#method-1-using-a-cancellation-channel)
-		- [Example](#example-22)
+		- [Example](#example-21)
 	- [Method 2: Using Channel Closure as a Termination Signal](#method-2-using-channel-closure-as-a-termination-signal)
-		- [Example:](#example-23)
+		- [Example:](#example-22)
 - [Constants](#constants-1)
 	- [Iota](#iota)
 	- [Example: `iota`](#example-iota)
 - [Interfaces](#interfaces)
-	- [Syntax](#syntax-21)
-	- [Example](#example-24)
+	- [Syntax](#syntax-23)
+	- [Example](#example-23)
 	- [Empty Interface (IMPORTANT)](#empty-interface-important)
-		- [Syntax](#syntax-22)
-		- [Examples](#examples-9)
+		- [Syntax](#syntax-24)
+		- [Examples](#examples-11)
 			- [Example: Simple usage](#example-simple-usage)
 			- [Example: Proper an empty interface](#example-proper-an-empty-interface)
 	- [Interface as a Contract (NOT COM)](#interface-as-a-contract-not-com)
 		- [Example: Using an interface as a contract](#example-using-an-interface-as-a-contract)
 	- [Interface Types](#interface-types)
-		- [Example](#example-25)
+		- [Example](#example-24)
 - [Type Assertion](#type-assertion)
-	- [Syntax](#syntax-23)
-	- [Examples](#examples-10)
+	- [Syntax](#syntax-25)
+	- [Examples](#examples-12)
 		- [Example: Basic Assertion that is Correct](#example-basic-assertion-that-is-correct)
 		- [Example: Basic Assertion that is Incorrect](#example-basic-assertion-that-is-incorrect)
 - [Concurrancy with WaitGroup](#concurrancy-with-waitgroup)
 	- [Methods](#methods)
-	- [Syntax](#syntax-24)
-	- [Examples](#examples-11)
+	- [Syntax](#syntax-26)
+	- [Examples](#examples-13)
 		- [Example 1](#example-1)
 		- [Example 2: Using a loop](#example-2-using-a-loop)
 		- [Example 3: Terminating a goroutine using Shared Variable](#example-3-terminating-a-goroutine-using-shared-variable)
-	- [Unit 2 End](#unit-2-end)
 - [Race Condition and Mutual Exclusion](#race-condition-and-mutual-exclusion)
-	- [Examples](#examples-12)
+	- [Examples](#examples-14)
 		- [Example: 1 for Race Condition](#example-1-for-race-condition)
 		- [Example 2: For Race Condition](#example-2-for-race-condition)
 	- [Race Condition Effects](#race-condition-effects)
@@ -220,7 +225,7 @@ These are the notes im making for the `Go programming language`
 		- [Add and Subtract](#add-and-subtract)
 		- [Swap](#swap)
 		- [Compare and Swap](#compare-and-swap)
-	- [Examples](#examples-13)
+	- [Examples](#examples-15)
 		- [Example 1: Using Atomic Operations](#example-1-using-atomic-operations)
 		- [Example 2: Using Atomic Operations with WaitGroup](#example-2-using-atomic-operations-with-waitgroup)
 - [Race Detector](#race-detector)
@@ -229,21 +234,21 @@ These are the notes im making for the `Go programming language`
 	- [Bounded Channel Approach](#bounded-channel-approach)
 		- [Example: Using a Bounded Channel](#example-using-a-bounded-channel)
 	- [GOMAXPROCS](#gomaxprocs)
-		- [Syntax](#syntax-25)
+		- [Syntax](#syntax-27)
 	- [Context](#context)
 		- [`Background` Context](#background-context)
-			- [Syntax](#syntax-26)
+			- [Syntax](#syntax-28)
 		- [`TODO` Context](#todo-context)
-			- [Syntax](#syntax-27)
+			- [Syntax](#syntax-29)
 	- [Weighted Semaphore](#weighted-semaphore)
 		- [Weighted Semaphore Method](#weighted-semaphore-method)
-			- [Syntax](#syntax-28)
-		- [Aquire Semaphore Method](#aquire-semaphore-method)
-			- [Syntax](#syntax-29)
-		- [Release Semaphore Method](#release-semaphore-method)
 			- [Syntax](#syntax-30)
-		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+		- [Aquire Semaphore Method](#aquire-semaphore-method)
 			- [Syntax](#syntax-31)
+		- [Release Semaphore Method](#release-semaphore-method)
+			- [Syntax](#syntax-32)
+		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+			- [Syntax](#syntax-33)
 		- [Example: Using a Weighted Semaphore](#example-using-a-weighted-semaphore)
 - [Goroutines and Threads](#goroutines-and-threads)
 	- [Difference between Goroutines and Threads](#difference-between-goroutines-and-threads)
@@ -253,7 +258,7 @@ These are the notes im making for the `Go programming language`
 	- [Types and Interfaces](#types-and-interfaces)
 - [Laws of Reflection](#laws-of-reflection)
 	- [1. Reflection goes from interface value to reflection object](#1-reflection-goes-from-interface-value-to-reflection-object)
-		- [Syntax](#syntax-32)
+		- [Syntax](#syntax-34)
 		- [Examples for `TypeOf`](#examples-for-typeof)
 			- [Example 1: Getting the Type of a Variable](#example-1-getting-the-type-of-a-variable)
 			- [Example 2: Getting the Value of a Variable](#example-2-getting-the-value-of-a-variable)
@@ -263,7 +268,7 @@ These are the notes im making for the `Go programming language`
 			- [Example 1: Basic](#example-1-basic)
 			- [Example 2: Difference btw Kind and Type](#example-2-difference-btw-kind-and-type)
 	- [2. Reflection goes from reflection object to interface value](#2-reflection-goes-from-reflection-object-to-interface-value)
-		- [Example](#example-26)
+		- [Example](#example-25)
 	- [3. To modify a reflection object, the value must be settable](#3-to-modify-a-reflection-object-the-value-must-be-settable)
 		- [Settability](#settability)
 			- [Example: Understanding Settablitity](#example-understanding-settablitity)
@@ -281,7 +286,7 @@ These are the notes im making for the `Go programming language`
 		- [Copy Method](#copy-method)
 			- [Example: Using Copy](#example-using-copy)
 		- [DeepEqual Method](#deepequal-method)
-			- [Examples](#examples-14)
+			- [Examples](#examples-16)
 				- [Example: Using DeepEqual for Structs](#example-using-deepequal-for-structs)
 				- [Example: Using DeepEqual for Arrays](#example-using-deepequal-for-arrays)
 				- [Example: Using DeepEqual for Functions](#example-using-deepequal-for-functions)
@@ -292,6 +297,17 @@ These are the notes im making for the `Go programming language`
 			- [Example: Using FieldByIndex](#example-using-fieldbyindex)
 		- [FieldByName Method](#fieldbyname-method)
 			- [Example: Using FieldByName](#example-using-fieldbyname)
+- [Low Level Programming](#low-level-programming)
+	- [Unsafe Package](#unsafe-package)
+	- [Methods](#methods-4)
+		- [Sizeof Method](#sizeof-method)
+			- [Typical Sizes for Go](#typical-sizes-for-go)
+			- [Example: Using Sizeof](#example-using-sizeof)
+		- [Alignof Method](#alignof-method)
+		- [Offsetof Method](#offsetof-method)
+		- [Pointer Method](#pointer-method)
+			- [Operations](#operations-2)
+			- [Conversion](#conversion)
 
 # Basic
 To create a basic program
@@ -414,7 +430,7 @@ func main() {
 	-Four Package level declarations are `var`, `const`, `type`, `func`
 - Either the type or the value can be omitted but not both
 
-### Syntax
+## Syntax
 ```go
 var variable_name type
 var variable_name type = value
@@ -431,7 +447,8 @@ var (
 
 
 
-### Example
+## Examples
+### Example: Basic
 
 ```go
 package main
@@ -494,7 +511,20 @@ We can see here that the code outside the function runs first and then the code 
 - "{" cannot be at new line
 - "else" cannot be on newline, needs to be "} else {" where } is from a prior if statemet  
 
-### Example
+
+## Syntax
+```go
+if condition {
+	// code
+} else if condition {
+	// code
+} else {
+	// code
+}
+```
+
+
+## Example
 ```go
 package main
 
@@ -516,13 +546,13 @@ func main() {
 # Constants
 - Their values cant be changed. Use the `const` keyword
 
-### Syntax
+## Syntax
 ```go
 const variable_name
 ```
 
 
-### Example: using a constant 
+## Example: using a constant 
 ```go
 package main
 import ("fmt")
@@ -622,14 +652,15 @@ Four types of ints --> `int8`, `int16`, `int32`, `int64`
 - range of values for uint8 is --> `0` to `255`
 
 
-### Syntax
+## Syntax
 ```go
 var variable_name int
 var variable_name int8
 var variable_name int16
 ```
 
-## Signed Integers
+## Examples
+### Example: Signed Integers
 ```go
 package main
 
@@ -647,7 +678,7 @@ func main() {
 ```
 > OUTPUT -1,-1,-1,-1
 
-## Unsigned Integers
+### Example: Unsigned Integers
 ```go
 package main
 
@@ -671,7 +702,15 @@ func main() {
 ```
 > OUTPUT: 1
 
-## Type casting
+## Type Casting
+- To convert one type to another
+  
+### Syntax
+```go
+var := type(variable_name)		
+```
+
+### Example: Type casting (Correct)
 ```go
 	var i int8
 	var PI = 22.0/7.0
@@ -681,16 +720,17 @@ func main() {
 ```
 > OUTPUT 3.142857 3
 
+### Example: Type casting Problems (Incorrect Print)
 ```go
 	var i int8
-	var PI = 22/7    // removing the 0 from 22.0 --> This makes PI an INT
+	var PI = 22/7    // PI is int now since its not 22.0/7.0
 	i = int8(PI)
 	fmt.Printf("%f %d\n", PI, i)
 
 ```
 > OUTPUT %!f(int=3) 3
 
-## Type Casting Problems
+### Example: Type Casting Problems (int32 int64 addition)
 ```go
 	var apples int32 = 1
 	var oranges int64 = 2
@@ -698,6 +738,9 @@ func main() {
 	fmt.Println(ans)
 ```
 > OUTPUT: Error
+
+------- 
+<h3> Corrected Code </h3>
 
 ```go
 	var apples int32 = 1
@@ -757,14 +800,14 @@ Eg:
 - Built-in fucntions to get real and imaginary parts and to create the numbers
 - Equality is checked by comparing the real and imaginary parts
 
-### Syntax
+## Syntax
 ```go
 var variable_name1 complex128 = complex(int_x,int_y)
 var variable_name2 complex64 = complex(int_x,int_y)
 ```
 
 
-### Example
+## Example
 ```go
 package main
 
@@ -1674,9 +1717,7 @@ func main() {
 }
 ```
 
----------
-> Unit 1 End
----------
+<!--  **Unit 1 End** -->
 
 # Concurancy
 - Making progress on more than one task, seemingly at the same time
@@ -2297,9 +2338,6 @@ func (c circle) area() {
 	fmt.Printf("Area of circle is: %.2f\n", 3.14*c.radius*c.radius)
 }
 
-func measure(g Geometry) {
-	g.area()
-}
 
 func main() {
 	r := rect{width: 10, height: 5}
@@ -2307,9 +2345,9 @@ func main() {
 
 	var g Geometry
 	g = r				// print(g) --> {10 5}
-	measure(g)			// Area of rectangle is: 50
+	g.area()			// Area of rectangle is: 50
 	g = c				// print(g) --> {5}
-	measure(g)			// Area of circle is: 78.50
+	g.area()			// Area of circle is: 78.50
 }
 ```
 > OUTPUT: </br>
@@ -2550,7 +2588,7 @@ func process(wg *sync.WaitGroup, stopIT *bool) {
 
 	for {
 		println("Processing")	// This will run until the stopIT is true every second in the background
-		time.Sleep(1 * time.Second)
+		time.Sleep(1 * time.Second)		// So it checks once every second
 
 		if *stopIT {
 			println("Stopped Goroutine")
@@ -2569,9 +2607,7 @@ func process(wg *sync.WaitGroup, stopIT *bool) {
 - If we have number of `wg.Done()` > `wg.Add()` we get a panic as the counter goes below 0
 - If we have number of `wg.Add()` > `wg.Done()` we get a deadlock as the counter never reaches 0
 
------
-Unit 2 End
------
+<!-- **Unit 2 End** -->
 
 # Race Condition and Mutual Exclusion
 
@@ -2631,9 +2667,7 @@ func main() {
 		data++			// A1
 	}
 	
-	if data == 0 {
-		println(data)	// A2
-	}
+	println(data)	// A2
 }
 ```
 > OUTPUT: </br>
@@ -2850,7 +2884,8 @@ rw.RUnlock()
 # Atomic Operations
 - Operations that are designed to be performed without interference from other operations
 - They are used to ensure that a operations on shared variables are atomic
-
+- Needs to import the `sync/atomic` package
+  
 ## Common Atomic Operations
 
 ### Load
@@ -2864,10 +2899,14 @@ rw.RUnlock()
 - Eg: `atomic.AddInt32(&x, 1)` adds 1 to the value of x (type is int32)
 - Eg: `atomic.AddInt32(&x, -1)` subtracts 1 from the value of x (type is int32)
 ### Swap
-
+- Atomically swap the value of a variable
+- Eg: `atomic.SwapInt32(&x, 42)` swaps the value of x with 42 (type is int32)
 
 ### Compare and Swap
-
+- Atomically compare and swap the value of a variable
+- If the current value of the variable is equal to the old value, the new value is set
+- Used to implement lock-free algorithms
+  
 ## Examples
 ### Example 1: Using Atomic Operations
 ```go
@@ -3683,3 +3722,189 @@ func main() {
 > OUTPUT: </br>
 > Field 0: 23 </br>
 > Field 1: hello </br>
+
+
+# Low Level Programming
+- Design of Go has certain safety policies
+  - During compilation, Go checks for type safety, array bounds, etc
+  - Strict rules for type conversion prevent direct memory access
+  - Automatic garbage collection prevents memory leaks
+- In Go
+  - the Go scheduler freely moves goroutines from one thread to another.
+  - A pointer identifies a variable without revealing the variable’s numeric address.
+  - Addresses may change as the garbage collector moves variables; pointers are transparently updated
+
+- All these features make Go more predictable than C
+- Hiding these low level details makes Go very portable
+
+## Unsafe Package
+- It provides access to low-level programming features that expose the underlying memory model of Go
+- It is implemented by the compiler
+- Some environments may not allow the use of the `unsafe` package
+- Package unsafe contains operations that step around the type safety of Go programs.
+- This is used extensively in packages like `os`, `runtime`, `syscall`, and `net`
+- Packages that import this may be non-portable
+
+## Methods
+### Sizeof Method
+- `func Sizeof(v ArbitraryType) uintptr`
+- Returns the size of a type in bytes of ` hypothetical variable `h` if `var h = x`
+- Does not include any memory referenced by `x`, only direct memory used by the fixed size of the data structure
+  - Size of a **Slice** is the size of the slice descriptor, not the size of the underlying array
+  - For **Struct**, the size includes any padding added by field alignment
+- The Return value is a `Go constant` if `v` does not have variable lenght (Eg arrays have variable length)
+- A call to Sizeof is a constant expression of type uintptr
+
+#### Typical Sizes for Go
+
+| Type      | Size        |
+|-----------|-------------|
+| bool      | 1 byte      |
+| intN      | N/8 bytes   |
+| uintN     | N/8 bytes   |
+| floatN    | N/8 bytes   |
+| complexN  | N/8 bytes   |
+| int       | 1 word      |
+| uint      | 1 word      |
+| uintptr   | 1 word      |
+| *T        | 1 word      |
+| string    | 2 words     |
+| []T       | 3 words     |
+| map       | 1 word      |
+| func      | 1 word      |
+| chan      | 1 word      |
+| interface | 2 words     |
+
+A word is the size of a pointer, either 4 or 8 bytes depending on the architecture (32 or 64 bit)
+
+Values should be aligned
+- memory addresses for 2-byte values should be divisible by 2 (Eg: int16)
+- memory addresses for 4-byte values should be divisible by 4 (Eg: int32)
+- memory addresses for 8-byte values should be divisible by 8 (Eg: int64)
+
+For this reason, the size of a value of an aggregate type (a struct or array) is at least the sum of
+the sizes of its fields or elements but may be greater due to the presence of ‘‘holes.’’ 
+
+Holes are unused spaces added by the compiler to ensure that the following field or element is
+properly aligned relative to the start of the struct or array.
+Hence it may be more space effiecent to order them in such a way that they are packed as tightly as possible
+
+For example
+```go
+type StructA struct {
+	a bool    // 1 byte
+	b float64 // 8 bytes
+	c int32   // 4 bytes
+}
+
+type StructB struct {
+	b float64 // 8 bytes
+	c int32   // 4 bytes
+	a bool    // 1 byte
+}
+
+// StructA: 24 bytes
+// StructB: 16 bytes
+```
+
+This is because
+```
+StructA:
+		| a (1 byte)| <7 bytes padding> |					// 8 bytes
+		| b (8 bytes) | c (4 bytes) | <4 bytes padding> |	// 16 bytes (c would be split here usually)
+
+StructB: 
+		| b (8 bytes) | 								//	8 bytes
+		|c (4 bytes) | a  (1 byte)| <3 bytes padding> | // 8 bytes
+```
+#### Example: Using Sizeof
+```go
+import (
+	"fmt"
+	"unsafe"
+)
+
+func main() {
+	// Integers
+	fmt.Println(unsafe.Sizeof(int(10)))	// 8
+	fmt.Println(unsafe.Sizeof(uint(10)))	// 8
+	fmt.Println(unsafe.Sizeof(int8(10)))	// 1
+	fmt.Println(unsafe.Sizeof(int16(10)))	// 2
+	fmt.Println(unsafe.Sizeof(int32(10)))	// 4
+	fmt.Println(unsafe.Sizeof(int64(10)))	// 8
+
+	// Bool
+	fmt.Println(unsafe.Sizeof(bool(true)))	// 1
+
+
+	var i = 10
+	point := &i
+    fmt.Println("Sizeof(j) :", unsafe.Sizeof(point)) // "8"
+    fmt.Println("Sizeof(float32(0)) :", unsafe.Sizeof(float32(0))) // "4"
+    fmt.Println("Sizeof(float64(0)) :", unsafe.Sizeof(float64(0))) // "8"
+
+	// Empty struct
+    fmt.Println("Sizeof(struct{}{}) :", unsafe.Sizeof(struct{}{})) // "0"
+
+	// Interface
+    var k interface{}
+    fmt.Println("Sizeof(interface{}) :", unsafe.Sizeof(k)) // "16"
+
+	// String
+    s := "Hello"
+    fmt.Println("Sizeof('Hello') :", unsafe.Sizeof(s)) // "16"
+	
+}
+```
+
+### Alignof Method
+- `func Alignof(v ArbitraryType) uintptr`
+- Returns the required alignment of a type in bytes
+- It is the same as the value returned by reflect.TypeOf(x).Align(). 
+- For struct `s` with field `f`, Alignof(s.f) retruns the required alignment of the field within the struct
+- The return value of Alignof is a Go constant if the type of the argument does not have variable size.
+
+Offset for a struct
+```go
+type struct_T struct {
+	val1 bool
+	val2 int
+	val3 []int
+}
+```
+
+| Field | Size | Align | Offset |
+|-------|------|-------|--------|
+| val1  | 1    | 1     | 0      |
+| val2  | 8    | 8     | 8      |
+| val3  | 24   | 8     | 16     |
+
+### Offsetof Method
+- `func Offsetof(x ArbitraryType) uintptr`
+- Returns the offset within the struct of the field represented by x, which must be of the form structValue.field
+- Simply put, it returns the number of bytes between the start of the struct and the start of the field.
+- The return value of Offsetof is a Go constant if the type of the argument does not have variable size
+
+### Pointer Method
+- `type Pointer *ArbitraryType`
+- An unsafe pointer can be used to share data between different data types or to manipulate data at the byte level, providing the ability to optimize certain kinds of operations.
+- Most times its written as `*T`
+- Special type of pointer that can point to any type of data
+- They are compatible and can be compared with `nil` which is the zero value of a pointer
+
+#### Operations
+- There are 4 special operations that can be done on pointers
+  - A pointer value of any type can be converted to a Pointer.
+  - A Pointer can be converted to a pointer value of any type.
+  - A uintptr can be converted to a Pointer.
+  - A Pointer can be converted to a uintptr.
+   
+#### Conversion
+- Normal pointers can be converted to unsafe pointers and vice versa
+- By converting a float64 pointer to a uintptr, we can get the address of the float64 value
+```go
+func Float64bits(f float64) uint64 {
+return *(*uint64)(unsafe.Pointer(&f))
+}
+fmt.Printf("%#016x\n", Float64bits(1.0)) // "0x3ff0000000000000"
+```
