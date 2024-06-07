@@ -129,7 +129,7 @@ These are the notes im making for the `Go programming language`
 - [Goroutines](#goroutines)
 	- [Syntax](#syntax-16)
 	- [Examples](#examples-6)
-		- [Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern](#example--we-run-this-with-the-go-keyword-and-without-the-go-keyword-we-can-see-that-the-go-routine-runs-in-the-background-and-prints-as-soon-as-it-can-while-normal-function-in-its-own-way-making-it-interleaved-with-a-pattern)
+		- [Example- Basic](#example--basic)
 		- [Example: With both as goroutines we get random interleaved output](#example-with-both-as-goroutines-we-get-random-interleaved-output)
 		- [Example: No sleep function](#example-no-sleep-function)
 	- [Advantages of Goroutines](#advantages-of-goroutines)
@@ -249,6 +249,21 @@ These are the notes im making for the `Go programming language`
 	- [Difference between Goroutines and Threads](#difference-between-goroutines-and-threads)
 	- [Goroutines Growable Stacks](#goroutines-growable-stacks)
 	- [Goroutines Scheduling](#goroutines-scheduling)
+- [Reflection](#reflection)
+	- [Types and Interfaces](#types-and-interfaces)
+- [Laws of Reflection](#laws-of-reflection)
+	- [1. Reflection goes from interface value to reflection object](#1-reflection-goes-from-interface-value-to-reflection-object)
+		- [Syntax](#syntax-32)
+		- [Examples for `TypeOf`](#examples-for-typeof)
+			- [Example 1: Getting the Type of a Variable](#example-1-getting-the-type-of-a-variable)
+			- [Example 2: Getting the Value of a Variable](#example-2-getting-the-value-of-a-variable)
+		- [Examples for `ValueOf`](#examples-for-valueof)
+		- [Methods](#methods-2)
+		- [Examples for `Kind`](#examples-for-kind)
+			- [Example 1: Basic](#example-1-basic)
+			- [Example 2: Difference btw Kind and Type](#example-2-difference-btw-kind-and-type)
+	- [2. Reflection goes from reflection object to interface value](#2-reflection-goes-from-reflection-object-to-interface-value)
+		- [Example](#example-26)
 
 # Basic
 To create a basic program
@@ -1658,7 +1673,8 @@ go function_name()
 ```
 
 ## Examples
-### Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern
+### Example- Basic
+We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern
 ```go
 package main
 
@@ -3124,3 +3140,184 @@ func swim(name string, pool *semaphore.Weighted) {
 ## Goroutines Scheduling
 - Go scheduler does not periodically interrupt by a hardware timer like OS threads. Instead done implicitly by certain Go constructs
 - Because it does not need to switch to kernel context, it is faster than OS threads
+
+# Reflection
+- Ability of a program to inspect variables and values at runtime for their type
+  - Can create, modify, and delete variables, functions, and structs
+- Reflection in computing is the ability to examine its own structure  at runtime
+- `reflect` package is used for reflection in Go
+- Three main concepts
+  - *Type*
+  - *Value*
+  - *Kind*
+
+## Types and Interfaces
+- Every Variables is statically typed and fixed at compile time
+
+- `Type` is the representation of a Go type at runtime
+```go
+type MyInt int
+var i int
+var j MyInt
+```
+Here `i` and `j` are of different types so they cannot be assigned to each other without conversion
+
+- An interface variable can store any concrete (non-interface) value as long as that value implements the interface’s methods.
+
+- A well-known pair of examples is `io.Reader` and `io.Writer`. Any type that implements a Read (or Write) method with this signature is said to implement `io.Reader` (or `io.Writer`).
+
+- An empty interface `interface{}` can store any value of any type. **But Go’s interfaces are still statically typed as even if they hold a value of any type, The value will always satisfy the interface**
+
+# Laws of Reflection
+## 1. Reflection goes from interface value to reflection object
+- At basic level, reflection is just a way to get the type and value of an interface variable
+- We need to know two concepts
+  - `Type` --> `reflect.TypeOf`
+    - Returns a `reflect.Type` object that represents the type of the interface variable
+  - `Value` --> `reflect.ValueOf` (also it's easy to get the type from here too)
+    - Returns a `reflect.Value` object that holds the value of the interface variable
+
+### Syntax
+```go
+// func TypeOf(interfaceVar interface{}) Type
+
+import "reflect"
+i:= reflect.TypeOf(interface_var
+j:= reflect.ValueOf(interface_var)
+
+
+```
+
+- `TypeOf` retruns reflection `Type` that returns dynamic type of the interface variable. If interface variable is `nil`, it returns `nil`
+- `ValueOf` returns reflection `Value` that holds the value of the interface variable. If the interface variable is `nil`, it returns a `zero value`
+
+### Examples for `TypeOf`
+
+#### Example 1: Getting the Type of a Variable
+```go
+	import "reflect"
+	func main() {
+	var x float64 = 3.4
+	fmt.Println("type:", reflect.TypeOf(x))
+	}
+```
+> OUTPUT: type: float64
+
+Here it may look like there is no interface, but the signature of `reflect.TypeOf` includes an empty interface, so it can take any type of value. Basically when `x` is passed to `reflect.TypeOf`, it is stored in an empty interface then passed as an argument. The empty interface is later unpacked to get the type of `x`
+
+
+#### Example 2: Getting the Value of a Variable
+```go
+v1:= 3.4
+println(reflect.TypeOf(v1)) // float64
+v2:= "Hello"
+println(reflect.TypeOf(v2)) // string
+v3:= true
+println(reflect.TypeOf(v3)) // bool
+v4:= 10
+println(reflect.TypeOf(v4)) // int
+v5:= []int{1,2,3}
+println(reflect.TypeOf(v5)) // []int
+v6:= [5]int{1,2,3,4,5}
+println(reflect.TypeOf(v6)) // [5]int
+v7:= map[string]int{"a":1, "b":2}
+println(reflect.TypeOf(v7)) // map[string]int
+```
+> OUTPUT: </br>
+> 3.4 </br>
+> string </br>
+> bool </br> 
+> int </br>
+> []int </br>
+> [5]int </br>
+> map[string]int </br>
+
+### Examples for `ValueOf`
+```go
+	v1:= 3.4
+	fmt.Println(reflect.ValueOf(v1)) // 3.4
+	v2:= "Hello"
+	fmt.Println(reflect.ValueOf(v2)) // Hello
+	v3:= true
+	fmt.Println(reflect.ValueOf(v3)) // true
+	v4:= 10
+	fmt.Println(reflect.ValueOf(v4)) // 10
+	v5:= []int{1,2,3}
+	fmt.Println(reflect.ValueOf(v5)) // [1 2 3]
+	v6:= [5]int{1,2,3,4,5}
+	fmt.Println(reflect.ValueOf(v6)) // [1 2 3 4 5]
+	v7:= map[string]int{"a":1, "b":2}
+	fmt.Println(reflect.ValueOf(v7)) // map[a:1 b:2]
+```
+> OUTPUT: </br>
+> 3.4 </br>
+> Hello </br>
+> true </br>
+> 10 </br>
+> [1 2 3] </br>
+> [1 2 3 4 5] </br>
+> map[a:1 b:2] </br>
+
+### Methods
+- `Value` also has a `Type` method that returns the `Type` of the value 
+- Both `Type` and `Value` have a `Kind` method that returns a constant indication what sort of item is stored. Eg: `Uint`, `Float64`, `Slice`, `Map`, etc.
+ ```go
+	func (v Value) Kind() Kind
+```
+- Kind returns the v's Kind
+- If v is the zero Value (IsValid returns false), Kind returns Invalid
+
+### Examples for `Kind`
+
+#### Example 1: Basic
+```go
+var x float64 = 3.4
+v := reflect.ValueOf(x)
+fmt.Println("value:", v)			// value: 3.4
+fmt.Println("type:", v.Type())		// type: float64
+fmt.Println("kind is float64:", v.Kind() == reflect.Float64)	// kind is float64: true
+fmt.Println("value:", v.Float())	// value: 3.4
+//fmt.Println("value:", v.Int()) 	// panic: reflect as v is float64 not int
+```
+> OUTPUT: </br>
+> value: 3.4 </br>
+> type: float64 </br>
+> kind is float64: true </br>
+> value: 3.4 </br>
+
+#### Example 2: Difference btw Kind and Type
+```go
+type MyInt int
+var x MyInt = 7
+v := reflect.ValueOf(x)
+fmt.Println("value:", v)			// value: 7
+fmt.Println("type:", v.Type())		// type: main.MyInt
+fmt.Printf("kind: %v\n", v.Kind())	// kind: int
+```
+> OUTPUT: </br>
+> value: 7 </br>
+> type: main.MyInt </br>
+
+Here the `Kind` of `v` is still `int` as `MyInt` is an alias for `int`.
+This means `Kind` cannot differentiate between `int` and `MyInt` while `Type` can.
+
+## 2. Reflection goes from reflection object to interface value
+- Reflection in Go can generate its own inverse
+- Inverse of `reflect.ValueOf` is `Value.Interface`
+	- Given `reflect.Value` object, we can recover the interface value it represents
+- Inverse of `reflect.TypeOf` is `reflect.New` and `reflect.Zero` {copilot answer}
+
+### Example
+```go
+	var x float64 = 3.4
+	v := reflect.ValueOf(x)			// v is a reflect.Value
+	fmt.Println("value:", v)		// "value: 3.4"
+	// y will have type float64.
+	y := v.Interface().(float64)	// y is an interface{}.
+	fmt.Println("y:", y)			// "y: 3.4"
+```
+> OUTPUT: </br>
+> value: 3.4 </br>
+> y: 3.4 </br>
+
+This prints the `float64` value represented by reflection object `v`
