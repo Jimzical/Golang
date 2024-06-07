@@ -308,6 +308,18 @@ These are the notes im making for the `Go programming language`
 		- [Pointer Method](#pointer-method)
 			- [Operations](#operations-2)
 			- [Conversion](#conversion)
+- [Debugging](#debugging)
+	- [Syntax](#syntax-35)
+	- [Common Commands](#common-commands)
+	- [Delve Client](#delve-client)
+		- [Starting Programs](#starting-programs)
+		- [Manipulation of breakpoints](#manipulation-of-breakpoints)
+		- [View program variables and memory](#view-program-variables-and-memory)
+		- [List output and switch between threads and goroutines](#list-output-and-switch-between-threads-and-goroutines)
+		- [View call stack and select frames](#view-call-stack-and-select-frames)
+		- [Other commands:](#other-commands)
+	- [Breakpoint](#breakpoint)
+	- [View](#view)
 
 # Basic
 To create a basic program
@@ -3908,3 +3920,115 @@ return *(*uint64)(unsafe.Pointer(&f))
 }
 fmt.Printf("%#016x\n", Float64bits(1.0)) // "0x3ff0000000000000"
 ```
+
+# Debugging
+- Done using `Delve` debugger
+- Delve is a debugger for the Go programming language
+
+## Syntax
+```sh
+dlv cmd
+```
+
+
+```sh
+dlv debug file.go	//  compiles the binary from source
+dlv exec file.go	//   runs the binary
+
+```
+
+## Common Commands
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `func` | dlv funcs func_name| Print a list of functions |
+| `exit` | dlv exit| Exit the debugger |
+| `list` | dlv list file.go:line_no | Show source code |
+
+
+
+## Delve Client
+### Starting Programs
+- Delve has a client that can be used to interact with the debugger
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `call` | - | Resumes the process by embedding a function call |
+| `continue` | `c` | Executes until a breakpoint or program termination |
+| `next` | `n` | Goes to the next line of source code |
+| `rebuild` | - | Rebuilds the target executable and restarts it. Does not work if the executable was not built by the delve program |
+| `restart` | `r` | Restarts the process |
+| `step` | `s` | Single step through the program |
+| `step-instruction` | `si` | A single step on a single processor instruction |
+| `stepout` | `so` | Exit the current function |
+
+### Manipulation of breakpoints
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `break` | `b` | Sets a breakpoint |
+| `breakpoints` | `bp` | Outputs information about active breakpoints |
+| `clear` | - | Deletes a breakpoint |
+| `clearall` | - | Removes multiple breakpoints |
+| `condition` | `cond` | Sets the breakpoint condition |
+| `on` | - | Executes the command when a breakpoint is reached |
+| `trace` | `t` | Sets the trace point |
+
+
+### View program variables and memory
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `args` | - | Print function arguments |
+| `display` | - | Display the value of the expression each time the program is stopped |
+| `examinemem` | `x` | Examine memory |
+| `locals` | - | Print local variables |
+| `print` | `p` | Evaluate the expression |
+| `regs` | - | Output the contents of the processor registers |
+| `set` | - | Change the value of a variable |
+| `vars` | - | Output package variables |
+| `whatis` | - | Output the type of an expression |
+
+### List output and switch between threads and goroutines
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `goroutine` | `gr` | Displays or changes the current goroutine |
+| `goroutines` | `grs` | List of program goroutines |
+| `thread` | `tr` | Navigates to the specified thread |
+| `threads` | - | Output information for each thread being monitored |
+
+### View call stack and select frames
+
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `deferred` | - | Execute a command in the context of a deferred call |
+| `down` | - | Move the current frame down |
+| `frame` | - | Set the current frame or execute a command on another frame |
+| `stack` | `bt` | Output a stack trace |
+| `up` | - | Move the current frame up |
+### Other commands:
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `config` | - | Changes the configuration settings |
+| `edit` | - | Opens where you are in $DELVE_EDITOR or $EDITOR |
+| `exit` | `quit`, `q` | Exit the debugger |
+| `funcs` | - | Print a list of functions |
+| `help` | `h` | Print a help message |
+| `libraries` | - | List of loaded dynamic libraries |
+| `list` | `ls`, `l` | Show source code |
+| `source` | - | Executes a file containing a list of delve commands |
+| `sources` | - | Execute a list of source files |
+| `types` | - | Execute a list of types |
+
+
+## Breakpoint
+- dlv break file.go:LineNo		// break
+- dlv breakpoints				// breakpoints
+- dlv clear line_no				// clear
+- dlv clearall					// clear all
+- dlv continue					// continue
+- dlv next						// next line
+- dlv step						// move inside fucntion
+- slv stepout 					// retrun to calling function
+- dlv restart					// restart
+
+## View
+- dlv print var_name			// print var value
+- dlv list						// list local var
+- 
