@@ -291,8 +291,9 @@ These are the notes im making for the `Go programming language`
 				- [Example: Using DeepEqual for Arrays](#example-using-deepequal-for-arrays)
 				- [Example: Using DeepEqual for Functions](#example-using-deepequal-for-functions)
 		- [Swapper	Method](#swappermethod)
-			- [Example 1: Using Swapper](#example-1-using-swapper)
-			- [Example 2: Reversing](#example-2-reversing)
+			- [Examples](#examples-17)
+				- [Example 1: Using Swapper](#example-1-using-swapper)
+				- [Example 2: Reversing](#example-2-reversing)
 		- [FieldByIndex Method](#fieldbyindex-method)
 			- [Example: Using FieldByIndex](#example-using-fieldbyindex)
 		- [FieldByName Method](#fieldbyname-method)
@@ -325,7 +326,7 @@ These are the notes im making for the `Go programming language`
 		- [Syntaxs](#syntaxs)
 			- [Syntax: For Print](#syntax-for-print)
 			- [Syntax: For Locals](#syntax-for-locals)
-		- [Examples](#examples-17)
+		- [Examples](#examples-18)
 			- [Example: For Print](#example-for-print)
 			- [Example: For Locals](#example-for-locals)
 - [REPL](#repl)
@@ -3671,7 +3672,8 @@ fmt.Println("DeepEqual:", reflect.DeepEqual(f1, f2))	// true
 - To swap values in a slice
 - Can be used to sort or reverse a slice
 
-#### Example 1: Using Swapper
+#### Examples
+##### Example 1: Using Swapper
 ```go
 	s := []int{1, 2, 3, 4, 5}
 	swapper := reflect.Swapper(s)
@@ -3680,7 +3682,7 @@ fmt.Println("DeepEqual:", reflect.DeepEqual(f1, f2))	// true
 ```
 > OUTPUT: [5 2 3 4 1]
 
-#### Example 2: Reversing
+##### Example 2: Reversing
 ```go
 theList := []int{1, 2, 3, 4, 5}
 swap := reflect.Swapper(theList)
