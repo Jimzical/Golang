@@ -175,7 +175,7 @@ These are the notes im making for the `Go programming language`
 		- [Examples](#examples-9)
 			- [Example: Simple usage](#example-simple-usage)
 			- [Example: Proper an empty interface](#example-proper-an-empty-interface)
-	- [Interface as a Contract](#interface-as-a-contract)
+	- [Interface as a Contract (NOT COM)](#interface-as-a-contract-not-com)
 		- [Example: Using an interface as a contract](#example-using-an-interface-as-a-contract)
 	- [Interface Types](#interface-types)
 		- [Example](#example-25)
@@ -264,6 +264,34 @@ These are the notes im making for the `Go programming language`
 			- [Example 2: Difference btw Kind and Type](#example-2-difference-btw-kind-and-type)
 	- [2. Reflection goes from reflection object to interface value](#2-reflection-goes-from-reflection-object-to-interface-value)
 		- [Example](#example-26)
+	- [3. To modify a reflection object, the value must be settable](#3-to-modify-a-reflection-object-the-value-must-be-settable)
+		- [Settability](#settability)
+			- [Example: Understanding Settablitity](#example-understanding-settablitity)
+			- [Example: Settability of a Pointer](#example-settability-of-a-pointer)
+			- [Syntax: Elem() Method](#syntax-elem-method)
+			- [Example: Settability of a Struct Field](#example-settability-of-a-struct-field)
+		- [Example: Using the CanSet() Method](#example-using-the-canset-method)
+- [Why Reflection](#why-reflection)
+- [Reflection in Go](#reflection-in-go)
+	- [Methods](#methods-3)
+		- [NumField Method](#numfield-method)
+			- [Example: Using NumField](#example-using-numfield)
+		- [Field Method](#field-method)
+			- [Example: Using Field](#example-using-field)
+		- [Copy Method](#copy-method)
+			- [Example: Using Copy](#example-using-copy)
+		- [DeepEqual Method](#deepequal-method)
+			- [Examples](#examples-14)
+				- [Example: Using DeepEqual for Structs](#example-using-deepequal-for-structs)
+				- [Example: Using DeepEqual for Arrays](#example-using-deepequal-for-arrays)
+				- [Example: Using DeepEqual for Functions](#example-using-deepequal-for-functions)
+		- [Swapper	Method](#swappermethod)
+			- [Example 1: Using Swapper](#example-1-using-swapper)
+			- [Example 2: Reversing](#example-2-reversing)
+		- [FieldByIndex Method](#fieldbyindex-method)
+			- [Example: Using FieldByIndex](#example-using-fieldbyindex)
+		- [FieldByName Method](#fieldbyname-method)
+			- [Example: Using FieldByName](#example-using-fieldbyname)
 
 # Basic
 To create a basic program
@@ -2330,7 +2358,7 @@ func main() {
 
 Here we can see that the empty interface can take any type of value
 
-## Interface as a Contract
+## Interface as a Contract (NOT COM)
 - Interfaces are a contract that a method can implement
 
 
@@ -3321,3 +3349,337 @@ This means `Kind` cannot differentiate between `int` and `MyInt` while `Type` ca
 > y: 3.4 </br>
 
 This prints the `float64` value represented by reflection object `v`
+
+- In short  the Interface method is the inverse of the ValueOf function, except that its result is always of static type `interface{}`.
+> Reiterating: Reflection goes from interface values to reflection objects and back
+again.
+
+
+## 3. To modify a reflection object, the value must be settable
+- A reflection object is settable if it is addressable and was not obtained by the use of unexported struct fields
+```go
+var x float64 = 3.4
+v := reflect.ValueOf(x)
+v.SetFloat(7.1) // Error: will panic.
+```
+> OUTPUT: panic: reflect.Value.SetFloat using unaddressable value
+The Problem here isnt that `7.1` is not addressable; But that `v` is not settable
+
+### Settability
+- **Settability** is a property of a reflection value, and **not all** of them have this.
+- It is like addressability but stricter. It is the Property of a reflection value that it can be modified
+- It is determined by whether the reflection value holds the original value
+#### Example: Understanding Settablitity
+```go
+var x float64 = 3.4
+v := reflect.ValueOf(x)
+fmt.Println("settability of v:", v.CanSet())	// false
+```
+> OUTPUT: settability of v: false
+
+Here we pass a copy of x to `reflect.ValueOf` so the interface value created is not original.
+Hence if 
+```go
+v.SetFloat(7.1)
+```
+was allowed to succeed, it would change the copy of `x` and not the original `x` which is confusing and illegal, so *settability* protects against this
+
+#### Example: Settability of a Pointer
+- To Modify a reflection object, we must give a pointer to the value
+```go
+var x float64 = 3.4
+p := reflect.ValueOf(&x) // Note: take the address of x.
+fmt.Println("type of p:", p.Type())
+fmt.Println("settability of p:", p.CanSet())	// false
+```
+> OUTPUT: </br>
+> type of p: *float64 </br>
+> settability of p: false </br>
+
+The *settability* of `p` is false, but that is not the value we want to update. To get to what `p` points to we need to use the `Elem()` method of `Value` (`v` in this case)
+Therefore
+```go
+v := p.Elem()
+fmt.Println("settability of v:",v.CanSet())	// now true
+```
+> OUTPUT: settability of v: true
+
+#### Syntax: Elem() Method
+```go
+// func (v Value) Elem() Value
+p := reflect.ValueOf(&x)
+v := p.Elem()
+```
+- Returns the value that the interface v contains or that the pointer v points to.
+- If `v` is neither an interface nor a pointer it panics
+- If `v` nil, it returns a zero Value
+
+Now we can update `x` like
+```go
+v.SetFloat(7.1)
+fmt.Println(v.Interface())	// 7.1
+fmt.Println(x)				// 7.1
+```
+> OUTPUT: </br>
+> 7.1 </br>
+> 7.1 </br>
+
+> <h2>Thus, This is how we can modify a reflection object</h2>
+
+#### Example: Settability of a Struct Field
+```go
+type struct_T struct {
+	val1 int
+	val2 string
+}
+
+func main() {
+	s := struct_T{23, "hello"}
+	// v := reflect.ValueOf(s)
+	// fmt.Println("settability of v:", v.CanSet())	// false
+
+	v := reflect.ValueOf(&s).Elem()
+	fmt.Println("settability of v:", v.CanSet())	// true
+
+	f := v.Field(0)
+	fmt.PrintF("%s %s = %v\n", s.Type().Field(0).Name, f.Type(), f.interface())	// val1 int = 23
+}
+```
+> OUTPUT: </br>
+> settability of v: true </br>
+> val1 int = 23 </br>
+
+
+### Example: Using the CanSet() Method
+- `CanSet` method is used to check if a reflection value is settable
+- Using `Set` method on a non-settable value will panic
+```go
+	var x float64 = 3.4
+	v := reflect.ValueOf(x)
+	fmt.Println("settability of v:", v.CanSet())	// false
+```
+> OUTPUT: settability of v: false
+
+# Why Reflection
+- When we need to create a function to deal with values of different types uniformily. This can happen when
+  - Values dont have a common interface
+  - Dont have known representation
+  - Dont exist at time of design
+  - or all three
+- Example: `fmt.Println` can print any type of value, even user-defined types
+- Often times data in empty interface are structs and reflection is used to extract the fields
+- Such problems are solved during **runtime using reflection**
+
+
+
+# Reflection in Go
+- Done using the `reflect` package
+- Has two types
+  - `TypeOf` accept any interface{} and returns a `Type`
+  - `ValueOf` accepts any interface{} and returns a `Value`. `reflect.Value` can hold any value
+
+## Methods
+### NumField Method
+- Returns the number of fields in a struct
+- If argument not a struct, it panics
+`func (v Value) NumField() int`
+
+#### Example: Using NumField
+```go
+type struct_T struct {
+	val1 int
+	val2 string
+}
+
+func main() {
+	s := struct_T{23, "hello"}
+	v := reflect.ValueOf(s)
+	fmt.Println("Number of fields:", v.NumField())	// 2
+}
+```
+> OUTPUT: Number of fields: 2
+
+### Field Method
+- Returns the `i`th field of a struct
+`func (v Value) Field(i int) Value`
+
+#### Example: Using Field
+```go
+type struct_T struct {
+	val1 int
+	val2 string
+}
+
+func main() {
+	s := struct_T{23, "hello"}
+	v := reflect.ValueOf(s)
+	f := v.Field(0)
+	fmt.Println("Field 0:", f)	// 23
+}
+```
+> OUTPUT: 23
+
+### Copy Method
+- Copies the value from source to destination until 
+  - source exhausts 
+  - destination is full
+`func Copy(dst, src Value) int`
+
+#### Example: Using Copy
+```go
+	destination := reflect.ValueOf([]string{"A", "B", "C"})
+	source := reflect.ValueOf([]string{"D", "E", "F"})
+
+	fmt.Println("destination: ", destination)		// [A B C]
+	
+	counter := reflect.Copy(destination, source)
+	fmt.Println("Count =", counter)					// 3
+	fmt.Println("source: ", source)					// [D E F]
+	fmt.Println("destination: ", destination)		// [D E F]
+```
+> OUTPUT: </br>
+> destination: [A B C] </br>
+> Count = 3 </br>
+> source: [D E F] </br>
+> destination: [D E F] </br>
+
+
+### DeepEqual Method
+- Returns `true` or `false` if two values are deeply equal
+- **Struct** values are deeply equal if their corresponding fields are deeply equal, both exported and unexported
+  - Exported fields are compared by name
+  - Unexported fields are compared by type
+- **Array** values are deeply equal if their corresponding elements are deeply equal
+- **Function** values are deeply equal if both are nil; otherwise they are not deeply equal
+- **Interface** values are deeply equal if they hold deeply equal concrete values
+- Values like `int`, `float64`, `bool`, etc are deeply equal if they are equal using the `==` operator
+
+#### Examples
+##### Example: Using DeepEqual for Structs
+```go
+type struct_T struct {
+	val1 int
+	val2 string
+}
+
+func main() {
+	s1 := struct_T{23, "hello"}
+	s2 := struct_T{23, "hello"}
+	fmt.Println("DeepEqual:", reflect.DeepEqual(s1, s2))	// true
+}
+```
+> OUTPUT: DeepEqual: true
+
+##### Example: Using DeepEqual for Arrays
+```go
+s1 := [3]int{1, 2, 3}
+s2 := [3]int{1, 2, 3}
+s3 := [3]int{1, 2, 4}
+fmt.Println("DeepEqual:", reflect.DeepEqual(s1, s2))	// true
+fmt.Println("DeepEqual:", reflect.DeepEqual(s1, s3))	// false
+```
+> OUTPUT: </br>
+> DeepEqual: true </br>
+> DeepEqual: false </br>
+
+##### Example: Using DeepEqual for Functions
+```go
+f1 := func() {}
+f2 := func() {}
+fmt.Println("DeepEqual:", reflect.DeepEqual(f1, f2))	// false
+
+// for true
+f1 = nil
+f2 = nil
+fmt.Println("DeepEqual:", reflect.DeepEqual(f1, f2))	// true
+```
+> OUTPUT: </br>
+> DeepEqual: false
+> DeepEqual: true
+
+### Swapper	Method
+- To swap values in a slice
+- Can be used to sort or reverse a slice
+
+#### Example 1: Using Swapper
+```go
+	s := []int{1, 2, 3, 4, 5}
+	swapper := reflect.Swapper(s)
+	swapper(0, len(s)-1)
+	fmt.Println(s)	// 5 and 1 are swapped
+```
+> OUTPUT: [5 2 3 4 1]
+
+#### Example 2: Reversing
+```go
+theList := []int{1, 2, 3, 4, 5}
+swap := reflect.Swapper(theList)
+fmt.Printf("Before Reverse :%v\n", theList)
+
+// Reversing a slice using Swapper() function
+for i := 0; i < len(theList)/2; i++ {
+	pos := len(theList) - i - 1
+	swap(i, pos)
+}
+fmt.Printf("After Reverse :%v\n", theList)
+```
+> OUTPUT: </br>
+> Before Reverse :[1 2 3 4 5] </br>
+> After Reverse :[5 4 3 2 1]
+
+
+### FieldByIndex Method
+- To get a nested field of a struct
+`func (reflect.Type).FieldByIndex(index []int) reflect.StructField`
+
+#### Example: Using FieldByIndex
+```go
+type FirstStct struct {
+	A int
+	B string
+	C float64
+}
+type SecondStct struct {
+	FirstStct
+	D bool
+}
+func main() {
+	s := SecondStct{FirstStct: FirstStct{10, "ABCD", 15.20}, D: true}
+	t := reflect.TypeOf(s)
+	fmt.Printf("%#v\n", t.FieldByIndex([]int{0}))		// FirstStct (SecondStct.child_1)
+	fmt.Printf("%#v\n", t.FieldByIndex([]int{0, 0}))	// A (FirstStct.child_1)
+	fmt.Printf("%#v\n", t.FieldByIndex([]int{0, 1}))	// B (FirstStct.child_2)
+	fmt.Printf("%#v\n", t.FieldByIndex([]int{1}))		// D (SecondStct.child_2)
+
+}
+
+```
+> OUTPUT </br>
+> reflect.StructField{Name:"FirstStct", PkgPath:"", Type:(*reflect.rtype)(0x61d4a0), Tag:"", Offset:0x0, Index:[]int{0}, Anonymous:true} </br>
+> reflect.StructField{Name:"A", PkgPath:"", Type:(*reflect.rtype)(0x614040), Tag:"", Offset:0x0, Index:[]int{0}, Anonymous:false} </br>
+> reflect.StructField{Name:"B", PkgPath:"", Type:(*reflect.rtype)(0x613e00), Tag:"", Offset:0x8, Index:[]int{1}, Anonymous:false} </br>
+> reflect.StructField{Name:"D", PkgPath:"", Type:(*reflect.rtype)(0x614200), Tag:"", Offset:0x20, Index:[]int{1}, Anonymous:false} </br>
+
+
+### FieldByName Method
+- To get a field of a struct by name
+
+#### Example: Using FieldByName
+```go
+type struct_T struct {
+	val1 int
+	val2 string
+}
+
+func main() {
+	s := struct_T{23, "hello"}
+	v1 := reflect.ValueOf(s)
+	v2 := reflect.ValueOf(&s).Elem()
+
+	fmt.Println("Field 0:", v1.FieldByName("val1"))	// 23
+	fmt.Println("Field 1:", v2.FieldByName("val2"))	// hello
+}
+```
+> OUTPUT: </br>
+> Field 0: 23 </br>
+> Field 1: hello </br>
