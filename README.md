@@ -322,10 +322,12 @@ These are the notes im making for the `Go programming language`
 		- [Linespec locations](#linespec-locations)
 		- [Commands](#commands)
 	- [View](#view)
-		- [Syntax: For Print](#syntax-for-print)
-		- [Example: For Print](#example-for-print)
-		- [Syntax: For Locals](#syntax-for-locals)
-		- [Example: For Locals](#example-for-locals)
+		- [Syntaxs](#syntaxs)
+			- [Syntax: For Print](#syntax-for-print)
+			- [Syntax: For Locals](#syntax-for-locals)
+		- [Examples](#examples-17)
+			- [Example: For Print](#example-for-print)
+			- [Example: For Locals](#example-for-locals)
 - [REPL](#repl)
 
 # Basic
@@ -4056,13 +4058,21 @@ dlv exec file.go	//   runs the binary
 ## View
 
 - **Print** allows us to print the value of a variable and evaluate an expression
+- **Locals** used to examine the content of all local variables
    
-### Syntax: For Print
+### Syntaxs
+#### Syntax: For Print
 ```sh
 dlv print var_name
 ```
 
-### Example: For Print
+#### Syntax: For Locals
+```sh
+dlv list						// list local var
+```
+
+### Examples
+#### Example: For Print
 ```go
 package main
 
@@ -4083,13 +4093,7 @@ dlv print z		// 30
 > 20 </br>
 > 30 </br>
 
-- **Locals** used to examine the content of all local variables
-### Syntax: For Locals
-```sh
-dlv list						// list local var
-```
-
-### Example: For Locals
+#### Example: For Locals
 ```go
 package main
 
