@@ -57,28 +57,38 @@ These are the notes im making for the `Go programming language`
 	- [String Integer Conversions](#string-integer-conversions)
 		- [Example](#example-6)
 - [For Loops](#for-loops)
-		- [Example](#example-7)
+	- [Syntax](#syntax-4)
+	- [Examples](#examples-1)
+		- [Example: Basic](#example-basic)
 		- [Example where `i` is not required so it is `ommited`](#example-where-i-is-not-required-so-it-is-ommited)
 		- [Example where `for` is used for lists](#example-where-for-is-used-for-lists)
 		- [Example infinite loop](#example-infinite-loop)
 - [Pointers](#pointers)
-		- [Example](#example-8)
+	- [Syntax](#syntax-5)
+	- [Example](#example-7)
 - [Structs](#structs)
-		- [Syntax](#syntax-4)
+	- [Syntax](#syntax-6)
+	- [Example](#example-8)
 - [Arrays](#arrays)
+	- [Syntax](#syntax-7)
+	- [Examples](#examples-2)
+		- [Example: Basic](#example-basic-1)
 		- [Example: Ellipsis `...` `(Imp)`](#example-ellipsis--imp)
 		- [Example: Comparisons `(Imp)`](#example-comparisons-imp)
 - [Slice](#slice)
-		- [Example](#example-9)
+	- [Syntax](#syntax-8)
+	- [Example](#example-9)
 - [Appends](#appends)
-		- [Example](#example-10)
+	- [Syntax](#syntax-9)
+	- [Example](#example-10)
 - [Maps](#maps)
-		- [Syntax](#syntax-5)
-		- [Example](#example-11)
+	- [Syntax](#syntax-10)
+	- [Example](#example-11)
 - [Default Values](#default-values)
 - [Functions](#functions)
-		- [Syntax](#syntax-6)
-		- [Example: Basic](#example-basic)
+	- [Syntax](#syntax-11)
+	- [Examples](#examples-3)
+		- [Example: Basic](#example-basic-2)
 		- [Example: Multiple return values](#example-multiple-return-values)
 		- [Example: Named return values](#example-named-return-values)
 	- [Passing by value](#passing-by-value)
@@ -93,89 +103,98 @@ These are the notes im making for the `Go programming language`
 	- [Varidic Functions](#varidic-functions)
 		- [Example](#example-14)
 - [Deferred Fucntions](#deferred-fucntions)
-		- [Syntax](#syntax-7)
-		- [Example](#example-15)
+	- [Syntax](#syntax-12)
+	- [Examples](#examples-4)
+		- [Example: Basic](#example-basic-3)
 		- [Example: LIFO](#example-lifo)
 - [Panic Function](#panic-function)
-		- [Syntax](#syntax-8)
-		- [Example](#example-16)
+	- [Syntax](#syntax-13)
+	- [Example](#example-15)
 - [Recover Function](#recover-function)
-		- [Syntax](#syntax-9)
-		- [Example](#example-17)
+	- [Syntax](#syntax-14)
+	- [Example](#example-16)
 - [Call by Reference](#call-by-reference)
-		- [Example](#example-18)
+	- [Example](#example-17)
 - [Call by Value](#call-by-value)
-		- [Example](#example-19)
+	- [Example](#example-18)
 - [Method Declaration](#method-declaration)
-		- [Syntax](#syntax-10)
-		- [Example](#example-20)
+	- [Syntax](#syntax-15)
+	- [Examples](#examples-5)
+		- [Example: Basic](#example-basic-4)
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
-		- [Example](#example-21)
+	- [Example](#example-19)
 - [Concurancy](#concurancy)
 - [Parallisim](#parallisim)
 - [Goroutines](#goroutines)
-		- [Syntax](#syntax-11)
+	- [Syntax](#syntax-16)
+	- [Examples](#examples-6)
 		- [Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern](#example--we-run-this-with-the-go-keyword-and-without-the-go-keyword-we-can-see-that-the-go-routine-runs-in-the-background-and-prints-as-soon-as-it-can-while-normal-function-in-its-own-way-making-it-interleaved-with-a-pattern)
 		- [Example: With both as goroutines we get random interleaved output](#example-with-both-as-goroutines-we-get-random-interleaved-output)
 		- [Example: No sleep function](#example-no-sleep-function)
-		- [Advantages of Goroutines](#advantages-of-goroutines)
+	- [Advantages of Goroutines](#advantages-of-goroutines)
 - [Channels](#channels)
 	- [Operations](#operations-1)
-		- [Syntax](#syntax-12)
+	- [Syntax](#syntax-17)
+	- [Examples](#examples-7)
 		- [Example 1: Creating a channel](#example-1-creating-a-channel)
 		- [Example 2: Sending and Receiving from Channels](#example-2-sending-and-receiving-from-channels)
 		- [Example 3: Sending and Receiving from Channels](#example-3-sending-and-receiving-from-channels)
 	- [Advantages of Channels](#advantages-of-channels)
 	- [Properties of Channels](#properties-of-channels)
 	- [Unbuffered Channels](#unbuffered-channels)
-		- [Syntax](#syntax-13)
+		- [Syntax](#syntax-18)
 		- [Example: For a synchronous channel](#example-for-a-synchronous-channel)
 	- [Buffered Channels](#buffered-channels)
-		- [Syntax](#syntax-14)
-		- [Example](#example-22)
-		- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
-		- [Example: Not sending any values](#example-not-sending-any-values)
+		- [Syntax](#syntax-19)
+		- [Examples](#examples-8)
+			- [Example: Basic](#example-basic-5)
+			- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
+			- [Example: Not sending any values](#example-not-sending-any-values)
 	- [Unidirectional Channels](#unidirectional-channels)
-		- [Example](#example-23)
+		- [Example](#example-20)
 	- [Looping in Parallel](#looping-in-parallel)
 		- [For](#for)
 		- [ForEach](#foreach)
 - [Multiplexing with select](#multiplexing-with-select)
-		- [Syntax](#syntax-15)
-		- [Example](#example-24)
-	- [Cancellation](#cancellation)
-		- [Method 1: Using a Cancellation Channel](#method-1-using-a-cancellation-channel)
-			- [Example](#example-25)
+	- [Syntax](#syntax-20)
+	- [Example](#example-21)
+- [Cancellation](#cancellation)
+	- [Method 1: Using a Cancellation Channel](#method-1-using-a-cancellation-channel)
+		- [Example](#example-22)
 	- [Method 2: Using Channel Closure as a Termination Signal](#method-2-using-channel-closure-as-a-termination-signal)
-			- [Example:](#example-26)
-		- [Constants](#constants-1)
-			- [Iota](#iota)
-			- [Example: `iota`](#example-iota)
+		- [Example:](#example-23)
+- [Constants](#constants-1)
+	- [Iota](#iota)
+	- [Example: `iota`](#example-iota)
 - [Interfaces](#interfaces)
-		- [Syntax](#syntax-16)
-		- [Example](#example-27)
+	- [Syntax](#syntax-21)
+	- [Example](#example-24)
 	- [Empty Interface (IMPORTANT)](#empty-interface-important)
-		- [Syntax](#syntax-17)
-		- [Example: Simple usage](#example-simple-usage)
-		- [Example: Proper an empty interface](#example-proper-an-empty-interface)
+		- [Syntax](#syntax-22)
+		- [Examples](#examples-9)
+			- [Example: Simple usage](#example-simple-usage)
+			- [Example: Proper an empty interface](#example-proper-an-empty-interface)
 	- [Interface as a Contract](#interface-as-a-contract)
 		- [Example: Using an interface as a contract](#example-using-an-interface-as-a-contract)
 	- [Interface Types](#interface-types)
-		- [Example](#example-28)
+		- [Example](#example-25)
 - [Type Assertion](#type-assertion)
-		- [Syntax](#syntax-18)
+	- [Syntax](#syntax-23)
+	- [Examples](#examples-10)
 		- [Example: Basic Assertion that is Correct](#example-basic-assertion-that-is-correct)
 		- [Example: Basic Assertion that is Incorrect](#example-basic-assertion-that-is-incorrect)
 - [Concurrancy with WaitGroup](#concurrancy-with-waitgroup)
-		- [Methods](#methods)
-		- [Syntax](#syntax-19)
+	- [Methods](#methods)
+	- [Syntax](#syntax-24)
+	- [Examples](#examples-11)
 		- [Example 1](#example-1)
 		- [Example 2: Using a loop](#example-2-using-a-loop)
 		- [Example 3: Terminating a goroutine using Shared Variable](#example-3-terminating-a-goroutine-using-shared-variable)
 	- [Unit 2 End](#unit-2-end)
 - [Race Condition and Mutual Exclusion](#race-condition-and-mutual-exclusion)
-	- [Example: 1 for Race Condition](#example-1-for-race-condition)
+	- [Examples](#examples-12)
+		- [Example: 1 for Race Condition](#example-1-for-race-condition)
 		- [Example 2: For Race Condition](#example-2-for-race-condition)
 	- [Race Condition Effects](#race-condition-effects)
 		- [Deadlocks](#deadlocks)
@@ -187,11 +206,11 @@ These are the notes im making for the `Go programming language`
 		- [Example: Using a Monitor](#example-using-a-monitor)
 - [Mutual Exclusion](#mutual-exclusion)
 	- [Binary Semaphores](#binary-semaphores)
-		- [Example: Using a Binary Semaphore](#example-using-a-binary-semaphore)
+	- [Example: Using a Binary Semaphore](#example-using-a-binary-semaphore)
 - [Mutex](#mutex)
-		- [Syntax: Creation](#syntax-creation)
-		- [Syntax: Locking and Unlocking](#syntax-locking-and-unlocking)
-		- [Example: Using a Mutex](#example-using-a-mutex)
+	- [Syntax: Creation](#syntax-creation)
+	- [Syntax: Locking and Unlocking](#syntax-locking-and-unlocking)
+	- [Example: Using a Mutex](#example-using-a-mutex)
 	- [RW Mutex (Read-Write)](#rw-mutex-read-write)
 		- [Syntax: Creation](#syntax-creation-1)
 - [Atomic Operations](#atomic-operations)
@@ -201,6 +220,7 @@ These are the notes im making for the `Go programming language`
 		- [Add and Subtract](#add-and-subtract)
 		- [Swap](#swap)
 		- [Compare and Swap](#compare-and-swap)
+	- [Examples](#examples-13)
 		- [Example 1: Using Atomic Operations](#example-1-using-atomic-operations)
 		- [Example 2: Using Atomic Operations with WaitGroup](#example-2-using-atomic-operations-with-waitgroup)
 - [Race Detector](#race-detector)
@@ -209,21 +229,21 @@ These are the notes im making for the `Go programming language`
 	- [Bounded Channel Approach](#bounded-channel-approach)
 		- [Example: Using a Bounded Channel](#example-using-a-bounded-channel)
 	- [GOMAXPROCS](#gomaxprocs)
-		- [Syntax](#syntax-20)
+		- [Syntax](#syntax-25)
 	- [Context](#context)
 		- [`Background` Context](#background-context)
-			- [Syntax](#syntax-21)
+			- [Syntax](#syntax-26)
 		- [`TODO` Context](#todo-context)
-			- [Syntax](#syntax-22)
+			- [Syntax](#syntax-27)
 	- [Weighted Semaphore](#weighted-semaphore)
 		- [Weighted Semaphore Method](#weighted-semaphore-method)
-			- [Syntax](#syntax-23)
+			- [Syntax](#syntax-28)
 		- [Aquire Semaphore Method](#aquire-semaphore-method)
-			- [Syntax](#syntax-24)
+			- [Syntax](#syntax-29)
 		- [Release Semaphore Method](#release-semaphore-method)
-			- [Syntax](#syntax-25)
+			- [Syntax](#syntax-30)
 		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
-			- [Syntax](#syntax-26)
+			- [Syntax](#syntax-31)
 		- [Example: Using a Weighted Semaphore](#example-using-a-weighted-semaphore)
 - [Goroutines and Threads](#goroutines-and-threads)
 	- [Difference between Goroutines and Threads](#difference-between-goroutines-and-threads)
@@ -864,8 +884,16 @@ func main() {
 # For Loops
 To create for loops
 - Ensure its `i:=0` and not `i=0` unless `i` has been explicitly stated somewhere prior
-  
-### Example
+
+## Syntax
+```go
+for i:=0; i<10; i++ {
+	// code here
+}
+```
+
+## Examples
+### Example: Basic
 ```go
 package main
 
@@ -936,7 +964,14 @@ Here we can exit if there is a break statement
 - `&` generates a pointer to its operand
 - `*` denotes the pointers underlying value
 - This is known as `dereferencing` or `indirecting`
-### Example
+
+
+## Syntax
+```go
+var p *int
+```
+
+## Example
 ```go
 package main
 
@@ -959,7 +994,7 @@ func main() {
 - Each value is called a field
 - `If all fields of a struct are comparable. the struct is also comparable using == or !=`
 
-### Syntax
+## Syntax
 ```go
 // Creating a struct
 type StructName struct {
@@ -984,6 +1019,7 @@ variable_name := StructName{value1, value2}
 variable_name  = &StructName{value1, value2}
 ```
 
+## Example
 ```go
 package main
 
@@ -1009,6 +1045,14 @@ func main() {
 # Arrays
 - Colletion of similar items
 - can be directly compared usign == or != to see if corresponding values are same
+
+## Syntax
+```go
+var variable_name [size]type
+```
+
+## Examples
+### Example: Basic
 ```go
 var q [3]int = [3]int{1,2,3}
 var r [3]int = [3]int{1,2}
@@ -1047,13 +1091,15 @@ println(b==c)	// false
 - selects half-open range inlcues the 1st ekemetn and exclude the last
 - does not store any data, just describe a section of array
 - other slices with same underlying array can se
+
+## Syntax
 ```go
-low:=1
-high:=4
+low:= int
+high:= int
 a[low:high]
 ```
 
-### Example
+## Example
 ```go
 prime := [...]int{1,2,3,4}
 var s []int = prime[1:3]
@@ -1066,7 +1112,12 @@ println(s)
 - If the underlying array is too small, a bigger array is allocated
 - Using `append()` function
 
-### Example
+## Syntax
+```go
+list_var = append(list_var, value1, value2...)
+```
+
+## Example
 ```go
 func main() {
 	var s []int
@@ -1091,7 +1142,7 @@ Here we can see that the append function is used to add elements to the slice
   - Basically all keys together are same type. Eg `{1:"one", "two":2}` or `{1: "one", 2: 2} ` is not allowed, but `{"one":1, "two":2}` is allowed
 - a Key Value pair can be of different types.
   
-### Syntax
+## Syntax
 ```go
 var m map[key_type]value_type
 m := map[key_type]value_type{key1:value1, key2:value2}
@@ -1100,7 +1151,7 @@ m := make(map[key_type]value_type)
 m := make(map[key_type]value_type, capacity_hint)	// capacity_hint is just a hint for capacity, more elements can be added to the map
 ```
 
-### Example
+## Example
 ```go
 var m map[string]int
 m = make(map[string]int)
@@ -1147,12 +1198,14 @@ println(m["one"])
 - Go supports recursion
   
 
-### Syntax
+## Syntax
 ```go
 func name(para_list) (return_list) {
 	// code
 }
 ```
+
+## Examples
 
 ### Example: Basic
 ```go
@@ -1302,13 +1355,13 @@ func main() {
 - Excuted in reverse order of which they were deferred
 - They are pushed onto a stack and executed in LIFO order
 
-### Syntax
+## Syntax
 ```go
 defer function_name()
 ```
 
-
-### Example
+## Examples
+### Example: Basic
 ```go
 package main
 
@@ -1337,13 +1390,13 @@ func main() {
 - when panic occurs, it will start unwinding the stack of the goroutine, meaning it will exit all functions that were called till now
 - When Top-level function is reached, the program will crash (i think)
 
-### Syntax
+## Syntax
 ```go
 func panic(/*String to be displayed*/)
 ```
 
 
-### Example
+## Example
 ```go
 package main
 
@@ -1378,7 +1431,7 @@ exit status 2 </br>
 - Recovering indescriminately is not a good idea as the state of the program variables is unknown after this
 - Should not try to recover out of errors from a package fucntion
 
-### Syntax
+## Syntax
 ```go
 
 func main() {
@@ -1405,7 +1458,7 @@ func main() {
 
 ```
 
-### Example
+## Example
 ```go
 func div(a, b int) (result int) {
 	defer func() {
@@ -1436,7 +1489,8 @@ func main() {
 - When the memory address of a variable is passed to a function, it is known as call by reference
 - This is done using pointers
 - The original value is changed
-### Example
+
+## Example
 ```go
 package main
 
@@ -1459,7 +1513,7 @@ func callByReference(x *int) (int) {
 - This is done using normal variables
 - The original value is not changed
 
-### Example
+## Example
 ```go
 package main
 
@@ -1489,7 +1543,7 @@ func callByValue(x int) (int) {
 - There is no inheritance in Go, but we can use composition to achieve similar results
 - There is no self or this keyword in Go for the receiver. We can use any name for the receiver using the method.
   
-### Syntax
+## Syntax
 ```go
 type variable struct {
 	// fields
@@ -1500,8 +1554,9 @@ func (t variable) functionName(parameter list) {	// t is the method receiver
 }
 ```
 
+## Examples
 
-### Example
+### Example: Basic
 - In this ### Example, the Abs method has a receiver of type Vertex named v
 ```go
 package main
@@ -1568,7 +1623,7 @@ func (r rect) perim() int {
 - Can be used multiple times 
 - Helps avoid compiler errors when a variable is declared but not used
 
-### Example
+## Example
 ```go
 func main() {
 	var op1,op2 int = 10, 20
@@ -1597,11 +1652,12 @@ func main() {
 - This causes it to be called in a new goroutine
 - Goroutines are nonpreemptive 
 
-### Syntax
+## Syntax
 ```go
 go function_name()
 ```
 
+## Examples
 ### Example- We run this with the `go` keyword and without the `go` keyword, we can see that the go routine runs in the background and prints as soon as it can while Normal function in its own way making it interleaved with a pattern
 ```go
 package main
@@ -1682,7 +1738,7 @@ Normal function </br>
 Done! </br>
 
 
-### Advantages of Goroutines
+## Advantages of Goroutines
 - Goroutines are cheap. They are only a few kb in stack size
 - They are multiplexed onto multiple OS threads
 - They are not threads. They are not managed by the OS, They are managed by the Go runtime
@@ -1708,7 +1764,7 @@ Done! </br>
 - `receive` is `v = <-ch` (<- precedes the channel)
 - `<-` is a receive operator where the result of the operation is discarded
 
-### Syntax
+## Syntax
 ```go
 var ch chan int
 ch = make(chan int)
@@ -1719,6 +1775,7 @@ func goroutine(variable_name chan int) {
 }
 ```
 
+## Examples 
 ### Example 1: Creating a channel
 ```go
 package main
@@ -1881,7 +1938,8 @@ ch := make(chan int, 3)
 - Here we can send 3 values to the channel without blocking
 - The fourth value will block.
 
-### Example
+### Examples
+#### Example: Basic
 ```go
 package main
 
@@ -1908,7 +1966,7 @@ func main() {
 > Hello </br>
 > World </br>
 
-### Example: Adding more values than the capacity
+#### Example: Adding more values than the capacity
 ```go
 func main(){
 	ch := make(chan int, 2)
@@ -1919,7 +1977,7 @@ func main(){
 ```
 > OUTPUT: fatal error: all goroutines are asleep - deadlock!
 
-### Example: Not sending any values
+#### Example: Not sending any values
 ```go
 func main(){
 	ch := make(chan int, 2)
@@ -1994,7 +2052,7 @@ func ForEach(collection interface{}, f interface{}) {
 - the `select` statement blocks until one of its cases can run, then it executes that case. It chooses one at random if multiple are ready
 - A `select` with no cases blocks forever, ie waits forever
 
-### Syntax
+## Syntax
 ```go
 select {
 	case send_op:
@@ -2006,7 +2064,7 @@ select {
 }
 ```
 
-### Example
+## Example
 ```go
 func main() {
 	ch1 := make(chan int)
@@ -2042,16 +2100,17 @@ func main() {
 > From ch1: 7 </br>
 > From ch1: 8 </br>
 > From ch2:
-## Cancellation
+
+# Cancellation
 - There is no way to directly cancel a goroutine as it would leave the state of the program in an unknown state
 - We can use a `cancellation` channel to signal the goroutine to stop
 - We also defina a utility function to check if the channel is closed
 - In general it is hard to know how many goroutines are running at any given time
 
-### Method 1: Using a Cancellation Channel
+## Method 1: Using a Cancellation Channel
 - We create a channel on which no values are sent but whose closure signals the goroutine to stop
 
-#### Example
+### Example
 ```go
 package main
 
@@ -2091,7 +2150,7 @@ NOTE: The value sent to channel should match the channel type (eg chan bool, cha
 ## Method 2: Using Channel Closure as a Termination Signal
 - Goroutine termination by utilizing the close fucntion on a channel
 
-#### Example:
+### Example:
 ```go
 func processStop(stop <-chan struct{}) {
 	for {
@@ -2127,14 +2186,14 @@ func main() {
 Here we can see that the goroutine stops after 5 Processing statements then stops after the stop channel is closed
 
 
-### Constants
+# Constants
 
-#### Iota
+## Iota
 - This is a predeclared identifier
 - Basically a counter for constants that increases by 1 for each line
 - Always starts at 0
 
-#### Example: `iota`
+## Example: `iota`
 ```go
 package main
 
@@ -2160,14 +2219,14 @@ func main() {
 - A variable of an interface type can hold any value that implements those methods
 - Interfaces are implemented implicitly. No explicit declaration as no `implements` keyword
 
-### Syntax
+## Syntax
 ```go
 type interface_name interface {
 	Method() signatures
 }
 ```
 
-### Example
+## Example
 ```go
 // interface
 type Geometry interface {
@@ -2224,7 +2283,8 @@ func main() {
 var i interface{}
 ```
 
-### Example: Simple usage
+### Examples
+#### Example: Simple usage
 ```go
 var any interface{}
 any = 42
@@ -2235,7 +2295,7 @@ any = make(chan int, 3)
 any = make(map[string]int)
 ```
 
-### Example: Proper an empty interface
+#### Example: Proper an empty interface
 ```go
 func PrintAny (i interface{}) {
 	fmt.Println(i)
@@ -2296,7 +2356,7 @@ type ReadWriter interface {		// This is a combination of Reader and Writer
 # Type Assertion
 - Basic asserstions are done using the `.` operator
 
-### Syntax
+## Syntax
 ```go
 
 val, ok := interface_var(type)
@@ -2304,6 +2364,7 @@ val, ok := interface_var(type)
 // ok is a boolean value that is true if the assertion holds
 ```
 
+## Examples
 ### Example: Basic Assertion that is Correct
 ```go
 var i interface{} = "hello"
@@ -2328,14 +2389,14 @@ Here we can see on wrong asserstion `s` gets the default value of the type it wa
 # Concurrancy with WaitGroup
 - To wait for multiple goroutines to finish, we can use a `WaitGroup`
 
-### Methods
+## Methods
 - `Add(int)` method is used to add the number of goroutines to wait for
 - `Done()` method is used to signal that a goroutine is done. Decrements the counter by 1
 - `Wait()` method is used to block until the counter is 0
 
 > NOTE: You need to import the `sync` package to use the `WaitGroup`. The Counter starts at 0
 
-### Syntax
+## Syntax
 ```go
 var wg sync.WaitGroup
 wg.Add(1)
@@ -2347,6 +2408,7 @@ go func() {
 wg.Wait()
 ```
 
+## Examples
 ### Example 1
 ```go
 package main
@@ -2476,7 +2538,8 @@ Unit 2 End
 - Mutual Exclusion is a technique to ensure that only one goroutine can access a resource at a time
 - This is done using a `mutex` or `lock`
 
-## Example: 1 for Race Condition
+## Examples
+### Example: 1 for Race Condition
 ```go
 package main
 
@@ -2622,7 +2685,7 @@ Here we can see that the balance is updated correctly as the teller goroutine ma
 - A binary semaphore is a semaphore that can have only two values: 0 and 1
 - It is used to ensure only one goroutine can access a resource at a time
 
-### Example: Using a Binary Semaphore
+## Example: Using a Binary Semaphore
 ```go
 package main
 
@@ -2661,13 +2724,13 @@ func main() {
 # Mutex
 - A mutex is a lock that allows only one goroutine to access a resource at a time
 
-### Syntax: Creation
+## Syntax: Creation
 ```go
 var mu sync.Mutex
 mu := sync.Mutex{}
 ```
 
-### Syntax: Locking and Unlocking
+## Syntax: Locking and Unlocking
 ```go
 //func (m *Mutex) Lock()		// Locks m
 //func (m *Mutex) Unlock()	// Unlocks m
@@ -2679,7 +2742,7 @@ mu.Unlock()
 ```
 
 
-### Example: Using a Mutex
+## Example: Using a Mutex
 ```go
 package main
 
@@ -2761,7 +2824,7 @@ rw.RUnlock()
 
 ### Compare and Swap
 
-
+## Examples
 ### Example 1: Using Atomic Operations
 ```go
 package main
