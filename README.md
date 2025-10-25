@@ -133,6 +133,22 @@ These are the notes im making for the `Go programming language`
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
 	- [Example](#example-19)
+	- [How to Start a Go Project](#how-to-start-a-go-project)
+		- [1. Create a New Project Directory](#1-create-a-new-project-directory)
+		- [2. Initialize a Go Module](#2-initialize-a-go-module)
+		- [3. Create Your Main File](#3-create-your-main-file)
+		- [4. Run Your Project](#4-run-your-project)
+		- [5. Build Your Project](#5-build-your-project)
+	- [Folder Structures](#folder-structures)
+		- [General Principles](#general-principles)
+		- [Example: Simple CLI Tool](#example-simple-cli-tool)
+		- [Example: Microservice](#example-microservice)
+		- [Example: Web Server](#example-web-server)
+		- [Example: Library/Package](#example-librarypackage)
+		- [Example: Monorepo (Multiple Services)](#example-monorepo-multiple-services)
+		- [Example: Small Script](#example-small-script)
+		- [Example: Large Enterprise App](#example-large-enterprise-app)
+		- [Example: Test-Heavy Project](#example-test-heavy-project)
 - [Pacakges](#pacakges)
 	- [Importing Standard Library Packages](#importing-standard-library-packages)
 		- [Syntax](#syntax-19)
@@ -1848,6 +1864,200 @@ func main() {
 
 <!--  **Unit 1 End** -->
 <!-- This is 2025 addtion, not from the summer class era -->
+## How to Start a Go Project
+
+Starting a Go project is straightforward and follows a few key steps. Here’s a practical guide:
+
+### 1. Create a New Project Directory
+
+Pick a folder for your project and navigate to it:
+
+```sh
+mkdir myproject
+cd myproject
+```
+
+### 2. Initialize a Go Module
+
+This sets up your project for dependency management and proper imports.  
+Use your desired module name (often a repo URL for real projects, but can be anything for local work):
+> If we wish to change the module name later, we can directly edit the `go.mod` file.
+
+```sh
+go mod init myproject
+```
+- This creates a `go.mod` file, which tracks your module name and dependencies.
+
+### 3. Create Your Main File
+
+Start with a `main.go` file:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, Go project!")
+}
+```
+
+### 4. Run Your Project
+
+Use the Go toolchain to run your code:
+
+```sh
+go run main.go
+```
+### 5. Build Your Project
+
+To build a binary:
+
+```sh
+go build
+```
+
+## Folder Structures
+
+A well-organized folder structure makes your Go project easier to maintain, scale, and understand. Here are some general principles and examples:
+
+### General Principles
+
+- Keep related code together in packages (folders).
+- Use clear, short, lowercase names for folders and packages.
+- Separate your application entry point (`main.go`) from reusable code (in packages).
+- Place tests in the same folder as the code they test, using `_test.go` suffix.
+- For larger projects, consider grouping by feature or layer (e.g., `api/`, `internal/`, `pkg/`).
+
+### Example: Simple CLI Tool
+
+```
+mycli/
+├── go.mod
+├── main.go
+├── cmd/
+│   └── root.go
+├── utils/
+│   └── helpers.go
+```
+
+- `main.go`: Entry point.
+- `cmd/`: Command logic.
+- `utils/`: Helper functions.
+
+### Example: Microservice
+
+```
+userservice/
+├── go.mod
+├── main.go
+├── api/
+│   └── handlers.go
+├── model/
+│   └── user.go
+├── db/
+│   └── repository.go
+├── internal/
+│   └── auth.go
+```
+
+- `api/`: HTTP handlers.
+- `model/`: Data models.
+- `db/`: Database logic.
+- `internal/`: Private/internal code.
+
+### Example: Web Server
+
+```
+webapp/
+├── go.mod
+├── main.go
+├── routes/
+│   └── router.go
+├── templates/
+│   └── index.html
+├── static/
+│   └── style.css
+```
+
+- `routes/`: Routing logic.
+- `templates/`: HTML templates.
+- `static/`: Static assets.
+
+### Example: Library/Package
+
+```
+mathlib/
+├── go.mod
+├── mathlib.go
+├── utils.go
+├── mathlib_test.go
+```
+
+- All code in package folder.
+- Tests in same folder.
+
+### Example: Monorepo (Multiple Services)
+
+```
+company/
+├── go.mod
+├── serviceA/
+│   └── main.go
+├── serviceB/
+│   └── main.go
+├── shared/
+│   └── logger.go
+```
+
+- Multiple services in one repo.
+- Shared code in `shared/`.
+
+### Example: Small Script
+
+```
+quicktool/
+├── go.mod
+├── main.go
+```
+
+- Just a single file.
+
+### Example: Large Enterprise App
+
+```
+bigapp/
+├── go.mod
+├── main.go
+├── api/
+├── domain/
+├── service/
+├── repository/
+├── internal/
+├── pkg/
+```
+
+- Grouped by layer or feature.
+
+### Example: Test-Heavy Project
+
+```
+testproj/
+├── go.mod
+├── main.go
+├── core/
+│   ├── core.go
+│   └── core_test.go
+├── mocks/
+│   └── mock_db.go
+```
+
+- Tests and mocks close to code.
+
+
+
+
+
 # Pacakges
 - A package is a collection of source files in the same directory that are compiled together
   
