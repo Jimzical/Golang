@@ -102,38 +102,41 @@ These are the notes im making for the `Go programming language`
 	- [Passing by reference](#passing-by-reference)
 		- [Example: Passing by reference](#example-passing-by-reference)
 	- [Annonyms Functions](#annonyms-functions)
-- [Return values](#return-values)
+		- [Syntax](#syntax-14)
 		- [Example](#example-11)
-	- [Bare Returns](#bare-returns)
+- [Return values](#return-values)
 		- [Example](#example-12)
-	- [Varidic Functions](#varidic-functions)
+	- [Bare Returns](#bare-returns)
 		- [Example](#example-13)
+	- [Varidic Functions](#varidic-functions)
+		- [Example](#example-14)
 - [Deferred Fucntions](#deferred-fucntions)
-	- [Syntax](#syntax-14)
+	- [Syntax](#syntax-15)
 	- [Examples](#examples-6)
 		- [Example: Basic](#example-basic-4)
+		- [Example: Function call](#example-function-call)
 		- [Example: LIFO](#example-lifo)
 - [Panic Function](#panic-function)
-	- [Syntax](#syntax-15)
-	- [Example](#example-14)
-- [Recover Function](#recover-function)
 	- [Syntax](#syntax-16)
 	- [Example](#example-15)
-- [Call by Reference](#call-by-reference)
-	- [Example](#example-16)
-- [Call by Value](#call-by-value)
-	- [Example](#example-17)
-- [Method Declaration](#method-declaration)
+- [Recover Function](#recover-function)
 	- [Syntax](#syntax-17)
+	- [Example](#example-16)
+- [Call by Reference](#call-by-reference)
+	- [Example](#example-17)
+- [Call by Value](#call-by-value)
+	- [Example](#example-18)
+- [Method Declaration](#method-declaration)
+	- [Syntax](#syntax-18)
 	- [Examples](#examples-7)
 		- [Example: Basic](#example-basic-5)
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
-	- [Example](#example-18)
+	- [Example](#example-19)
 - [Concurancy](#concurancy)
 - [Parallisim](#parallisim)
 - [Goroutines](#goroutines)
-	- [Syntax](#syntax-18)
+	- [Syntax](#syntax-19)
 	- [Examples](#examples-8)
 		- [Example- Basic](#example--basic)
 		- [Example: With both as goroutines we get random interleaved output](#example-with-both-as-goroutines-we-get-random-interleaved-output)
@@ -141,7 +144,7 @@ These are the notes im making for the `Go programming language`
 	- [Advantages of Goroutines](#advantages-of-goroutines)
 - [Channels](#channels)
 	- [Operations](#operations-1)
-	- [Syntax](#syntax-19)
+	- [Syntax](#syntax-20)
 	- [Examples](#examples-9)
 		- [Example 1: Creating a channel](#example-1-creating-a-channel)
 		- [Example 2: Sending and Receiving from Channels](#example-2-sending-and-receiving-from-channels)
@@ -149,50 +152,50 @@ These are the notes im making for the `Go programming language`
 	- [Advantages of Channels](#advantages-of-channels)
 	- [Properties of Channels](#properties-of-channels)
 	- [Unbuffered Channels](#unbuffered-channels)
-		- [Syntax](#syntax-20)
+		- [Syntax](#syntax-21)
 		- [Example: For a synchronous channel](#example-for-a-synchronous-channel)
 	- [Buffered Channels](#buffered-channels)
-		- [Syntax](#syntax-21)
+		- [Syntax](#syntax-22)
 		- [Examples](#examples-10)
 			- [Example: Basic](#example-basic-6)
 			- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
 			- [Example: Not sending any values](#example-not-sending-any-values)
 	- [Unidirectional Channels](#unidirectional-channels)
-		- [Example](#example-19)
+		- [Example](#example-20)
 	- [Looping in Parallel](#looping-in-parallel)
 		- [For](#for)
 		- [ForEach](#foreach)
 - [Multiplexing with select](#multiplexing-with-select)
-	- [Syntax](#syntax-22)
-	- [Example](#example-20)
+	- [Syntax](#syntax-23)
+	- [Example](#example-21)
 - [Cancellation](#cancellation)
 	- [Method 1: Using a Cancellation Channel](#method-1-using-a-cancellation-channel)
-		- [Example](#example-21)
+		- [Example](#example-22)
 	- [Method 2: Using Channel Closure as a Termination Signal](#method-2-using-channel-closure-as-a-termination-signal)
-		- [Example:](#example-22)
+		- [Example:](#example-23)
 - [Constants](#constants-1)
 	- [Iota](#iota)
 	- [Example: `iota`](#example-iota)
 - [Interfaces](#interfaces)
-	- [Syntax](#syntax-23)
-	- [Example](#example-23)
+	- [Syntax](#syntax-24)
+	- [Example](#example-24)
 	- [Empty Interface (IMPORTANT)](#empty-interface-important)
-		- [Syntax](#syntax-24)
+		- [Syntax](#syntax-25)
 		- [Examples](#examples-11)
 			- [Example: Simple usage](#example-simple-usage)
 			- [Example: Proper an empty interface](#example-proper-an-empty-interface)
 	- [Interface as a Contract (NOT COM)](#interface-as-a-contract-not-com)
 		- [Example: Using an interface as a contract](#example-using-an-interface-as-a-contract)
 	- [Interface Types](#interface-types)
-		- [Example](#example-24)
+		- [Example](#example-25)
 - [Type Assertion](#type-assertion)
-	- [Syntax](#syntax-25)
+	- [Syntax](#syntax-26)
 	- [Examples](#examples-12)
 		- [Example: Basic Assertion that is Correct](#example-basic-assertion-that-is-correct)
 		- [Example: Basic Assertion that is Incorrect](#example-basic-assertion-that-is-incorrect)
 - [Concurrancy with WaitGroup](#concurrancy-with-waitgroup)
 	- [Methods](#methods)
-	- [Syntax](#syntax-26)
+	- [Syntax](#syntax-27)
 	- [Examples](#examples-13)
 		- [Example 1](#example-1)
 		- [Example 2: Using a loop](#example-2-using-a-loop)
@@ -234,21 +237,21 @@ These are the notes im making for the `Go programming language`
 	- [Bounded Channel Approach](#bounded-channel-approach)
 		- [Example: Using a Bounded Channel](#example-using-a-bounded-channel)
 	- [GOMAXPROCS](#gomaxprocs)
-		- [Syntax](#syntax-27)
+		- [Syntax](#syntax-28)
 	- [Context](#context)
 		- [`Background` Context](#background-context)
-			- [Syntax](#syntax-28)
-		- [`TODO` Context](#todo-context)
 			- [Syntax](#syntax-29)
+		- [`TODO` Context](#todo-context)
+			- [Syntax](#syntax-30)
 	- [Weighted Semaphore](#weighted-semaphore)
 		- [Weighted Semaphore Method](#weighted-semaphore-method)
-			- [Syntax](#syntax-30)
-		- [Aquire Semaphore Method](#aquire-semaphore-method)
 			- [Syntax](#syntax-31)
-		- [Release Semaphore Method](#release-semaphore-method)
+		- [Aquire Semaphore Method](#aquire-semaphore-method)
 			- [Syntax](#syntax-32)
-		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+		- [Release Semaphore Method](#release-semaphore-method)
 			- [Syntax](#syntax-33)
+		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+			- [Syntax](#syntax-34)
 		- [Example: Using a Weighted Semaphore](#example-using-a-weighted-semaphore)
 - [Goroutines and Threads](#goroutines-and-threads)
 	- [Difference between Goroutines and Threads](#difference-between-goroutines-and-threads)
@@ -258,7 +261,7 @@ These are the notes im making for the `Go programming language`
 	- [Types and Interfaces](#types-and-interfaces)
 - [Laws of Reflection](#laws-of-reflection)
 	- [1. Reflection goes from interface value to reflection object](#1-reflection-goes-from-interface-value-to-reflection-object)
-		- [Syntax](#syntax-34)
+		- [Syntax](#syntax-35)
 		- [Examples for `TypeOf`](#examples-for-typeof)
 			- [Example 1: Getting the Type of a Variable](#example-1-getting-the-type-of-a-variable)
 			- [Example 2: Getting the Value of a Variable](#example-2-getting-the-value-of-a-variable)
@@ -268,7 +271,7 @@ These are the notes im making for the `Go programming language`
 			- [Example 1: Basic](#example-1-basic)
 			- [Example 2: Difference btw Kind and Type](#example-2-difference-btw-kind-and-type)
 	- [2. Reflection goes from reflection object to interface value](#2-reflection-goes-from-reflection-object-to-interface-value)
-		- [Example](#example-25)
+		- [Example](#example-26)
 	- [3. To modify a reflection object, the value must be settable](#3-to-modify-a-reflection-object-the-value-must-be-settable)
 		- [Settability](#settability)
 			- [Example: Understanding Settablitity](#example-understanding-settablitity)
@@ -310,7 +313,7 @@ These are the notes im making for the `Go programming language`
 			- [Operations](#operations-2)
 			- [Conversion](#conversion)
 - [Debugging](#debugging)
-	- [Syntax](#syntax-35)
+	- [Syntax](#syntax-36)
 	- [Common Commands](#common-commands)
 	- [Delve Client](#delve-client)
 		- [Starting Programs](#starting-programs)
@@ -1400,6 +1403,39 @@ func Sin(x float64) float64
 - Functions that are declared without a name
 - They can edit local variables for the function they are in
 
+### Syntax
+```go
+func(para_list) (return_list) {		// notice there is not funcName here
+	// code
+}
+```
+
+### Example
+```go
+package main
+
+func main() {
+	add := func(x, y int) int {		// here we can see that there is no function name
+		return x + y
+	}
+
+	println(add(1, 3))		// 4
+
+	func(x, y int) {
+		println(x + y)		// 5
+	}(2, 3)		// here we can see that the function is called immediately
+
+	func () {
+		println("hello")		// here we can see that there are no parameters
+	}()
+}
+```
+> OUTPUT: </br>
+> 4 </br>
+> 5 </br>
+> hello </br>
+
+
 # Return values		
 
 - Multiple return values can be returned
@@ -1441,7 +1477,7 @@ func main() {
 - Functions that can take any number of arguments
 - `...` is used to denote this
 - The type of the varidic function is a slice
-- Printf is an ### Example of a varidic function
+- `Printf` is an example of a varidic function
 - Mainly used in situatuons where string formatting is needed
    
 ### Example
@@ -1489,6 +1525,29 @@ func main() {
 }
 ```
 `OUTPUT: hello \n world
+
+### Example: Function call
+```go
+package main
+
+func OpenDB() {
+	println("Opening DB")
+}
+
+func CloseDB() {
+	println("Closing DB")
+}
+
+func main() {
+	defer CloseDB()
+	OpenDB()
+	printn("Doing something")
+}
+```
+> OUTPUT: </br>
+> Opening DB </br>
+> Doing something </br>
+> Closing DB </br>
 
 ### Example: LIFO
 ```go
@@ -1560,7 +1619,7 @@ func main() {
 	}()
 }
 
-// OR
+// ----------- OR ---------------------------------------------
 
 func handlePanic() {
 	if r := recover()
@@ -1675,7 +1734,7 @@ func (t variable) functionName(parameter list) {	// t is the method receiver
 ## Examples
 
 ### Example: Basic
-- In this ### Example, the Abs method has a receiver of type Vertex named v
+- In this example, the Abs method has a receiver of type Vertex named v
 ```go
 package main
 
@@ -1698,6 +1757,7 @@ func main() {			// Using the method
 }
 ```
 > OUTPUT: 5 </br>
+
 Here we can see that the `v` variable/object has the ability to use the function/method `Abs` 
 
 ### Example: the class one
@@ -1874,11 +1934,10 @@ Done! </br>
 
 ## Operations
 - Channel has 2 operations: `send` and `receive`, collectively known as `communication`
-- a `send` statement sends a value from one goroutine through a channel to another goroutine
-- a `receive` expression receives a value from the channel and assigns it to a variable
-- They are used with the `<-` operator. 
-- `send` is `ch <- v` (<- seperates the channel and the value)
-- `receive` is `v = <-ch` (<- precedes the channel)
+| Term      | Example    | Description                                                             |
+| --------- | ---------- | ----------------------------------------------------------------------- |
+| `send`    | `ch <- v`  | Sends a value from one goroutine through a channel to another goroutine |
+| `receive` | `v = <-ch` | Receives a value from the channel and assigns it to a variable          |
 - `<-` is a receive operator where the result of the operation is discarded
 
 ## Syntax
@@ -1929,7 +1988,7 @@ func main() {
 	ch := make(chan int)
 	
 	go func() {
-			ch <- 1
+		ch <- 1
 		ch <- 2
 		ch <- 3
 	}()
@@ -1969,8 +2028,10 @@ func main() {
 > OUTPUT: </br>
 > 1 3 2
 
-
-Here what happens is that `x` gets 1 as it is right after the function and `z` gets 2 as it is right after the line where the function is called. `y` gets 3 as it is the last value in the channel (My Guess as thats what my experimentation shows me)
+This is because we first put x into the channel using the first goroutine. Then we try to get y from the channel, but there is no value in the channel, so it blocks until one of the other goroutines puts a value into the channel. The order of execution of the goroutines is not guaranteed, so we can get either 2 or 3 as y. Finally, we get z from the channel, which will be the remaining value. This is because channels are FIFO (First In First Out) data structures.
+  
+> OLD EXPLANATION: </br>
+> Here what happens is that `x` gets 1 as it is right after the function and `z` gets 2 as it is right after the line where the function is called. `y` gets 3 as it is the last value in the channel (My Guess as thats what my experimentation shows me)
 
 ## Advantages of Channels
 - Channels are typesafe. They only allow a particular type of data to be sent through them	
@@ -1981,8 +2042,8 @@ Here what happens is that `x` gets 1 as it is right after the function and `z` g
 - **For Loop Channel:** A loop can iterate over the sequntial values sent by a channel until it is closed. This is useful when the number of values is not known in advance
 
 ## Properties of Channels
-- **Lenght of Channel:** This can be found using the `len` function. This is the number of elements currently buffered in the channel
-- **Capacity of Channels:** This can be found using the `cap` function. This is the number of elements that can be buffered in the channel
+- **Lenght of Channel:** This can be found using the `len` function. This is the number of elements **currently** buffered in the channel
+- **Capacity of Channels:** This can be found using the `cap` function. This is the number of elements that **can be** buffered in the channel
 
 
 ## Unbuffered Channels
@@ -2188,8 +2249,8 @@ func main() {
 	ch2 := make(chan int)
 
 	go func() {
-		for {
-			select {
+		for { // since this select is in an infinite for loop in a go func, it will keep listening forever
+			select {	
 			case v := <-ch1:
 				println("From ch1:", v)
 			case v := <-ch2:
@@ -2216,7 +2277,10 @@ func main() {
 > From ch2: 6 </br>
 > From ch1: 7 </br>
 > From ch1: 8 </br>
-> From ch2:
+> From ch2: 9 </br>
+
+Here the ch1 or ch2 is selected at random as the select statement chooses one at random if multiple are ready
+The order of the output will vary
 
 # Cancellation
 - There is no way to directly cancel a goroutine as it would leave the state of the program in an unknown state
@@ -2288,7 +2352,7 @@ func main() {
 
 	time.Sleep(5 * time.Second)
 	close(stop)						// Using Closure
-	time.Sleep(5 * time.Second)
+	time.Sleep(1 * time.Second)
 }
 
 ```
