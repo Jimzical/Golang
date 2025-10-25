@@ -133,7 +133,8 @@ These are the notes im making for the `Go programming language`
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
 	- [Example](#example-19)
-	- [How to Start a Go Project](#how-to-start-a-go-project)
+- [Starting a Go Project](#starting-a-go-project)
+	- [Basics](#basics)
 		- [1. Create a New Project Directory](#1-create-a-new-project-directory)
 		- [2. Initialize a Go Module](#2-initialize-a-go-module)
 		- [3. Create Your Main File](#3-create-your-main-file)
@@ -387,23 +388,21 @@ These are the notes im making for the `Go programming language`
 			- [Example: For Locals](#example-for-locals)
 - [REPL](#repl)
 - [Popular Third-Party Go Packages](#popular-third-party-go-packages)
-	- [| **Go-Faker** | Fake data generation | `github.com/bxcodec/faker/v4` |](#-go-faker--fake-data-generation--githubcombxcodecfakerv4-)
-		- [Niche or Lesser-Known Packages](#niche-or-lesser-known-packages)
-	- [What Are Some Common Things Go Is Used For?](#what-are-some-common-things-go-is-used-for)
-		- [Web Servers \& APIs](#web-servers--apis)
-		- [Microservices](#microservices)
-		- [CLI Tools](#cli-tools)
-		- [Networking Tools](#networking-tools)
-		- [Cloud Infrastructure](#cloud-infrastructure)
-		- [DevOps \& Automation](#devops--automation)
-		- [Database Clients \& Servers](#database-clients--servers)
-		- [Distributed Systems](#distributed-systems)
-		- [Data Processing \& ETL](#data-processing--etl)
-		- [Game Development](#game-development)
-		- [Web Scraping \& Automation](#web-scraping--automation)
-		- [APIs for Mobile \& IoT](#apis-for-mobile--iot)
-		- [Security Tools](#security-tools)
-		- [Testing \& Validation](#testing--validation)
+- [Some Common Things Go Is Used For?](#some-common-things-go-is-used-for)
+	- [Web Servers \& APIs](#web-servers--apis)
+	- [Microservices](#microservices)
+	- [CLI Tools](#cli-tools)
+	- [Networking Tools](#networking-tools)
+	- [Cloud Infrastructure](#cloud-infrastructure)
+	- [DevOps \& Automation](#devops--automation)
+	- [Database Clients \& Servers](#database-clients--servers)
+	- [Distributed Systems](#distributed-systems)
+	- [Data Processing \& ETL](#data-processing--etl)
+	- [Game Development](#game-development)
+	- [Web Scraping \& Automation](#web-scraping--automation)
+	- [APIs for Mobile \& IoT](#apis-for-mobile--iot)
+	- [Security Tools](#security-tools)
+	- [Testing \& Validation](#testing--validation)
 
 # Basic
 To create a basic program
@@ -1882,9 +1881,11 @@ func main() {
 
 <!--  **Unit 1 End** -->
 <!-- This is 2025 addtion, not from the summer class era -->
-## How to Start a Go Project
+# Starting a Go Project
 
 Starting a Go project is straightforward and follows a few key steps. Here’s a practical guide:
+
+## Basics
 
 ### 1. Create a New Project Directory
 
@@ -2336,7 +2337,7 @@ func Add(a, b int) int { // Public function
 	return a + b
 }
 
-func Subtract(a, b int) int { // Public function
+func subtract(a, b int) int { // Private function
 	return a - b
 }	
 ```
@@ -4896,31 +4897,19 @@ Here are more popular, useful, and fun Go packages to spark ideas for your proje
 | **Go-Excelize** | Excel file manipulation | `github.com/xuri/excelize/v2` |
 | **Go-Colorable** | Cross-platform color output | `github.com/mattn/go-colorable` |
 | **Go-Geo** | Geospatial calculations | `github.com/paulmach/go.geo` |
- **Go-Image** | Image manipulation | `github.com/disintegration/imaging` |
+| **Go-Image** | Image manipulation | `github.com/disintegration/imaging` |
 | **Go-Faker** | Fake data generation | `github.com/bxcodec/faker/v4` |
----
 
-### Niche or Lesser-Known Packages
-
-| Package | Use Case | Import Path |
-| --- | --- | --- |
-| **Go-Rogue** | Roguelike game engine | `github.com/JoelOtter/termloop` |
-| **Go-Noise** | Procedural noise generation | `github.com/ojrac/opensimplex-go` |
-| **Go-Barcode** | Barcode generation | `github.com/boombuler/barcode` |
-| **Go-Sound** | Audio playback/processing | `github.com/faiface/beep` |
-| **Go-QR** | QR code generation | `github.com/skip2/go-qrcode` |
-
----
 
 > **Explore more at [pkg.go.dev](https://pkg.go.dev/) and GitHub!**
 
-## What Are Some Common Things Go Is Used For?
+# Some Common Things Go Is Used For?
 
 Go is a versatile language, popular for its simplicity, speed, and built-in concurrency. Here are some of the most common use cases, along with popular libraries for each:
 
 ---
 
-### Web Servers & APIs
+## Web Servers & APIs
 Go is widely used to build fast, scalable web servers and RESTful APIs.
 
 **Popular Libraries:**
@@ -4931,7 +4920,7 @@ Go is widely used to build fast, scalable web servers and RESTful APIs.
 
 ---
 
-### Microservices
+## Microservices
 Its concurrency model and performance make Go ideal for microservice architectures.
 
 **Popular Libraries:**
@@ -4941,7 +4930,7 @@ Its concurrency model and performance make Go ideal for microservice architectur
 
 ---
 
-### CLI Tools
+## CLI Tools
 Many command-line tools are written in Go due to its easy cross-compilation and static binaries.
 
 **Popular Libraries:**
@@ -4951,7 +4940,7 @@ Many command-line tools are written in Go due to its easy cross-compilation and 
 
 ---
 
-### Networking Tools
+## Networking Tools
 Go’s standard library makes it easy to build network utilities, proxies, and custom protocols.
 
 **Popular Libraries:**
@@ -4960,7 +4949,7 @@ Go’s standard library makes it easy to build network utilities, proxies, and c
 
 ---
 
-### Cloud Infrastructure
+## Cloud Infrastructure
 Major cloud projects (Kubernetes, Terraform, Docker) are written in Go.
 
 **Popular Libraries:**
@@ -4969,7 +4958,7 @@ Major cloud projects (Kubernetes, Terraform, Docker) are written in Go.
 
 ---
 
-### DevOps & Automation
+## DevOps & Automation
 Go is used for CI/CD tools, deployment scripts, and infrastructure automation.
 
 **Popular Libraries:**
@@ -4978,7 +4967,7 @@ Go is used for CI/CD tools, deployment scripts, and infrastructure automation.
 
 ---
 
-### Database Clients & Servers
+## Database Clients & Servers
 Go is used for building database drivers, clients, and even lightweight database servers.
 
 **Popular Libraries:**
@@ -4990,7 +4979,7 @@ Go is used for building database drivers, clients, and even lightweight database
 
 ---
 
-### Distributed Systems
+## Distributed Systems
 Its concurrency and networking strengths make Go a top choice for distributed systems and event-driven architectures.
 
 **Popular Libraries:**
@@ -4999,7 +4988,7 @@ Its concurrency and networking strengths make Go a top choice for distributed sy
 
 ---
 
-### Data Processing & ETL
+## Data Processing & ETL
 Go is used for high-performance data pipelines and ETL jobs.
 
 **Popular Libraries:**
@@ -5008,7 +4997,7 @@ Go is used for high-performance data pipelines and ETL jobs.
 
 ---
 
-### Game Development
+## Game Development
 While less common, Go can be used for simple games and game servers.
 
 **Popular Libraries:**
@@ -5018,7 +5007,7 @@ While less common, Go can be used for simple games and game servers.
 
 ---
 
-### Web Scraping & Automation
+## Web Scraping & Automation
 Libraries like Colly make web scraping straightforward.
 
 **Popular Libraries:**
@@ -5027,7 +5016,7 @@ Libraries like Colly make web scraping straightforward.
 
 ---
 
-### APIs for Mobile & IoT
+## APIs for Mobile & IoT
 Go is used to build backend APIs for mobile apps and IoT devices.
 
 **Popular Libraries:**
@@ -5036,7 +5025,7 @@ Go is used to build backend APIs for mobile apps and IoT devices.
 
 ---
 
-### Security Tools
+## Security Tools
 Go’s performance and static binaries are great for building security scanners and analysis tools.
 
 **Popular Libraries:**
@@ -5045,7 +5034,7 @@ Go’s performance and static binaries are great for building security scanners 
 
 ---
 
-### Testing & Validation
+## Testing & Validation
 Go is used for robust testing and validation.
 
 **Popular Libraries:**
