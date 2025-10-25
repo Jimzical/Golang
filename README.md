@@ -173,7 +173,7 @@ These are the notes im making for the `Go programming language`
 - [Concurancy](#concurancy)
 - [Parallisim](#parallisim)
 - [Goroutines](#goroutines)
-	- [Syntax](#syntax-19)
+	- [Syntax](#syntax-20)
 	- [Examples](#examples-8)
 		- [Example- Basic](#example--basic)
 		- [Example: With both as goroutines we get random interleaved output](#example-with-both-as-goroutines-we-get-random-interleaved-output)
@@ -181,7 +181,7 @@ These are the notes im making for the `Go programming language`
 	- [Advantages of Goroutines](#advantages-of-goroutines)
 - [Channels](#channels)
 	- [Operations](#operations-1)
-	- [Syntax](#syntax-20)
+	- [Syntax](#syntax-21)
 	- [Examples](#examples-9)
 		- [Example 1: Creating a channel](#example-1-creating-a-channel)
 		- [Example 2: Sending and Receiving from Channels](#example-2-sending-and-receiving-from-channels)
@@ -189,10 +189,10 @@ These are the notes im making for the `Go programming language`
 	- [Advantages of Channels](#advantages-of-channels)
 	- [Properties of Channels](#properties-of-channels)
 	- [Unbuffered Channels](#unbuffered-channels)
-		- [Syntax](#syntax-21)
+		- [Syntax](#syntax-22)
 		- [Example: For a synchronous channel](#example-for-a-synchronous-channel)
 	- [Buffered Channels](#buffered-channels)
-		- [Syntax](#syntax-22)
+		- [Syntax](#syntax-23)
 		- [Examples](#examples-10)
 			- [Example: Basic](#example-basic-6)
 			- [Example: Adding more values than the capacity](#example-adding-more-values-than-the-capacity)
@@ -203,7 +203,7 @@ These are the notes im making for the `Go programming language`
 		- [For](#for)
 		- [ForEach](#foreach)
 - [Multiplexing with select](#multiplexing-with-select)
-	- [Syntax](#syntax-23)
+	- [Syntax](#syntax-24)
 	- [Example](#example-21)
 - [Cancellation](#cancellation)
 	- [Method 1: Using a Cancellation Channel](#method-1-using-a-cancellation-channel)
@@ -214,10 +214,10 @@ These are the notes im making for the `Go programming language`
 	- [Iota](#iota)
 	- [Example: `iota`](#example-iota)
 - [Interfaces](#interfaces)
-	- [Syntax](#syntax-24)
+	- [Syntax](#syntax-25)
 	- [Example](#example-24)
 	- [Empty Interface (IMPORTANT)](#empty-interface-important)
-		- [Syntax](#syntax-25)
+		- [Syntax](#syntax-26)
 		- [Examples](#examples-11)
 			- [Example: Simple usage](#example-simple-usage)
 			- [Example: Proper an empty interface](#example-proper-an-empty-interface)
@@ -226,13 +226,13 @@ These are the notes im making for the `Go programming language`
 	- [Interface Types](#interface-types)
 		- [Example](#example-25)
 - [Type Assertion](#type-assertion)
-	- [Syntax](#syntax-26)
+	- [Syntax](#syntax-27)
 	- [Examples](#examples-12)
 		- [Example: Basic Assertion that is Correct](#example-basic-assertion-that-is-correct)
 		- [Example: Basic Assertion that is Incorrect](#example-basic-assertion-that-is-incorrect)
 - [Concurrancy with WaitGroup](#concurrancy-with-waitgroup)
 	- [Methods](#methods)
-	- [Syntax](#syntax-27)
+	- [Syntax](#syntax-28)
 	- [Examples](#examples-13)
 		- [Example 1](#example-1)
 		- [Example 2: Using a loop](#example-2-using-a-loop)
@@ -274,21 +274,21 @@ These are the notes im making for the `Go programming language`
 	- [Bounded Channel Approach](#bounded-channel-approach)
 		- [Example: Using a Bounded Channel](#example-using-a-bounded-channel)
 	- [GOMAXPROCS](#gomaxprocs)
-		- [Syntax](#syntax-28)
+		- [Syntax](#syntax-29)
 	- [Context](#context)
 		- [`Background` Context](#background-context)
-			- [Syntax](#syntax-29)
-		- [`TODO` Context](#todo-context)
 			- [Syntax](#syntax-30)
+		- [`TODO` Context](#todo-context)
+			- [Syntax](#syntax-31)
 	- [Weighted Semaphore](#weighted-semaphore)
 		- [Weighted Semaphore Method](#weighted-semaphore-method)
-			- [Syntax](#syntax-31)
-		- [Aquire Semaphore Method](#aquire-semaphore-method)
 			- [Syntax](#syntax-32)
-		- [Release Semaphore Method](#release-semaphore-method)
+		- [Aquire Semaphore Method](#aquire-semaphore-method)
 			- [Syntax](#syntax-33)
-		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+		- [Release Semaphore Method](#release-semaphore-method)
 			- [Syntax](#syntax-34)
+		- [TryAcquire Semaphore Method](#tryacquire-semaphore-method)
+			- [Syntax](#syntax-35)
 		- [Example: Using a Weighted Semaphore](#example-using-a-weighted-semaphore)
 - [Goroutines and Threads](#goroutines-and-threads)
 	- [Difference between Goroutines and Threads](#difference-between-goroutines-and-threads)
@@ -298,7 +298,7 @@ These are the notes im making for the `Go programming language`
 	- [Types and Interfaces](#types-and-interfaces)
 - [Laws of Reflection](#laws-of-reflection)
 	- [1. Reflection goes from interface value to reflection object](#1-reflection-goes-from-interface-value-to-reflection-object)
-		- [Syntax](#syntax-35)
+		- [Syntax](#syntax-36)
 		- [Examples for `TypeOf`](#examples-for-typeof)
 			- [Example 1: Getting the Type of a Variable](#example-1-getting-the-type-of-a-variable)
 			- [Example 2: Getting the Value of a Variable](#example-2-getting-the-value-of-a-variable)
@@ -350,7 +350,7 @@ These are the notes im making for the `Go programming language`
 			- [Operations](#operations-2)
 			- [Conversion](#conversion)
 - [Debugging](#debugging)
-	- [Syntax](#syntax-36)
+	- [Syntax](#syntax-37)
 	- [Common Commands](#common-commands)
 	- [Delve Client](#delve-client)
 		- [Starting Programs](#starting-programs)
@@ -2474,7 +2474,7 @@ func main() {
 
 This is because we first put x into the channel using the first goroutine. Then we try to get y from the channel, but there is no value in the channel, so it blocks until one of the other goroutines puts a value into the channel. The order of execution of the goroutines is not guaranteed, so we can get either 2 or 3 as y. Finally, we get z from the channel, which will be the remaining value. This is because channels are FIFO (First In First Out) data structures.
   
-> OLD EXPLANATION: </br>
+> OLD EXPLANATION: (probably wrong) </br>
 > Here what happens is that `x` gets 1 as it is right after the function and `z` gets 2 as it is right after the line where the function is called. `y` gets 3 as it is the last value in the channel (My Guess as thats what my experimentation shows me)
 
 ## Advantages of Channels
@@ -3101,6 +3101,8 @@ func doSomething(wg *sync.WaitGroup, i int) {
 > Doing something 0</br>
 > Done </br>
 
+Note: the order here is 2 , 1 , 0 as the goroutines run in parallel and the order is not fixed so its basically going to be random
+
 ### Example 3: Terminating a goroutine using Shared Variable
 ```go
 package main
@@ -3191,7 +3193,7 @@ func Balance() int {
 > Balance = 200 </br>
 > Main Goroutine finished </br>
 
-Here we can see that the balance is updated by the goroutines so they are no longer guaranteed to giev the right answer
+Here we can see that the balance is updated by the goroutines so they are no longer guaranteed to give the right answer
 So Balance could be 300 if the goroutine B finishes first or 200 if the goroutine A finishes first
 
 THIS IS CALLED DATA RACE
