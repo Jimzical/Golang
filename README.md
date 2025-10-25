@@ -133,6 +133,43 @@ These are the notes im making for the `Go programming language`
 		- [Example: the class one](#example-the-class-one)
 - [Blank Identifier](#blank-identifier)
 	- [Example](#example-19)
+- [Pacakges](#pacakges)
+	- [Importing Standard Library Packages](#importing-standard-library-packages)
+		- [Syntax](#syntax-19)
+		- [Example: Using `fmt` and `math`](#example-using-fmt-and-math)
+		- [Notes](#notes)
+	- [Installing and Importing Third-Party Packages](#installing-and-importing-third-party-packages)
+		- [Installing a Package](#installing-a-package)
+		- [Importing a Third-Party Package](#importing-a-third-party-package)
+		- [Example: Using an External Package](#example-using-an-external-package)
+		- [Notes](#notes-1)
+	- [Creating Your Own Packages](#creating-your-own-packages)
+		- [Basic Structure](#basic-structure)
+		- [Notes](#notes-2)
+	- [Project Structure and Multiple Files](#project-structure-and-multiple-files)
+		- [Typical Project Layout](#typical-project-layout)
+		- [How Multiple Files Work Together](#how-multiple-files-work-together)
+	- [Importing and Using Local Packages](#importing-and-using-local-packages)
+		- [Import Path](#import-path)
+		- [Example: Using a Local Package](#example-using-a-local-package)
+		- [Notes](#notes-3)
+	- [Best Practices for Packages and Project Structure](#best-practices-for-packages-and-project-structure)
+		- [1. Use Go Modules](#1-use-go-modules)
+		- [2. Name Packages Clearly](#2-name-packages-clearly)
+		- [3. Export Only What’s Needed](#3-export-only-whats-needed)
+		- [4. Keep Package Scope Small](#4-keep-package-scope-small)
+		- [5. Use Proper Import Paths](#5-use-proper-import-paths)
+		- [6. Document Your Packages](#6-document-your-packages)
+		- [7. Keep `main` Package Simple](#7-keep-main-package-simple)
+		- [8. Use `go fmt` and `go vet`](#8-use-go-fmt-and-go-vet)
+		- [9. Avoid Circular Imports](#9-avoid-circular-imports)
+		- [10. Use Versioning for Dependencies](#10-use-versioning-for-dependencies)
+	- [Useful Go Commands Reference](#useful-go-commands-reference)
+		- [Module and Dependency Management](#module-and-dependency-management)
+		- [Building and Running](#building-and-running)
+		- [Formatting and Linting](#formatting-and-linting)
+		- [Testing](#testing)
+		- [Other Useful Commands](#other-useful-commands)
 - [Concurancy](#concurancy)
 - [Parallisim](#parallisim)
 - [Goroutines](#goroutines)
@@ -1810,6 +1847,413 @@ func main() {
 ```
 
 <!--  **Unit 1 End** -->
+<!-- This is 2025 addtion, not from the summer class era -->
+# Pacakges
+- A package is a collection of source files in the same directory that are compiled together
+  
+## Importing Standard Library Packages
+
+Go comes with a rich standard library. To use a package, import it at the top of your  file using the `import` keyword.
+
+### Syntax
+
+```go
+import "package_name"
+```
+
+You can import multiple packages using parentheses:
+
+```go
+import (
+    "fmt"
+    "math"
+)
+```
+
+### Example: Using `fmt` and `math`
+
+```go
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func main() {
+    fmt.Println("Square root of 16 is", math.Sqrt(16))
+}
+```
+> OUTPUT: Square root of 16 is 4
+
+### Notes
+
+- Only imported packages that are used in your code are allowed; unused imports cause a compile error.
+- Standard library packages do not require installation—just import and use.
+ 
+## Installing and Importing Third-Party Packages
+
+Go makes it easy to use external libraries from sources like GitHub. You install packages using the command line, and then import them in your code.
+
+### Installing a Package
+
+Use `go get` to download and install a package:
+
+```sh
+go get github.com/gorilla/mux
+```
+
+This will:
+- Download the package and its dependencies.
+- Add it to your project's `go.mod` file (if you are using Go modules).
+
+### Importing a Third-Party Package
+
+After installation, import the package at the top of your `.go` file:
+
+```go
+import "github.com/gorilla/mux"
+```
+
+### Example: Using an External Package
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/gorilla/mux"
+)
+
+func main() {
+    r := mux.NewRouter()
+    fmt.Println("Router created:", r)
+}
+```
+> OUTPUT: Router created: &{...}
+
+### Notes
+
+- Always run `go mod init <module-name>` in your project folder before installing packages (if not already done).
+- Use `go get -u <package>` to update a package.
+- You can find packages at [pkg.go.dev](https://pkg.go.dev/) or GitHub.
+
+## Creating Your Own Packages
+
+We can create our own packages, letting you organize related functions, types, and variables into packages. A package is simply a directory containing one or more files with the same `package` name.
+
+### Basic Structure
+
+- Each `.go` file starts with a `package` declaration.
+- The directory name is usually the package name.
+
+**Example: Creating a simple package**
+
+Suppose you want a package called `mathutils`:
+
+```
+project/
+│
+├── main.go
+└── mathutils/
+    └── mathutils.go
+```
+
+**mathutils/mathutils.go**
+```go
+package mathutils
+
+func Add(a, b int) int {
+    return a + b
+}
+
+func Sub(a, b int) int {
+    return a - b
+}
+```
+
+**main.go**
+```go
+package main
+
+import (
+    "fmt"
+    "project/mathutils"
+)
+
+func main() {
+    fmt.Println(mathutils.Add(2, 3)) // 5
+    fmt.Println(mathutils.Sub(5, 2)) // 3
+}
+```
+
+### Notes
+
+- The package name in the import path is the folder name.
+- All files in a folder must use the same `package` name.
+- Only exported identifiers (starting with a capital letter) are accessible from other packages.
+- Use Go modules (`go mod init <module-name>`) for proper import paths.
+
+## Project Structure and Multiple Files
+
+We can organize our code into multiple files and folders for better maintainability.
+
+### Typical Project Layout
+
+```
+project/
+│
+├── go.mod
+├── main.go
+├── mathutils/
+│   └── mathutils.go
+├── helpers/
+│   └── helpers.go
+```
+
+- `go.mod`: Defines your module and manages dependencies.
+- `main.go`: Entry point of your application.
+- Subfolders (like `mathutils`, `helpers`): Contain your own packages.
+
+### How Multiple Files Work Together
+
+- All `.go` files in the same folder and with the same `package` name are compiled together.
+- You can split code logically (e.g., types in one file, functions in another).
+
+**Example: Splitting code in a package**
+
+```
+mathutils/
+├── add.go
+├── sub.go
+```
+
+**add.go**
+```go
+package mathutils
+
+func Add(a, b int) int {
+    return a + b
+}
+```
+
+**sub.go**
+```go
+package mathutils
+
+func Sub(a, b int) int {
+    return a - b
+}
+```
+
+Both files are part of the `mathutils` package and can access each other's functions.
+
+## Importing and Using Local Packages
+
+Once you've created your own package (e.g., `mathutils`), you can import and use it in other files within your project.
+
+### Import Path
+
+- The import path is based on your module name (from `go.mod`) and the folder structure.
+- If your module name is `project`, and your package is in the `mathutils` folder, import it as:
+  ```go
+  import "project/mathutils"
+  ```
+
+### Example: Using a Local Package
+
+**main.go**
+```go
+package main
+
+import (
+    "fmt"
+    "project/mathutils"
+)
+
+func main() {
+    fmt.Println(mathutils.Add(2, 3)) // 5
+    fmt.Println(mathutils.Sub(5, 2)) // 3
+}
+```
+
+**mathutils/mathutils.go**
+```go
+package mathutils
+
+func Add(a, b int) int {
+    return a + b
+}
+
+func Sub(a, b int) int {
+    return a - b
+}
+```
+
+### Notes
+
+- The package name in the import path matches the folder name.
+- Only exported functions (starting with a capital letter) are accessible outside the package.
+- If you change your module name in `go.mod`, update your import paths accordingly.
+- Use `go build` or `go run main.go` to compile and run your project.
+
+- Use folders to organize related code.
+- All files in a folder must use the same package name.
+- Only exported identifiers (starting with a capital letter) are accessible outside the package. (Public)
+- Ones that are with lowercase are private to the package. (Private)
+- Examples:
+ ```go
+package mathutils
+func Add(a, b int) int { // Public function
+	return a + b
+}
+
+func Subtract(a, b int) int { // Public function
+	return a - b
+}	
+```
+## Best Practices for Packages and Project Structure
+
+Following best practices helps keep your Go code clean, maintainable, and idiomatic.
+
+### 1. Use Go Modules
+
+- Always initialize your project with Go modules:
+  ```sh
+  go mod init <module-name>
+  ```
+- This makes dependency management and imports reliable.
+
+### 2. Name Packages Clearly
+
+- Use short, meaningful, lowercase names for packages (e.g., `utils`, `mathutils`).
+- Avoid underscores and hyphens.
+
+### 3. Export Only What’s Needed
+
+- Only capitalize functions, types, or variables that should be accessible outside the package.
+- Keep internal details unexported (lowercase).
+
+### 4. Keep Package Scope Small
+
+- Group related code together.
+- Avoid huge packages; split logically (e.g., `mathutils`, `helpers`).
+
+### 5. Use Proper Import Paths
+
+- Import local packages using your module name (from `go.mod`).
+- Update imports if you rename your module.
+
+### 6. Document Your Packages
+
+- Add comments above exported functions/types.
+- Use `go doc` to view documentation.
+
+### 7. Keep `main` Package Simple
+
+- The `main` package should only contain the entry point and high-level orchestration.
+- Move logic to other packages.
+
+### 8. Use `go fmt` and `go vet`
+
+- Format your code:
+  ```sh
+  go fmt ./...
+  ```
+- Check for common mistakes:
+  ```sh
+  go vet ./...
+  ```
+
+### 9. Avoid Circular Imports
+
+- Packages should not import each other in a cycle.
+
+### 10. Use Versioning for Dependencies
+
+- Specify versions for third-party packages:
+  ```sh
+  go get github.com/gorilla/mux@v1.8.0
+  ```
+
+## Useful Go Commands Reference
+
+Here are some essential Go commands for working with packages, modules, and projects from the command line:
+
+### Module and Dependency Management
+
+- **Initialize a new module:**
+  ```sh
+  go mod init <module-name>
+  ```
+- **Download and install a package:**
+  ```sh
+  go get <package-path>
+  ```
+- **Update a package:**
+  ```sh
+  go get -u <package-path>
+  ```
+- **Tidy up dependencies (remove unused, add missing):**
+  ```sh
+  go mod tidy
+  ```
+- **List all dependencies:**
+  ```sh
+  go list -m all
+  ```
+
+### Building and Running
+
+- **Build your project:**
+  ```sh
+  go build
+  ```
+- **Run your main file:**
+  ```sh
+  go run main.go
+  ```
+- **Run all files in the current folder:**
+  ```sh
+  go run .
+  ```
+
+### Formatting and Linting
+
+- **Format your code:**
+  ```sh
+  go fmt ./...
+  ```
+- **Check for common mistakes:**
+  ```sh
+  go vet ./...
+  ```
+
+### Testing
+
+- **Run tests:**
+  ```sh
+  go test
+  ```
+- **Run tests with verbose output:**
+  ```sh
+  go test -v
+  ```
+
+### Other Useful Commands
+
+- **Show documentation for a package:**
+  ```sh
+  go doc <package>
+  ```
+- **Show environment info:**
+  ```sh
+  go env
+  ```
+- **Show Go version:**
+  ```sh
+  go version
+  ```
 
 # Concurancy
 - Making progress on more than one task, seemingly at the same time
